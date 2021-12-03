@@ -27,7 +27,8 @@
     "test": "react-scripts test",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "commit": "cz"
+    "commit": "cz",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
