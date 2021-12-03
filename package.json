@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "SKIP_PREFLIGHT_CHECK=true && craco build",
+    "build": "craco build",
     "test": "react-scripts test",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
