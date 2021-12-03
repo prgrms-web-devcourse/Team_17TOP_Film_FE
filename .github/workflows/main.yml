@@ -27,6 +27,8 @@ jobs:
         run: yarn lint
 
       - name: Build
+        env:
+          SKIP_PREFLIGHT_CHECK: ${{ secrets.REACT_APP_SKIP_PREFLIGHT_CHECK }}
         run: yarn build
 
       - name: Deploy
