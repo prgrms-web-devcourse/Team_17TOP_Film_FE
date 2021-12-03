@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+        env:
+          REACT_APP_SKIP_PREFLIGHT_CHECK: ${{ secrets.REACT_APP_SKIP_PREFLIGHT_CHECK }}
 
       - uses: actions/cache@v2
         with:
