@@ -1,4 +1,4 @@
-import { font, FontInterface } from './fonts';
+import font, { FontInterface } from './fonts';
 
 declare module '@emotion/react' {
   export interface Theme extends FontInterface {}
