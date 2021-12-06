@@ -1,7 +1,7 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import reset from './styles/reset';
 import { theme } from './styles/theme';
-
+import './styles/font.css';
 function App() {
   return (
     <ThemeProvider theme={theme}>
