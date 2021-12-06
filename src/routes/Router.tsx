@@ -1,8 +1,12 @@
-import { Route } from 'react-router-dom';
-import { DemoPage } from '../pages';
+import { Route, Routes } from 'react-router-dom';
+import { LogInPage } from '../pages';
 
 const Router = () => {
-  return <Route path="/demo" element={<DemoPage />} />;
+  return (
+    <Routes>
+      <Route path="/login" element={<LogInPage />} />
+    </Routes>
+  );
 };
 
 export default Router;
