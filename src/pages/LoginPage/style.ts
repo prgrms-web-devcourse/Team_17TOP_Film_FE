@@ -8,10 +8,14 @@ const Container = styled.div`
   position: relative;
   width: 100%;
   text-align: center;
+  margin: 100px 0 0;
+  @media (max-height: 750px) {
+    margin: 50px 0 0;
+  }
 `;
 
 const Text = styled.h1`
-  margin: 100px 0 50px;
+  margin: 0 0 42px 0;
   ${({ theme: { fonts } }) => fonts.Heading3}
   font-weight: 400;
 `;
@@ -22,7 +26,7 @@ const Img = styled.img`
 `;
 const Button = styled.button`
   position: absolute;
-  bottom: -100px;
+  bottom: -152px;
   left: 0px;
   width: 100%;
   height: 48px;
@@ -31,5 +35,8 @@ const Button = styled.button`
   border-radius: 4px;
   background-color: ${({ theme: { colors } }) => colors.primary};
   ${({ theme: { fonts } }) => fonts.smallText};
+  @media (max-height: 700px) {
+    bottom: -100px;
+  }
 `;
 export { Wrapper, Container, Text, Img, Button };
