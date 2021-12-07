@@ -1,5 +1,6 @@
-import styled from '@emotion/styled';
-import { ChangeEvent, ReactNode, useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
+import { UploadContainer, UploadInput } from './style';
+import { UploadProps } from './types';
 
 const Upload = ({ children, name, accept, dropable, value, onChange, ...props }: UploadProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -79,20 +80,3 @@ const Upload = ({ children, name, accept, dropable, value, onChange, ...props }:
 };
 
 export default Upload;
-
-export interface UploadProps {
-  onChange(e: ChangeEvent<HTMLInputElement>): void;
-  children?: ReactNode;
-  name?: string;
-  accept?: string;
-  value?: File;
-  dropable: boolean;
-}
-
-const UploadContainer = styled.div`
-  display: inline-block;
-  cursor: pointer;
-`;
-const UploadInput = styled.input`
-  display: none;
-`;
