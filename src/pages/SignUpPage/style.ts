@@ -18,21 +18,20 @@ const BackBtn = styled.button`
   cursor: pointer;
 `;
 const SignUpFormWrapper = styled.form`
-  margin: 60px ${({ theme: { gaps } }) => gaps.default_margin} 0;
+  margin: ${({ theme: { gaps } }) => gaps.gap4} ${({ theme: { gaps } }) => gaps.default_margin} 0;
 `;
 const Label = styled.label`
-  ${({ theme: { fonts } }) => fonts.Heading4}
+  ${({ theme: { fonts } }) => fonts.Heading3}
 `;
 const Input = styled.input`
   width: calc(100% - 15px);
   height: 56px;
   border: 1px solid #c4c4c4;
-  font-size: 20px;
-  margin: 60px 0 0;
-  padding-left: 10px;
+  font-size: ${({ theme: { fonts } }) => fonts.Paragraph1};
+  margin: ${({ theme: { gaps } }) => gaps.gap4} 0 0 0;
   padding-left: 10px;
   &:focus {
-    border: 1px solid black;
+    outline: 1px solid black;
   }
 `;
 const FooterBtn = styled.button`
