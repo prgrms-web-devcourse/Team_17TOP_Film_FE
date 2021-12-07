@@ -1,4 +1,4 @@
-import { MutableRefObject, ReactNode, useCallback, useEffect } from 'react';
+import { MutableRefObject, ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { BlackBG, Wrapper } from './style';
 import ReactDOM from 'react-dom';
 import { useClickOutSide } from './useClickOutSide';
@@ -12,6 +12,14 @@ const eventTypes = ['scroll', 'touchmove', 'mousewheel'];
 
 const Modal = ({ children, visible, onClose }: Props) => {
   const ref = useClickOutSide(onClose);
+  const modalElement = useMemo(() => document.createElement('div'), []);
+
+  useEffect(() => {
+    document.body.appendChild(modalElement);
+    return () => {
+      document.body.removeChild(modalElement);
+    };
+  }, []);
 
   const preventScroll = useCallback((e) => {
     e.preventDefault();
@@ -35,7 +43,7 @@ const Modal = ({ children, visible, onClose }: Props) => {
     <BlackBG visible={visible} tabIndex={-1}>
       <Wrapper ref={ref as MutableRefObject<HTMLDivElement>}>{children}</Wrapper>
     </BlackBG>,
-    document.getElementById('modal') as HTMLElement,
+    modalElement,
   );
 };
 export default Modal;
