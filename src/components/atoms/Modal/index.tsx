@@ -1,14 +1,18 @@
-import React, { ReactNode, useCallback, useEffect } from 'react';
+import { MutableRefObject, ReactNode, useCallback, useEffect } from 'react';
 import { BlackBG, Wrapper } from './style';
 import ReactDOM from 'react-dom';
+import { useClickOutSide } from './useClickOutSide';
 
 interface Props {
   children: ReactNode;
   visible: boolean;
-  onClose: (value: boolean) => void;
+  onClose: () => void;
 }
-const Modal = ({ children, visible }: Props) => {
-  //
+const eventTypes = ['scroll', 'touchmove', 'mousewheel'];
+
+const Modal = ({ children, visible, onClose }: Props) => {
+  const ref = useClickOutSide(onClose);
+
   const preventScroll = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -17,18 +21,19 @@ const Modal = ({ children, visible }: Props) => {
 
   useEffect(() => {
     if (!visible) return;
-    window.addEventListener('scroll', preventScroll, { capture: false, passive: false });
-    window.addEventListener('touchmove', preventScroll, { capture: false, passive: false });
-    window.addEventListener('mousewheel', preventScroll, { capture: false, passive: false });
+    for (const eventType of eventTypes) {
+      window.addEventListener(eventType, preventScroll, { capture: false, passive: false });
+    }
     return () => {
-      window.removeEventListener('scroll', preventScroll);
-      window.removeEventListener('touchmove', preventScroll);
-      window.removeEventListener('mousewheel', preventScroll);
+      for (const eventType of eventTypes) {
+        window.removeEventListener(eventType, preventScroll);
+      }
     };
   }, [visible]);
+
   return ReactDOM.createPortal(
     <BlackBG visible={visible} tabIndex={-1}>
-      <Wrapper>{children}</Wrapper>
+      <Wrapper ref={ref as MutableRefObject<HTMLDivElement>}>{children}</Wrapper>
     </BlackBG>,
     document.getElementById('modal') as HTMLElement,
   );

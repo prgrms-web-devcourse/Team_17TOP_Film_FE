@@ -16,5 +16,7 @@ const Wrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
+  border-radius: 4px;
+  padding: 10px;
 `;
 export { BlackBG, Wrapper };
