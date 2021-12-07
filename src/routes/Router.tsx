@@ -4,7 +4,7 @@ import { LogInPage } from '../pages';
 const Router = () => {
   return (
     <Routes>
-      <Route path="/login" element={<LogInPage />} />
+      <Route path="login" element={<LogInPage />} />
     </Routes>
   );
 };
