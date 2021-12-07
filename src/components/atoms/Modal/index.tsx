@@ -30,7 +30,7 @@ const Modal = ({ children, visible, onClose }: Props) => {
   useEffect(() => {
     if (!visible) return;
     for (const eventType of eventTypes) {
-      window.addEventListener(eventType, preventScroll, { capture: false, passive: false });
+      window.addEventListener(eventType, preventScroll, { passive: false });
     }
     return () => {
       for (const eventType of eventTypes) {
