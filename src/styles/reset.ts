@@ -136,6 +136,12 @@ const reset = css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  button {
+    border: none;
+    overflow: visible;
+    outline: none;
+    background: transparent;
+  }
 `;
 
 export default reset;
