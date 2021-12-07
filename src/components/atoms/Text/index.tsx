@@ -4,7 +4,6 @@ import { Heading1, Heading2, Heading3, Heading4, Paragraph1, Paragraph2, SmallTe
 interface Props {
   children: ReactNode;
   textType: TextType;
-  [x: string]: any;
 }
 
 type TextType =
