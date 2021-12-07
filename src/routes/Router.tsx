@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import { LogInPage } from '../pages';
+import { LogInPage, HomePage } from '../pages';
 
 const Router = () => {
   return (
     <Routes>
+      <Route path="/" element={<HomePage />} />
       <Route path="login" element={<LogInPage />} />
     </Routes>
   );
