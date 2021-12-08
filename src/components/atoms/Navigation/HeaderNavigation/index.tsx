@@ -6,10 +6,11 @@ export interface Props {
   middleSide?: ReactNode;
   rightSide?: ReactNode;
   gap?: number;
+  bgColor?: string;
 }
-const HeaderNavigation = ({ leftSide, rightSide, middleSide, gap }: Props) => {
+const HeaderNavigation = ({ leftSide, rightSide, middleSide, gap, bgColor }: Props) => {
   return (
-    <Wrapper>
+    <Wrapper bgColor={bgColor}>
       {middleSide && <MiddleSide gap={gap}>{middleSide}</MiddleSide>}
       {(leftSide || rightSide) && (
         <Side>

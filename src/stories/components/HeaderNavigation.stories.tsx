@@ -4,7 +4,7 @@ import { Navigation } from '../../components/atoms';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { BsTrashFill } from 'react-icons/bs';
 export default {
-  title: 'Example/Navigation',
+  title: 'Example/HeaderNavigation',
   component: Navigation,
 };
 

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-const Wrapper = styled.ul`
-  position: fixed;
+const Wrapper = styled.nav<{ bgColor?: string }>`
+  position: sticky;
   left: 0;
   top: 0;
   width: 100%;
@@ -10,9 +10,9 @@ const Wrapper = styled.ul`
   justify-content: center;
   align-items: center;
   box-shadow: ${({ theme }) => theme.colors.shadow};
-  background: white;
+  background-color: ${({ bgColor }) => (bgColor ? bgColor : 'white')};
 `;
-const MiddleSide = styled.div<{ gap?: number }>`
+const MiddleSide = styled.ul<{ gap?: number }>`
   position: relative;
   margin: 0 auto;
   display: flex;
@@ -28,7 +28,7 @@ const Side = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const LeftSide = styled.div<{ gap?: number }>`
+const LeftSide = styled.ul<{ gap?: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
