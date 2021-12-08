@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { Text, Button } from '../../components/atoms';
 import Map from './Map';
+import { CreatePostPageContainer, FirstStepButton, MapHeaderText } from './style';
+import { Text } from '../../components/atoms';
 
 const CreatePostPage = () => {
   const [userLocation, setUserLocation] = useState({ latitude: 37, longitude: 127 });
@@ -37,29 +37,11 @@ const CreatePostPage = () => {
         longitude={userLocation.longitude}
         onChangeLocation={setSelectedLocation}
       />
-      <FistStepButton buttonType="PrimaryBtn">
+      <FirstStepButton buttonType="PrimaryBtn">
         <Text textType="Paragraph1">여기에 만들래요</Text>
-      </FistStepButton>
+      </FirstStepButton>
     </CreatePostPageContainer>
   );
 };
 
 export default CreatePostPage;
-
-const CreatePostPageContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-`;
-const FistStepButton = styled(Button)`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  z-index: 1000;
-`;
-const MapHeaderText = styled(Text)`
-  position: absolute;
-  top: 84px;
-  left: 23px;
-  z-index: 1000;
-`;
