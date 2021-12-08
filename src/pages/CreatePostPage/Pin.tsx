@@ -6,7 +6,7 @@ interface Props {
   size: number;
 }
 
-const Pin = ({ size, ...props }: Props) => {
+const Pin = ({ size }: Props) => {
   return (
     <PinSvg height={size} viewBox="0 0 64 64">
       <path d={ICON} />
