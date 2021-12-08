@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
+import { Link, Outlet } from 'react-router-dom';
 import { Pin } from '../../components/organism';
 
 const dummy = [
@@ -62,39 +63,44 @@ const HomePage = () => {
 
   const positionOptions = { enableHighAccuracy: true };
   return (
-    <MapGL
-      {...viewport}
-      width="100vw"
-      height="100vh"
-      mapStyle="mapbox://styles/mapbox/light-v10"
-      onViewportChange={setViewport}
-      mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-    >
-      <GeolocateControl
-        style={{ top: 0, left: 0, margin: 10 }}
-        positionOptions={positionOptions}
-        trackUserLocation
-        auto
-      />
-      {dummy.map((data, i) => {
-        return (
-          <Marker
-            key={i}
-            latitude={parseFloat(data.location[0].latitude)}
-            longitude={parseFloat(data.location[0].longitude)}
-            onClick={() => {
-              handleSelectedMarker(data);
-              console.log(`data`, data);
-            }}
-          >
-            <Pin
-              selected={selectedMarker?.postId === data.postId ? true : false}
-              state={data.state}
-            ></Pin>
-          </Marker>
-        );
-      })}
-    </MapGL>
+    <div>
+      <MapGL
+        {...viewport}
+        width="100vw"
+        height="100vh"
+        mapStyle="mapbox://styles/mapbox/light-v10"
+        onViewportChange={setViewport}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+      >
+        <GeolocateControl
+          style={{ top: 0, left: 0, margin: 10 }}
+          positionOptions={positionOptions}
+          trackUserLocation
+          auto
+        />
+        {dummy.map((data, i) => {
+          return (
+            <Marker
+              key={i}
+              latitude={parseFloat(data.location[0].latitude)}
+              longitude={parseFloat(data.location[0].longitude)}
+              onClick={() => {
+                handleSelectedMarker(data);
+                console.log(`data`, data);
+              }}
+            >
+              <Link to={`${data.postId}`}>
+                <Pin
+                  selected={selectedMarker?.postId === data.postId ? true : false}
+                  state={data.state}
+                ></Pin>
+              </Link>
+            </Marker>
+          );
+        })}
+      </MapGL>
+      <Outlet />
+    </div>
   );
 };
 
