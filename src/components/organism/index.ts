@@ -1,1 +1,1 @@
-export { default as DemoComponent } from './DemoComponent';
+export { default as Pin } from './Pin';
