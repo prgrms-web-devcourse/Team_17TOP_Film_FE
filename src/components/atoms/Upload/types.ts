@@ -1,7 +1,7 @@
-import { ChangeEvent, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 export interface UploadProps {
-  onChange(e: ChangeEvent<HTMLInputElement>): void;
+  onChange(file: File): void;
   children?: ReactNode;
   name?: string;
   accept?: string;
