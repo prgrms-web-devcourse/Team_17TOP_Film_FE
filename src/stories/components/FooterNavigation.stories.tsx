@@ -16,9 +16,11 @@ export const Default = () => {
   );
 
   return (
-    <Wrapper>
+    <>
+      <Wrapper></Wrapper>
+      안녕하세요
       <Navigation navType="footer" contents={contents} />
-    </Wrapper>
+    </>
   );
 };
 
