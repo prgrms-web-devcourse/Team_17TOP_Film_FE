@@ -11,17 +11,14 @@ export default {
     },
     threshold: {
       type: { name: 'string' },
-      defaultValue: 0,
       control: { type: 'radio', min: 0, max: 1 },
     },
     placeholder: {
       type: { name: 'string', require: true },
-      defaultValue: 'https://via.placeholder.com/200',
       control: { type: 'text' },
     },
     alt: {
       type: { name: 'string' },
-      defaultValue: 'test image',
       control: { type: 'text' },
     },
     width: {
@@ -45,6 +42,7 @@ export const Default = (args: any) => {
         lazy={true}
         src="https://picsum.photos/200"
         placeholder="https://via.placeholder.com/200"
+        alt="테스트 이미지"
         threshold={0.5}
       />
       <Image
@@ -52,6 +50,7 @@ export const Default = (args: any) => {
         lazy={true}
         src="https://picsum.photos/200"
         placeholder="https://via.placeholder.com/200"
+        alt="테스트 이미지"
         threshold={0.5}
       />
       <Image
@@ -59,6 +58,7 @@ export const Default = (args: any) => {
         lazy={true}
         src="https://picsum.photos/200"
         placeholder="https://via.placeholder.com/200"
+        alt="테스트 이미지"
         threshold={0.5}
       />
     </div>
