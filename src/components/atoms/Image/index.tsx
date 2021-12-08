@@ -23,6 +23,7 @@ const Image = ({
   height,
   width,
   block = true,
+  ...props
 }: Props) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -31,6 +32,7 @@ const Image = ({
 
   return (
     <Img
+      {...props}
       ref={imgRef}
       src={!lazy ? src : loaded ? src : placeholder}
       alt={alt}
