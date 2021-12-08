@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 import { UploadContainer, UploadInput } from './style';
 import { UploadProps } from './types';
 
-const Upload = ({ children, name, accept, dropable, value, onChange, ...props }: UploadProps) => {
+const Upload = ({ children, name, accept, droppable, value, onChange, ...props }: UploadProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState(value);
   const [uploading, setUploading] = useState(false);
@@ -12,7 +12,7 @@ const Upload = ({ children, name, accept, dropable, value, onChange, ...props }:
   }, []);
 
   const handleDragEnter = useCallback((e) => {
-    if (!dropable) return;
+    if (!droppable) return;
     e.preventDefault();
     e.stopPropagation();
 
@@ -22,20 +22,20 @@ const Upload = ({ children, name, accept, dropable, value, onChange, ...props }:
   }, []);
 
   const handleDragOver = useCallback((e) => {
-    if (!dropable) return;
+    if (!droppable) return;
     e.preventDefault();
     e.stopPropagation();
   }, []);
 
   const handleDragLeave = useCallback((e) => {
-    if (!dropable) return;
+    if (!droppable) return;
     e.preventDefault();
     e.stopPropagation();
     setUploading(false);
   }, []);
 
   const handleDropFile = useCallback((e) => {
-    if (!dropable) return;
+    if (!droppable) return;
     e.preventDefault();
     e.stopPropagation();
 
