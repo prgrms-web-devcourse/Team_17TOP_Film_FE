@@ -3,6 +3,7 @@ import MapGl, { Marker } from 'react-map-gl';
 import Pin from './Pin';
 import { Location } from './types';
 
+const MAP_STYLE = 'mapbox://styles/mapbox/light-v10';
 interface Props {
   latitude: number;
   longitude: number;
@@ -41,7 +42,7 @@ const Map = ({ latitude, longitude, marker, onChangeMarker }: Props) => {
       {...viewport}
       width="100%"
       height="100%"
-      mapStyle="mapbox://styles/mapbox/light-v10"
+      mapStyle={MAP_STYLE}
       onViewportChange={setViewport}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
     >
