@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
-import PinImg from '../../assets/icons/icon_marker_open.svg';
+import { Pin } from '../../components/organism';
 
 const dummy = [
   {
@@ -35,6 +35,17 @@ const dummy = [
   },
 ];
 
+interface Location {
+  latitude: string;
+  longitude: string;
+}
+
+interface Post {
+  postId: number;
+  state: string;
+  location: Location[];
+}
+
 const HomePage = () => {
   const [viewport, setViewport] = useState({
     latitude: 37,
@@ -43,6 +54,11 @@ const HomePage = () => {
     bearing: 0,
     pitch: 0,
   });
+  const [selectedMarker, setselectedMarker] = useState<Post | null>(null);
+
+  const handleSelectedMarker = (data: Post) => {
+    setselectedMarker(data);
+  };
 
   const positionOptions = { enableHighAccuracy: true };
   return (
@@ -60,15 +76,24 @@ const HomePage = () => {
         trackUserLocation
         auto
       />
-      {dummy.map((data, i) => (
-        <Marker
-          key={i}
-          latitude={parseFloat(data.location[0].latitude)}
-          longitude={parseFloat(data.location[0].longitude)}
-        >
-          <img src={PinImg} />
-        </Marker>
-      ))}
+      {dummy.map((data, i) => {
+        return (
+          <Marker
+            key={i}
+            latitude={parseFloat(data.location[0].latitude)}
+            longitude={parseFloat(data.location[0].longitude)}
+            onClick={() => {
+              handleSelectedMarker(data);
+              console.log(`data`, data);
+            }}
+          >
+            <Pin
+              selected={selectedMarker?.postId === data.postId ? true : false}
+              state={data.state}
+            ></Pin>
+          </Marker>
+        );
+      })}
     </MapGL>
   );
 };
