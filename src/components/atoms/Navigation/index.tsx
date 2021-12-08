@@ -2,11 +2,11 @@ import React from 'react';
 import HeaderNavigation from './HeaderNavigation';
 import FooterNavigation from './FooterNavigation';
 import { Props as HeaderNavProps } from './HeaderNavigation';
-
-interface Props extends HeaderNavProps {
+import { Props as FooterNavProps } from './FooterNavigation';
+interface Props extends HeaderNavProps, FooterNavProps {
   navType: 'header' | 'footer';
 }
-const Navigation = ({ navType, leftSide, rightSide, middleSide }: Props) => {
+const Navigation = ({ navType, leftSide, rightSide, middleSide, contents, bgColor }: Props) => {
   const isHeader = navType == 'header';
   return (
     <>
@@ -18,7 +18,7 @@ const Navigation = ({ navType, leftSide, rightSide, middleSide }: Props) => {
           gap={20}
         />
       )}
-      {!isHeader && <FooterNavigation />}
+      {!isHeader && <FooterNavigation contents={contents} bgColor={bgColor} />}
     </>
   );
 };
