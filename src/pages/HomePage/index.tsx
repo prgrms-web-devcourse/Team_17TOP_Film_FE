@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
-import { Link, Outlet } from 'react-router-dom';
+import { useParams, Link, Outlet } from 'react-router-dom';
 import { Pin } from '../../components/organism';
 
 const dummy = [
@@ -56,12 +56,17 @@ const HomePage = () => {
     pitch: 0,
   });
   const [selectedMarker, setselectedMarker] = useState<Post | null>(null);
-
+  const { id } = useParams();
   const handleSelectedMarker = (data: Post) => {
     setselectedMarker(data);
   };
 
   const positionOptions = { enableHighAccuracy: true };
+
+  useEffect(() => {
+    !id ? setselectedMarker(null) : '';
+  }, [id]);
+
   return (
     <div>
       <MapGL
