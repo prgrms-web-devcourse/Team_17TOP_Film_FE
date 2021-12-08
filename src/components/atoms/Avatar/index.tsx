@@ -1,5 +1,7 @@
+import AvatarGroup from './AvatarGroup';
 import { RoundImg } from './style';
-
+import PropTypes from 'prop-types';
+import { VALID_AVATAR } from './constants';
 interface Props {
   size: number;
   src: string;
@@ -23,4 +25,9 @@ const Avatar = ({ lazy = false, size, src, alt, threshold = 0, placeholder = '' 
   );
 };
 
+Avatar.defaultProps = {
+  __TYPE: VALID_AVATAR,
+};
+
+Avatar.Group = AvatarGroup;
 export default Avatar;
