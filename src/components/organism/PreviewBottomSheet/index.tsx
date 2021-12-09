@@ -20,12 +20,20 @@ const PreviewBottomSheet = () => {
         #{id}필름의 {state.previewText}
       </FilmPreviewText>
       <DateWrapper>
-        <Text textType="Heading4">사진 나오는 날</Text>
+        <Text textType="Heading4">
+          {state.state === 'Closed' ? '사진 나오는 날' : '사진 나온 날'}
+        </Text>
         <FilmOpenDate textType="Paragraph2">{state.availableAt}</FilmOpenDate>
       </DateWrapper>
-      <Button buttonType="PrimaryBtn" width="100%">
-        필름 삭제하기
-      </Button>
+      {state.state === 'Closed' ? (
+        <Button buttonType="PrimaryBtn" width="100%">
+          필름 삭제하기
+        </Button>
+      ) : (
+        <Button buttonType="PrimaryBtn" width="100%">
+          사진 보기
+        </Button>
+      )}
       <CloseBtn>
         <Link to="/">
           <BiX size={24} />
