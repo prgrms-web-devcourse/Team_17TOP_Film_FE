@@ -1,5 +1,4 @@
-import { IoOptions } from 'react-icons/io5';
-import { useLocation, useNavigate, useNavigationType } from 'react-router';
+import { useLocation } from 'react-router';
 
 const Test = () => {
   const navigation = useLocation();

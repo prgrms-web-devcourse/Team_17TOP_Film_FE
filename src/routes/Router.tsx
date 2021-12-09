@@ -1,6 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import App from '../App';
-import { CreatePostPage, LogInPage, HomePage } from '../pages';
 import Test from '../Test';
 import Test1 from '../Test1';
 
