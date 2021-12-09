@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useInterSectionObserver } from './useInterSectingObserver';
 import { Img } from './style';
+
 interface Props {
   lazy?: boolean;
   threshold?: number;
@@ -10,6 +11,7 @@ interface Props {
   width: number;
   height: number;
   block?: boolean;
+  [x: string]: any;
 }
 
 let observer: IntersectionObserver;
