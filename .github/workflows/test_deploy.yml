@@ -29,6 +29,7 @@ jobs:
       - name: Build
         env:
           SKIP_PREFLIGHT_CHECK: ${{ secrets.REACT_APP_SKIP_PREFLIGHT_CHECK }}
+          REACT_APP_MAPBOX_TOKEN: ${{secrets.REACT_APP_MAPBOX_TOKEN}}
         run: yarn build
 
       - name: Deploy
