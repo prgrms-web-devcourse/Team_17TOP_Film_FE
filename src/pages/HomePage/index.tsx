@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
 import { useParams, Link, Outlet } from 'react-router-dom';
 import { Pin } from '../../components/organism';
@@ -35,7 +35,32 @@ const dummy = [
     ],
   },
 ];
-
+const dummyPost = {
+  postId: 0,
+  title: '제목입니당',
+  previewText: '엿보기 문구입니당',
+  availableAt: 'yyyy-MM-dd',
+  state: 'Closed',
+  location: [
+    {
+      latitude: '37.491837217869616',
+      longitude: '127.02959879978368',
+    },
+  ],
+  authorityCount: 3,
+  authorityImageList: [
+    {
+      imageOrder: 0,
+      authorityId: 0,
+      imageUrl: '',
+    },
+    {
+      imageOrder: 0,
+      authorityId: 0,
+      imageUrl: '',
+    },
+  ],
+};
 interface Location {
   latitude: string;
   longitude: string;
@@ -57,9 +82,9 @@ const HomePage = () => {
   });
   const [selectedMarker, setselectedMarker] = useState<Post | null>(null);
   const { id } = useParams();
-  const handleSelectedMarker = (data: Post) => {
+  const handleSelectedMarker = useCallback((data: Post) => {
     setselectedMarker(data);
-  };
+  }, []);
 
   const positionOptions = { enableHighAccuracy: true };
 
@@ -83,26 +108,23 @@ const HomePage = () => {
           trackUserLocation
           auto
         />
-        {dummy.map((data, i) => {
-          return (
-            <Marker
-              key={i}
-              latitude={parseFloat(data.location[0].latitude)}
-              longitude={parseFloat(data.location[0].longitude)}
-              onClick={() => {
-                handleSelectedMarker(data);
-                console.log(`data`, data);
-              }}
-            >
-              <Link to={`${data.postId}`}>
-                <Pin
-                  selected={selectedMarker?.postId === data.postId ? true : false}
-                  state={data.state}
-                ></Pin>
-              </Link>
-            </Marker>
-          );
-        })}
+        {dummy.map((data, i) => (
+          <Marker
+            key={i}
+            latitude={parseFloat(data.location[0].latitude)}
+            longitude={parseFloat(data.location[0].longitude)}
+            onClick={() => {
+              handleSelectedMarker(data);
+            }}
+          >
+            <Link to={`${data.postId}`} state={dummyPost}>
+              <Pin
+                selected={selectedMarker?.postId === data.postId ? true : false}
+                state={data.state}
+              ></Pin>
+            </Link>
+          </Marker>
+        ))}
       </MapGL>
       <Outlet />
     </div>

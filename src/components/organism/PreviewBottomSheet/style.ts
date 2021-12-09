@@ -9,6 +9,7 @@ const BottomSheetWrapper = styled.div`
   padding: 20px;
   background-color: #fff;
   border-top: 1px solid ${({ theme }) => theme.colors.gray300};
+  z-index: 10;
 `;
 const FilmTitle = styled(Text)``;
 const FilmPreviewText = styled(Text)`
