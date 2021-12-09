@@ -52,7 +52,9 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not ie 11",
+      "not chrome < 51",
+      "not safari < 10"
     ],
     "development": [
       "last 1 chrome version",
@@ -61,6 +63,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.4",
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@storybook/addon-actions": "^6.4.1",
     "@storybook/addon-essentials": "^6.4.1",
