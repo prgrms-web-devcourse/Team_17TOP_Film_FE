@@ -1,7 +1,7 @@
 import AvatarGroup from './AvatarGroup';
 import { RoundImg } from './style';
-import PropTypes from 'prop-types';
 import { VALID_AVATAR } from './constants';
+
 interface Props {
   size: number;
   src: string;
@@ -9,11 +9,23 @@ interface Props {
   lazy?: boolean;
   threshold?: number;
   placeholder?: string;
+  block?: boolean;
+  [x: string]: any;
 }
 
-const Avatar = ({ lazy = false, size, src, alt, threshold = 0, placeholder = '' }: Props) => {
+const Avatar = ({
+  lazy = false,
+  size,
+  src,
+  alt,
+  threshold = 0,
+  placeholder = '',
+  block,
+  ...props
+}: Props) => {
   return (
     <RoundImg
+      {...props}
       lazy={lazy}
       threshold={threshold}
       src={src}
@@ -21,6 +33,7 @@ const Avatar = ({ lazy = false, size, src, alt, threshold = 0, placeholder = '' 
       placeholder={placeholder}
       height={size}
       width={size}
+      block={block}
     />
   );
 };
