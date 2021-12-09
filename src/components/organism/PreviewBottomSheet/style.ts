@@ -26,6 +26,7 @@ const CloseBtn = styled.button`
   position: absolute;
   top: ${({ theme }) => theme.gaps.default_margin};
   right: ${({ theme }) => theme.gaps.default_margin};
+  color: ${({ theme }) => theme.colors.gray900};
 `;
 
 export { BottomSheetWrapper, FilmTitle, FilmPreviewText, DateWrapper, FilmOpenDate, CloseBtn };

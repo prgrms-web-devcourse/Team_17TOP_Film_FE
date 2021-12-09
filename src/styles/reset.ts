@@ -142,6 +142,10 @@ const reset = css`
     outline: none;
     background: transparent;
   }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 export default reset;

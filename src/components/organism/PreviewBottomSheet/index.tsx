@@ -1,4 +1,5 @@
 import { useParams, Link, useLocation } from 'react-router-dom';
+import { BiX } from 'react-icons/bi';
 import { Button, Text } from '../../atoms';
 import {
   BottomSheetWrapper,
@@ -26,7 +27,9 @@ const PreviewBottomSheet = () => {
         필름 삭제하기
       </Button>
       <CloseBtn>
-        <Link to="/">닫기</Link>
+        <Link to="/">
+          <BiX size={24} />
+        </Link>
       </CloseBtn>
     </BottomSheetWrapper>
   );
