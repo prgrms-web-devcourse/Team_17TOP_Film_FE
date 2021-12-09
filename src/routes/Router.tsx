@@ -5,8 +5,8 @@ const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="login" element={<LogInPage />} />
-      <Route path="post/create" element={<CreatePostPage />} />
+      <Route path="/login" element={<LogInPage />} />
+      <Route path="/post/create" element={<CreatePostPage />} />
     </Routes>
   );
 };
