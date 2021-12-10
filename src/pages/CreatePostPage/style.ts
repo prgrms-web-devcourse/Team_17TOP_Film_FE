@@ -1,6 +1,15 @@
 import styled from '@emotion/styled';
 import { Text, Button, Upload } from '../../components/atoms';
 
+const DeleteImgButton = styled(Button)`
+  background-color: ${({ theme }) => theme.colors.gray200};
+`;
+
+const UploadTextWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const CreatePostPageContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -105,4 +114,6 @@ export {
   FormContentWrapper,
   PostFormContainer,
   SecondStepContainer,
+  UploadTextWrapper,
+  DeleteImgButton,
 };

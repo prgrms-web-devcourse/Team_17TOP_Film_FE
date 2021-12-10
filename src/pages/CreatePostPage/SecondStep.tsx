@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Text, Button } from '../../components/atoms';
+import { Text } from '../../components/atoms';
 import {
   NextStepButton,
   PreviewImg,
@@ -10,6 +10,8 @@ import {
   FormContentWrapper,
   PostFormContainer,
   SecondStepContainer,
+  UploadTextWrapper,
+  DeleteImgButton,
 } from './style';
 import { SecondStepData } from './types';
 
@@ -92,7 +94,10 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => 
           ></FormInput>
         </FormContentWrapper>
         <FormContentWrapper>
-          <Text textType="Heading4">사진 업로드</Text>
+          <UploadTextWrapper>
+            <Text textType="Heading4">사진 업로드</Text>
+            <DeleteImgButton>사진 삭제</DeleteImgButton>
+          </UploadTextWrapper>
           <ImageUpload
             droppable
             name="image"
