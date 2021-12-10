@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 const Wrapper = styled.nav<{ bgColor?: string }>`
-  position: sticky;
+  position: absolute;
   left: 0;
   top: 0;
   width: 100%;
@@ -11,6 +11,7 @@ const Wrapper = styled.nav<{ bgColor?: string }>`
   align-items: center;
   box-shadow: ${({ theme }) => theme.colors.shadow};
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'white')};
+  z-index: 1000;
 `;
 const MiddleSide = styled.ul<{ gap?: number }>`
   position: relative;
