@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { CreatePostPage, LogInPage, HomePage } from '../pages';
+import { LogInPage, HomePage, CreatePostPage } from '../pages';
 
 const Router = () => {
   return (
