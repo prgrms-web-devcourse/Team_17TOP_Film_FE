@@ -94,7 +94,7 @@ const HomePage = () => {
           </Marker>
         );
       })}
-      <p>테스트 입니다</p>
+      <p>테스트 입니다2</p>
     </MapGL>
   );
 };
