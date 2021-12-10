@@ -1,45 +1,62 @@
 import { useEffect, useState } from 'react';
-import Map from './Map';
-import { CreatePostPageContainer, FirstStepButton, MapHeaderText } from './style';
-import { Text } from '../../components/atoms';
+import { CreatePostPageContainer } from './style';
+import FirstStep from './FirstStep';
+import SecondStep from './SecondStep';
+import { SecondStepData, Location } from './types';
 
 const CreatePostPage = () => {
-  const [userLocation, setUserLocation] = useState({ latitude: 37, longitude: 127 });
-  const [selectedLocation, setSelectedLocation] = useState({ latitude: 37, longitude: 127 });
+  const [step, setStep] = useState(1);
+  const [location, setLocation] = useState<Location | null>(null);
+  const [secondStepData, setSecondStepData] = useState({});
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setUserLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      });
-    } else {
-      console.warn('GPS를 지원하지 않습니다.');
+  const goNextStep = () => {
+    if (step === 4) {
+      return;
     }
-  }, []);
+    setStep((prev) => prev + 1);
+  };
+
+  const goPrevStep = () => {
+    if (step === 1) {
+      return;
+    }
+    setStep((prev) => prev - 1);
+  };
+
+  const handleSecondStepData = (data: SecondStepData) => {
+    setSecondStepData(data);
+  };
+
+  const handleLocation = (data: Location) => {
+    setLocation(data);
+  };
 
   useEffect(() => {
-    console.log('마커 위치 정보');
-    console.log(selectedLocation);
-  }, [selectedLocation]);
+    console.log('유저 위치 정보');
+    console.log([location]);
+  }, [location]);
+
+  useEffect(() => {
+    console.log('유저 입력 데이터 정보');
+    console.log(secondStepData);
+  }, [secondStepData]);
+
+  useEffect(() => {
+    console.log('스텝 정보');
+    console.log(step);
+  }, [step]);
 
   return (
     <CreatePostPageContainer>
-      <MapHeaderText textType="Heading3">
-        필름을 맡길
-        <br />
-        위치로 마커를 옮겨주세요
-      </MapHeaderText>
-      <Map
-        latitude={userLocation.latitude}
-        longitude={userLocation.longitude}
-        onChangeLocation={setSelectedLocation}
-      />
-      <FirstStepButton buttonType="PrimaryBtn">
-        <Text textType="Paragraph1">여기에 만들래요</Text>
-      </FirstStepButton>
+      {step === 1 ? (
+        <FirstStep goNextStep={goNextStep} location={location} handleLocation={handleLocation} />
+      ) : (
+        <SecondStep
+          goNextStep={goNextStep}
+          goPrevStep={goPrevStep}
+          handleSecondStepData={handleSecondStepData}
+        />
+      )}
     </CreatePostPageContainer>
   );
 };
