@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import MapGl, { Marker } from 'react-map-gl';
+import { MAP_STYLE } from '../../utils/constants/mapConstants';
 import Pin from './Pin';
 import { Location } from './types';
 
-const MAP_STYLE = 'mapbox://styles/mapbox/light-v10';
 interface Props {
   latitude: number;
   longitude: number;
