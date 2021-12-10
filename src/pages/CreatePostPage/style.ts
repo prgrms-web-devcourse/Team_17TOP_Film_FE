@@ -10,13 +10,13 @@ const NextStepButton = styled(Button)`
   position: sticky;
   bottom: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1;
 `;
 const MapHeaderText = styled(Text)`
   position: absolute;
   top: 84px;
   left: 23px;
-  z-index: 1000;
+  z-index: 1;
 `;
 
 const PreviewImg = styled.img`
