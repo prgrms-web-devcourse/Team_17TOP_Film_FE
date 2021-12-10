@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Text } from '../../components/atoms';
+import { Text, Button } from '../../components/atoms';
 import {
   NextStepButton,
   PreviewImg,
@@ -22,20 +22,14 @@ interface Props {
 const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => {
   const [imageURL, setImageURL] = useState('');
   const [file, setFile] = useState<File>();
-  const [title, setTitle] = useState('');
-  const [previewText, setPreviewText] = useState('');
-  const [content, setContent] = useState('');
+  const [state, setState] = useState({ title: '', previewText: '', content: '' });
 
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const handlePreviewTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPreviewText(e.target.value);
-  };
-
-  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+  const handleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleImageFile = (file: File) => {
@@ -60,14 +54,14 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => 
   }, [file]);
 
   const checkForm = () => {
-    if (!(file || content)) {
+    if (!(file || state.content)) {
       return false;
     }
     return true;
   };
 
   const saveFormData = () => {
-    const data = { imageFiles: [file], title, previewText, content };
+    const data = { ...state, imageFiles: [file] };
     handleSecondStepData(data);
     goNextStep();
   };
@@ -80,8 +74,9 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => 
         <FormContentWrapper>
           <Text textType="Heading4">필름 이름</Text>
           <FormInput
-            value={title}
-            onChange={handleTitleChange}
+            name="title"
+            value={state.title}
+            onChange={handleInput}
             placeholder={'최대 20자까지 작성 가능합니다.'}
             maxLength={20}
           ></FormInput>
@@ -89,8 +84,9 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => 
         <FormContentWrapper>
           <Text textType="Heading4">엿보기 문구</Text>
           <FormInput
-            value={previewText}
-            onChange={handlePreviewTextChange}
+            name="previewText"
+            value={state.previewText}
+            onChange={handleInput}
             placeholder={'최대 30자까지 작성 가능합니다.'}
             maxLength={30}
           ></FormInput>
@@ -111,8 +107,9 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => 
         <FormContentWrapper>
           <Text textType="Heading4">내용 작성</Text>
           <FormTextArea
-            value={content}
-            onChange={handleContentChange}
+            name="content"
+            value={state.content}
+            onChange={handleInput}
             placeholder={'최대 1000자까지 작성 가능합니다.'}
             maxLength={1000}
           ></FormTextArea>
