@@ -2,7 +2,12 @@ import styled from '@emotion/styled';
 import { Text, Button, Upload } from '../../components/atoms';
 
 const DeleteImgButton = styled(Button)`
+  height: 24px;
+  line-height: 0;
+  border: none;
+  color: ${({ theme }) => theme.colors.gray700};
   background-color: ${({ theme }) => theme.colors.gray200};
+  cursor: pointer;
 `;
 
 const UploadTextWrapper = styled.div`
