@@ -34,8 +34,13 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => 
     }));
   };
 
-  const handleImageFile = (file: File) => {
+  const handleSetImageFile = (file: File) => {
     setFile(file);
+  };
+
+  const handleDeleteImageFile = () => {
+    setFile(undefined);
+    setImageURL('');
   };
 
   const FileToDataURL = (file: File) => {
@@ -96,13 +101,13 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => 
         <FormContentWrapper>
           <UploadTextWrapper>
             <Text textType="Heading4">사진 업로드</Text>
-            <DeleteImgButton>사진 삭제</DeleteImgButton>
+            <DeleteImgButton onClick={handleDeleteImageFile}>사진 삭제</DeleteImgButton>
           </UploadTextWrapper>
           <ImageUpload
             droppable
             name="image"
             accept="image/*"
-            onChange={handleImageFile}
+            onChange={handleSetImageFile}
             imageURL={imageURL}
           >
             <ImageUploadIcon imageURL={imageURL}>+</ImageUploadIcon>
