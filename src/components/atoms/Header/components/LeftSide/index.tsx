@@ -4,7 +4,7 @@ import { Wrapper } from './style';
 
 export interface Props {
   leftComp?: 'backBtn';
-  handleLeftEvent: (e: MouseEvent<HTMLElement>) => void;
+  handleLeftEvent?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 const LeftSide = ({ leftComp, handleLeftEvent }: Props) => {

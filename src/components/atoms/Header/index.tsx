@@ -1,16 +1,21 @@
 import { MiddleSide, Wrapper, Side } from './style';
-import { Props as LefeSideInterface } from './components/LeftSide';
-import LeftSide from './components/LeftSide';
+import LeftSide, { Props as LeftSideInterface } from './components/LeftSide';
+import RightSide, { Props as RightSideInterface } from './components/RightSide';
 
-interface Props extends LefeSideInterface {
+interface Props extends LeftSideInterface, RightSideInterface {
   midText?: string;
 }
 
-const Header = ({ leftComp, handleLeftEvent, midText }: Props) => {
+const Header = ({ leftComp, handleLeftEvent, midText, rightComp, handleRightEvent }: Props) => {
   return (
     <Wrapper>
       {midText && <MiddleSide>midText</MiddleSide>}
-      <Side>{leftComp && <LeftSide leftComp={leftComp} handleLeftEvent={handleLeftEvent} />}</Side>
+      {(leftComp || rightComp) && (
+        <Side>
+          {leftComp && <LeftSide leftComp={leftComp} handleLeftEvent={handleLeftEvent} />}
+          {rightComp && <RightSide rightComp={rightComp} handleRightEvent={handleRightEvent} />}
+        </Side>
+      )}
     </Wrapper>
   );
 };
