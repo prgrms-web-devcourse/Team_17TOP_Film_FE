@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiX } from 'react-icons/bi';
 import { Button, Text } from '../../atoms';
@@ -31,8 +32,6 @@ interface Props {
 }
 
 const PreviewBottomSheet = ({ previewPost }: Props) => {
-  console.log(previewPost);
-
   return (
     <BottomSheetWrapper>
       <FilmTitle textType="Heading3">{previewPost.title}</FilmTitle>
@@ -62,4 +61,4 @@ const PreviewBottomSheet = ({ previewPost }: Props) => {
     </BottomSheetWrapper>
   );
 };
-export default PreviewBottomSheet;
+export default React.memo(PreviewBottomSheet);
