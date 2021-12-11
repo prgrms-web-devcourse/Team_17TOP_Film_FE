@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
 import { Pin } from '../../components/organism';
 
@@ -35,6 +35,7 @@ const Map = ({ location, postList }: Props) => {
   const positionOptions = { enableHighAccuracy: true };
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     !id ? setselectedMarker(null) : '';
@@ -72,14 +73,13 @@ const Map = ({ location, postList }: Props) => {
           longitude={parseFloat(data.location.longitude)}
           onClick={() => {
             handleSelectedMarker(data);
+            navigate(`${data.postId}`);
           }}
         >
-          <Link to={`${data.postId}`}>
-            <Pin
-              selected={selectedMarker?.postId === data.postId ? true : false}
-              state={data.state}
-            ></Pin>
-          </Link>
+          <Pin
+            selected={selectedMarker?.postId === data.postId ? true : false}
+            state={data.state}
+          ></Pin>
         </Marker>
       ))}
     </MapGL>
