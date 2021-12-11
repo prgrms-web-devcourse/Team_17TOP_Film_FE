@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
-import styled from '@emotion/styled';
 import { VALID_AVATAR } from './constants';
+import { AvatarGroupWrapper } from './style';
 
 interface Props {
   children: ReactNode;
@@ -25,9 +25,7 @@ const AvatarGroup = ({ children, overlapPx = 0 }: Props) => {
         },
       });
     });
-  return <div>{avatars}</div>;
+  return <AvatarGroupWrapper>{avatars}</AvatarGroupWrapper>;
 };
-const Div = styled.div`
-  display: flex;
-`;
+
 export default AvatarGroup;
