@@ -4,4 +4,7 @@ import { Image } from '..';
 const RoundImg = styled(Image)`
   border-radius: 50%;
 `;
-export { RoundImg };
+const AvatarGroupWrapper = styled.div`
+  display: flex;
+`;
+export { RoundImg, AvatarGroupWrapper };
