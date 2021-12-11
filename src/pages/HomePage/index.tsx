@@ -125,7 +125,7 @@ const HomePage = () => {
         ))}
       </MapGL>
       <Routes>
-        <Route path=":id" element={<PreviewBottomSheet previewPost={dummyPost} />}></Route>
+        <Route path=":id" element={<PreviewBottomSheet previewPost={dummyPost} />} />
       </Routes>
     </div>
   );
