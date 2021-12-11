@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
-import { useParams, Link, Outlet } from 'react-router-dom';
-import { Pin } from '../../components/organism';
+import { useParams, Link, Route, Routes } from 'react-router-dom';
+import { Pin, PreviewBottomSheet } from '../../components/organism';
 
 const dummy = [
   {
@@ -41,12 +41,10 @@ const dummyPost = {
   previewText: '엿보기 문구입니당',
   availableAt: 'yyyy-MM-dd',
   state: 'Closed',
-  location: [
-    {
-      latitude: '37.491837217869616',
-      longitude: '127.02959879978368',
-    },
-  ],
+  location: {
+    latitude: '37.491837217869616',
+    longitude: '127.02959879978368',
+  },
   authorityCount: 3,
   authorityImageList: [
     {
@@ -117,7 +115,7 @@ const HomePage = () => {
               handleSelectedMarker(data);
             }}
           >
-            <Link to={`${data.postId}`} state={dummyPost}>
+            <Link to={`${data.postId}`}>
               <Pin
                 selected={selectedMarker?.postId === data.postId ? true : false}
                 state={data.state}
@@ -126,7 +124,9 @@ const HomePage = () => {
           </Marker>
         ))}
       </MapGL>
-      <Outlet />
+      <Routes>
+        <Route path=":id" element={<PreviewBottomSheet previewPost={dummyPost} />}></Route>
+      </Routes>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BiX } from 'react-icons/bi';
 import { Button, Text } from '../../atoms';
 import {
@@ -9,23 +9,43 @@ import {
   FilmOpenDate,
   CloseBtn,
 } from './style';
+interface PreviewPost {
+  postId: number;
+  title: string;
+  previewText: string;
+  availableAt: string;
+  state: string;
+  location: {
+    latitude: string;
+    longitude: string;
+  };
+  authorityCount: number;
+  authorityImageList: {
+    imageOrder: number;
+    authorityId: number;
+    imageUrl: string;
+  }[];
+}
+interface Props {
+  previewPost: PreviewPost;
+}
 
-const PreviewBottomSheet = () => {
-  const { id } = useParams();
-  const { state } = useLocation();
+const PreviewBottomSheet = ({ previewPost }: Props) => {
+  console.log(previewPost);
+
   return (
     <BottomSheetWrapper>
-      <FilmTitle textType="Heading3">{state.title}</FilmTitle>
+      <FilmTitle textType="Heading3">{previewPost.title}</FilmTitle>
       <FilmPreviewText textType="Paragraph1">
-        #{id}필름의 {state.previewText}
+        #{previewPost.postId}필름의 {previewPost.previewText}
       </FilmPreviewText>
       <DateWrapper>
         <Text textType="Heading4">
-          {state.state === 'Closed' ? '사진 나오는 날' : '사진 나온 날'}
+          {previewPost.state === 'Closed' ? '사진 나오는 날' : '사진 나온 날'}
         </Text>
-        <FilmOpenDate textType="Paragraph2">{state.availableAt}</FilmOpenDate>
+        <FilmOpenDate textType="Paragraph2">{previewPost.availableAt}</FilmOpenDate>
       </DateWrapper>
-      {state.state === 'Closed' ? (
+      {previewPost.state === 'Closed' ? (
         <Button buttonType="PrimaryBtn" width="100%">
           필름 삭제하기
         </Button>
