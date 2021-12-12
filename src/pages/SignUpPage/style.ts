@@ -34,7 +34,10 @@ const Input = styled.input`
     outline: 1px solid black;
   }
 `;
-
+const ErrorText = styled.p`
+  margin: 10px 0;
+  color: red;
+`;
 const FooterBtn = styled.button`
   position: absolute;
   left: 50%;
@@ -48,4 +51,4 @@ const FooterBtn = styled.button`
   border-radius: 4px;
   cursor: pointer;
 `;
-export { Header, BackBtn, SignUpFormWrapper, Label, Input, FooterBtn };
+export { Header, BackBtn, SignUpFormWrapper, Label, Input, FooterBtn, ErrorText };

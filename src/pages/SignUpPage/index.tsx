@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { Header, BackBtn, SignUpFormWrapper, Label, Input, FooterBtn } from './style';
+import { Header, BackBtn, SignUpFormWrapper, Label, Input, FooterBtn, ErrorText } from './style';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { validateNickname } from './util';
 import { signUpApi } from '../../utils/apis/user';
@@ -40,7 +40,7 @@ const SignUpPage = () => {
           value={nickname}
           onChange={handleNicknameChange}
         />
-        {inpError}
+        <ErrorText>{inpError}</ErrorText>
         <FooterBtn type="submit">회원가입 완료</FooterBtn>
       </SignUpFormWrapper>
     </>
