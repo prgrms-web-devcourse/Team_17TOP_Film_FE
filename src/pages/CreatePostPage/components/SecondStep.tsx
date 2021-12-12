@@ -12,6 +12,7 @@ import {
   UploadTextWrapper,
   DeleteImgButton,
   StepContainer,
+  NextStepText,
 } from '../style';
 import { SecondStepData } from '../types';
 
@@ -131,7 +132,7 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => 
           checkForm() ? saveFormData() : alert('이미지를 업로드 하거나 내용을 입력해주세요');
         }}
       >
-        <Text textType="Paragraph1">다음</Text>
+        <NextStepText textType="Paragraph1">다음</NextStepText>
       </NextStepButton>
     </StepContainer>
   );

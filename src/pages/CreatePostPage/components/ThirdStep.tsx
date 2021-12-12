@@ -6,6 +6,7 @@ import {
   ThirdStepPostFormContainer,
   DateInput,
   GuideText,
+  NextStepText,
 } from '../style';
 import { Text } from '../../../components/atoms';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
@@ -67,7 +68,7 @@ const ThirdStep = ({ latitude, longitude, handleAvailableAt }: ThirdStepProp) =>
         </GuideText>
       </ThirdStepPostFormContainer>
       <NextStepButton buttonType="PrimaryBtn" onClick={saveAvailableAt}>
-        <Text textType="Paragraph1">다음</Text>
+        <NextStepText textType="Paragraph1">다음</NextStepText>
       </NextStepButton>
     </StepContainer>
   );

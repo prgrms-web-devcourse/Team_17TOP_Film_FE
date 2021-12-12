@@ -145,6 +145,9 @@ const GuideText = styled(Text)`
   text-align: center;
   color: ${({ theme }) => theme.colors.primary};
 `;
+const NextStepText = styled(Text)`
+  color: white;
+`;
 
 export {
   CreatePostPageContainer,
@@ -164,4 +167,5 @@ export {
   ThirdStepPostFormContainer,
   DateInput,
   GuideText,
+  NextStepText,
 };
