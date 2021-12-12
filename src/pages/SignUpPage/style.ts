@@ -34,20 +34,18 @@ const Input = styled.input`
     outline: 1px solid black;
   }
 `;
+
 const FooterBtn = styled.button`
-  margin-top: 400px;
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  bottom: 0;
+  width: ${({ theme: { gaps } }) => `calc(100% - ${gaps.default_margin})`};
   height: 60px;
   border: none;
   background-color: black;
   color: white;
   border-radius: 4px;
   cursor: pointer;
-  @media (max-height: 700px) {
-    margin-top: 300px;
-  }
-  @media (max-height: 700px) {
-    margin-top: 220px;
-  }
 `;
 export { Header, BackBtn, SignUpFormWrapper, Label, Input, FooterBtn };
