@@ -19,7 +19,7 @@ const isUserSignUpApi = async (token: string) => {
 const signUpApi = async (nickname: string, token: string) => {
   try {
     const res = await axios.post(
-      `${process.env.BASE_URL}/api/v1/users/signup`,
+      `${process.env.REACT_APP_BASE_URL}/api/v1/users/signup`,
       {
         nickname,
       },
