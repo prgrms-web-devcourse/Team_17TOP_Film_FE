@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from '../../components/atoms';
-import { NextStepButton, MapHeaderText } from './style';
+import { Text } from '../../../components/atoms';
+import { NextStepButton, MapHeaderText } from '../style';
 import Map from './Map';
-import { Location } from './types';
+import { Location } from '../types';
 
 interface Props {
   goNextStep(): void;

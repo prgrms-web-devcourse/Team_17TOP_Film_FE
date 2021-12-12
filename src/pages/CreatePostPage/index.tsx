@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CreatePostPageContainer } from './style';
-import FirstStep from './FirstStep';
-import SecondStep from './SecondStep';
+import FirstStep from './components/FirstStep';
+import SecondStep from './components/SecondStep';
 import { SecondStepData, Location } from './types';
+import ThirdStep from './components/ThirdStep';
 
 const CreatePostPage = () => {
   const [step, setStep] = useState(1);
   const [location, setLocation] = useState<Location | null>(null);
-  const [secondStepData, setSecondStepData] = useState({});
+  const [secondStepData, setSecondStepData] = useState<SecondStepData>();
+  const [availableAt, setAvailableAt] = useState('');
 
   const goNextStep = () => {
     if (step === 4) {
@@ -31,30 +33,25 @@ const CreatePostPage = () => {
     setLocation(data);
   };
 
-  useEffect(() => {
-    console.log('유저 위치 정보');
-    console.log([location]);
-  }, [location]);
-
-  useEffect(() => {
-    console.log('유저 입력 데이터 정보');
-    console.log(secondStepData);
-  }, [secondStepData]);
-
-  useEffect(() => {
-    console.log('스텝 정보');
-    console.log(step);
-  }, [step]);
+  const handleAvailableAt = (data: string) => {
+    setAvailableAt(data);
+  };
 
   return (
     <CreatePostPageContainer>
       {step === 1 ? (
         <FirstStep goNextStep={goNextStep} location={location} handleLocation={handleLocation} />
-      ) : (
+      ) : step === 2 ? (
         <SecondStep
           goNextStep={goNextStep}
           goPrevStep={goPrevStep}
           handleSecondStepData={handleSecondStepData}
+        />
+      ) : (
+        <ThirdStep
+          latitude={location?.latitude}
+          longitude={location?.longitude}
+          handleAvailableAt={handleAvailableAt}
         />
       )}
     </CreatePostPageContainer>
