@@ -108,7 +108,11 @@ const StepContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const FormWrapper = styled.div``;
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
 
 const ThirdStepPostFormContainer = styled(PostFormContainer)`
   height: 100%;
