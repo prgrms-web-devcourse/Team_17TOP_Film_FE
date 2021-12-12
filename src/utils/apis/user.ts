@@ -16,4 +16,22 @@ const isUserSignUpApi = async (token: string) => {
   }
 };
 
-export { isUserSignUpApi };
+const signUpApi = async (nickname: string, token: string) => {
+  try {
+    const res = await axios.post(
+      `${process.env.BASE_URL}/api/v1/users/signup`,
+      {
+        nickname,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    console.log(res, 'res');
+  } catch ({ response }) {
+    console.log(response);
+  }
+};
+export { isUserSignUpApi, signUpApi };

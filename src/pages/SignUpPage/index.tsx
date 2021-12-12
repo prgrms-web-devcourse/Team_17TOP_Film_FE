@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Header, BackBtn, SignUpFormWrapper, Label, Input, FooterBtn } from './style';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { validateNickname } from './util';
+import { signUpApi } from '../../utils/apis/user';
 
 const SignUpPage = () => {
   const [nickname, setNickname] = useState('');
@@ -17,7 +18,8 @@ const SignUpPage = () => {
     if (nicknameErrorMsg) {
       return setInpError(nicknameErrorMsg);
     }
-
+    const token = JSON.parse(localStorage.getItem('token') as string);
+    signUpApi(nickname, token);
     setNickname('');
     setInpError('');
   };
