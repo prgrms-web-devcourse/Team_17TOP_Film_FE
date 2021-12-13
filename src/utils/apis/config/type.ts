@@ -21,5 +21,5 @@ export interface CustomInstance extends AxiosInstance {
 
 export interface ErrorType {
   code: string;
-  message?: string;
+  errorMessage?: string;
 }
