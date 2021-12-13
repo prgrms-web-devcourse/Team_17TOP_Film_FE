@@ -5,3 +5,4 @@ export { default as Modal } from './Modal';
 export { default as Navigation } from '../atoms/Navigation';
 export { default as Image } from './Image';
 export { default as Avatar } from './Avatar';
+export { default as Header } from './Header';
