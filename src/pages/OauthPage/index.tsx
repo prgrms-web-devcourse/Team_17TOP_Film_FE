@@ -6,8 +6,8 @@ import { isUserSignUpApi } from '../../utils/apis/user';
 const OauthPage = () => {
   const test = useLocation();
   const navigate = useNavigate();
-  const routingBasedOnSignUpStatus = useCallback(async (token: string) => {
-    const isSignUp = await isUserSignUpApi(token as string);
+  const routingBasedOnSignUpStatus = useCallback(async () => {
+    const isSignUp = await isUserSignUpApi();
 
     if (isSignUp) {
       return navigate('/');
@@ -20,7 +20,7 @@ const OauthPage = () => {
       ignoreQueryPrefix: true,
     });
     localStorage.setItem('token', JSON.stringify(token));
-    routingBasedOnSignUpStatus(token as string);
+    routingBasedOnSignUpStatus();
   }, []);
   return <></>;
 };
