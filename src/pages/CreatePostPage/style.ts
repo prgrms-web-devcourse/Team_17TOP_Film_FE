@@ -155,6 +155,8 @@ const NextStepText = styled(Text)`
 
 const ButtonWrapper = styled.div`
   margin-top: 18px;
+  display: flex;
+  gap: 11px;
 `;
 
 const ModalNoticeContainer = styled.div`
