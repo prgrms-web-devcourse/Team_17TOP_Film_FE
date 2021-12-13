@@ -41,7 +41,7 @@ const Map = ({ currentLocation, selectedPost, postList, onClick }: Props) => {
   const [viewport, setViewport] = useState({
     latitude: 37,
     longitude: 127,
-    zoom: 10,
+    zoom: 15,
     bearing: 0,
     pitch: 0,
   });
