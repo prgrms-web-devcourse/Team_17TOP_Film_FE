@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { PreviewBottomSheet } from '../../components/organism';
 import { Button, Modal } from '../../components/atoms';
-import { ModalWrapper, ButtonGroup, ModalText } from './style';
+import { PostCreateBtn, ModalWrapper, ButtonGroup, ModalText } from './style';
 import Map from './Map';
 import { Cookies } from 'react-cookie';
 
@@ -178,6 +178,13 @@ const HomePage = () => {
       ) : (
         ''
       )}
+      <PostCreateBtn
+        buttonType="PrimaryBtn"
+        width={'100%'}
+        onClick={() => navigate(`/post/create`)}
+      >
+        필름 맡기기
+      </PostCreateBtn>
       <Modal visible={modalVisible} onClose={() => setModalVisible(false)}>
         <ModalWrapper>
           <ModalText textType="Heading4">
