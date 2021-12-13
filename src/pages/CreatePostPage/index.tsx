@@ -4,12 +4,14 @@ import FirstStep from './components/FirstStep';
 import SecondStep from './components/SecondStep';
 import { SecondStepData, Location } from './types';
 import ThirdStep from './components/ThirdStep';
+import { useLocalStorage } from '../../hooks';
 
 const CreatePostPage = () => {
   const [step, setStep] = useState(1);
   const [location, setLocation] = useState<Location | null>(null);
   const [secondStepData, setSecondStepData] = useState<SecondStepData>();
   const [availableAt, setAvailableAt] = useState('');
+  const [storedLocation, setStoredLocation] = useLocalStorage<Location | null>('location', null);
 
   const goNextStep = () => {
     if (step === 4) {
@@ -30,6 +32,7 @@ const CreatePostPage = () => {
   };
 
   const handleLocation = (data: Location) => {
+    setStoredLocation(data as { latitude: number; longitude: number });
     setLocation(data);
   };
 
@@ -40,7 +43,11 @@ const CreatePostPage = () => {
   return (
     <CreatePostPageContainer>
       {step === 1 ? (
-        <FirstStep goNextStep={goNextStep} location={location} handleLocation={handleLocation} />
+        <FirstStep
+          goNextStep={goNextStep}
+          location={storedLocation ? storedLocation : location}
+          handleLocation={handleLocation}
+        />
       ) : step === 2 ? (
         <SecondStep
           goNextStep={goNextStep}
