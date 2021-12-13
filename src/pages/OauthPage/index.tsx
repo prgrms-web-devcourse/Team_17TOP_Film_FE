@@ -8,16 +8,14 @@ const OauthPage = () => {
   const navigate = useNavigate();
   const routingBasedOnSignUpStatus = useCallback(async () => {
     const {
-      data: isSignUp,
-      error: { message },
+      data: { isDuplicate },
     } = await isUserSignUpApi();
-    if (message) {
-      console.warn(message);
-    }
 
-    if (isSignUp) {
+    if (isDuplicate) {
+      console.log(isDuplicate);
       return navigate('/');
     }
+    console.log(isDuplicate);
     navigate('/signup');
   }, []);
 
