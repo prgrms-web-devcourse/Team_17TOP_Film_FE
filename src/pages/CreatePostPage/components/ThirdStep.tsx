@@ -1,7 +1,7 @@
 import {
   FormContentWrapper,
   NextStepButton,
-  StepContainer,
+  ThirdStepContainer,
   FormWrapper,
   ThirdStepPostFormContainer,
   DateInput,
@@ -50,7 +50,7 @@ const ThirdStep = ({ latitude, longitude, handleAvailableAt }: ThirdStepProp) =>
   }, []);
 
   return (
-    <StepContainer>
+    <ThirdStepContainer>
       <ThirdStepPostFormContainer>
         <FormWrapper>
           <Text textType="Heading3">사진 찾는 날을 선택 해주세요</Text>
@@ -85,7 +85,7 @@ const ThirdStep = ({ latitude, longitude, handleAvailableAt }: ThirdStepProp) =>
       ) : (
         ''
       )}
-    </StepContainer>
+    </ThirdStepContainer>
   );
 };
 
