@@ -14,7 +14,7 @@ import {
   StepContainer,
   NextStepText,
 } from '../style';
-import { SecondStepData, SecondStepProps } from '../types';
+import { SecondStepProps } from '../types';
 
 const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStepProps) => {
   const [imageURL, setImageURL] = useState('');
