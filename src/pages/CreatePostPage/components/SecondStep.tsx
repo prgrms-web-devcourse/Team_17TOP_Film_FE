@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Modal, Text } from '../../../components/atoms';
+import { Text } from '../../../components/atoms';
 import {
   NextStepButton,
   PreviewImg,
