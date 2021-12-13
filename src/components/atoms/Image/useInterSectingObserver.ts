@@ -1,4 +1,4 @@
-import { Dispatch, MutableRefObject, RefObject, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef } from 'react';
 
 const LOAD_EVENT = '@loadImage';
 
