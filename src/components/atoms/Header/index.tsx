@@ -4,11 +4,21 @@ import RightSide, { Props as RightSideInterface } from './components/RightSide';
 
 interface Props extends LeftSideInterface, RightSideInterface {
   midText?: string;
+  bgColor?: string;
+  [x: string]: any;
 }
 
-const Header = ({ leftComp, handleLeftEvent, midText, rightComp, handleRightEvent }: Props) => {
+const Header = ({
+  leftComp,
+  handleLeftEvent,
+  midText,
+  rightComp,
+  handleRightEvent,
+  bgColor = 'white',
+  ...props
+}: Props) => {
   return (
-    <Wrapper>
+    <Wrapper bgColor={bgColor} {...props}>
       {midText && <MiddleSide>midText</MiddleSide>}
       {(leftComp || rightComp) && (
         <Side>
