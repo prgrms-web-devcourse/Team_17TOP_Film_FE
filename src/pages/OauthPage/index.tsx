@@ -7,7 +7,13 @@ const OauthPage = () => {
   const test = useLocation();
   const navigate = useNavigate();
   const routingBasedOnSignUpStatus = useCallback(async () => {
-    const isSignUp = await isUserSignUpApi();
+    const {
+      data: isSignUp,
+      error: { message },
+    } = await isUserSignUpApi();
+    if (message) {
+      console.warn(message);
+    }
 
     if (isSignUp) {
       return navigate('/');

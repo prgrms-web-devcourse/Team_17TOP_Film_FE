@@ -1,12 +1,8 @@
 import { authInstance } from './config/createInstance';
+import { ErrorType } from './config/type';
 
-const isUserSignUpApi = async () => {
-  try {
-    return authInstance.get('/api/v1/users/duplicate');
-  } catch (error) {
-    console.error(error);
-  }
-};
+const isUserSignUpApi = async () =>
+  authInstance.get<{ data: boolean; error: ErrorType }>('/api/v1/users/duplicate');
 
 const signUpApi = async (nickname: string) => {
   try {
