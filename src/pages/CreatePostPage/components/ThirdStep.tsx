@@ -11,15 +11,21 @@ import {
 import { Text } from '../../../components/atoms';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { ThirdStepProp } from '../types';
+import ConfirmModal from './ConfirmModal';
 
 const ThirdStep = ({ latitude, longitude, handleAvailableAt }: ThirdStepProp) => {
   const [date, setDate] = useState('');
   const [state, setState] = useState({ year: '', month: '', day: '' });
   const [minDay, setMinDay] = useState('');
   const dateInputRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const saveAvailableAt = () => {
     handleAvailableAt(date);
+  };
+
+  const handleIsModalClose = () => {
+    setIsModalOpen(false);
   };
 
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,9 +73,18 @@ const ThirdStep = ({ latitude, longitude, handleAvailableAt }: ThirdStepProp) =>
           사진이 나올 예정입니다.
         </GuideText>
       </ThirdStepPostFormContainer>
-      <NextStepButton buttonType="PrimaryBtn" onClick={saveAvailableAt}>
+      <NextStepButton buttonType="PrimaryBtn" onClick={() => setIsModalOpen(true)}>
         <NextStepText textType="Paragraph1">다음</NextStepText>
       </NextStepButton>
+      {isModalOpen ? (
+        <ConfirmModal
+          handleIsModalClose={handleIsModalClose}
+          isModalOpen={isModalOpen}
+          saveAvailableAt={saveAvailableAt}
+        ></ConfirmModal>
+      ) : (
+        ''
+      )}
     </StepContainer>
   );
 };

@@ -153,6 +153,27 @@ const NextStepText = styled(Text)`
   color: white;
 `;
 
+const ButtonWrapper = styled.div`
+  margin-top: 18px;
+`;
+
+const ModalNoticeContainer = styled.div`
+  width: 350px;
+  height: 162px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 22px 6px 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+`;
+
+const ModalNoticeText = styled(Text)`
+  text-align: center;
+  line-height: 1.4;
+`;
+
 export {
   CreatePostPageContainer,
   NextStepButton,
@@ -172,4 +193,7 @@ export {
   DateInput,
   GuideText,
   NextStepText,
+  ButtonWrapper,
+  ModalNoticeContainer,
+  ModalNoticeText,
 };
