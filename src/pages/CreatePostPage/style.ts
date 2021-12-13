@@ -69,6 +69,10 @@ const FormTextArea = styled.textarea`
     color: ${({ theme }) => theme.colors.gray500};
   }
   box-sizing: border-box;
+  :focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 const FormInput = styled.input`
@@ -82,6 +86,10 @@ const FormInput = styled.input`
     color: ${({ theme }) => theme.colors.gray500};
   }
   box-sizing: border-box;
+  :focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 const FormContentWrapper = styled.div`
@@ -176,6 +184,21 @@ const ModalNoticeText = styled(Text)`
   line-height: 1.4;
 `;
 
+const AlertContent = styled(Text)`
+  color: ${({ theme }) => theme.colors.red900};
+  margin-bottom: 16px;
+`;
+
+const AlertTitle = styled(Text)`
+  line-height: 1.4;
+`;
+const AlertModalTextContainer = styled.div`
+  padding: 16px;
+  width: 350px;
+  height: 120px;
+  text-align: center;
+`;
+
 export {
   CreatePostPageContainer,
   NextStepButton,
@@ -198,4 +221,7 @@ export {
   ButtonWrapper,
   ModalNoticeContainer,
   ModalNoticeText,
+  AlertContent,
+  AlertTitle,
+  AlertModalTextContainer,
 };
