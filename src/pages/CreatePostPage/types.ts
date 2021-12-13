@@ -1,5 +1,5 @@
 export interface SecondStepData {
-  imageFiles: { imageOrder: number; image: File | undefined }[];
+  image: File | undefined | string;
   title: string;
   previewText: string;
   content: string;
@@ -26,7 +26,9 @@ export interface ConfirmModalProps {
 export interface SecondStepProps {
   goNextStep(): void;
   goPrevStep(): void;
-  handleSecondStepData(obj: SecondStepData): void;
+  handleSecondStepData(data: SecondStepData): void;
+  handleStoredSecondStepData(data: SecondStepData): void;
+  storedSecondStepData: SecondStepData | null;
 }
 
 export interface AlertModalProps {
