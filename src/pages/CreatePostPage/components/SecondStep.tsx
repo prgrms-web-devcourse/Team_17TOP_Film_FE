@@ -16,6 +16,7 @@ import {
 } from '../style';
 import { SecondStepProps } from '../types';
 import AlertModal from './AlertModal';
+import UploadHeader from './UploadHeader';
 
 const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStepProps) => {
   const [imageURL, setImageURL] = useState('');
@@ -86,6 +87,7 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStep
 
   return (
     <SecondStepContainer>
+      <UploadHeader handleBackBtn={goPrevStep} />
       <PostFormContainer>
         <Text textType="Heading3">필름에 내용을 담아주세요</Text>
         <FormContentWrapper>
