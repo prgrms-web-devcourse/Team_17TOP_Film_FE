@@ -15,3 +15,9 @@ export interface ThirdStepProp {
   latitude: number | undefined;
   longitude: number | undefined;
 }
+
+export interface ConfirmModalProps {
+  isModalOpen: true;
+  handleIsModalClose(): void;
+  saveAvailableAt(): void;
+}
