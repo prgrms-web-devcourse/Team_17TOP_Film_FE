@@ -14,15 +14,9 @@ import {
   StepContainer,
   NextStepText,
 } from '../style';
-import { SecondStepData } from '../types';
+import { SecondStepData, SecondStepProps } from '../types';
 
-interface Props {
-  goNextStep(): void;
-  goPrevStep(): void;
-  handleSecondStepData(obj: SecondStepData): void;
-}
-
-const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => {
+const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStepProps) => {
   const [imageURL, setImageURL] = useState('');
   const [file, setFile] = useState<File>();
   const [state, setState] = useState({ title: '', previewText: '', content: '' });

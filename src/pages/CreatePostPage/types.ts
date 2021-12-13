@@ -21,3 +21,9 @@ export interface ConfirmModalProps {
   handleIsModalClose(): void;
   saveAvailableAt(): void;
 }
+
+export interface SecondStepProps {
+  goNextStep(): void;
+  goPrevStep(): void;
+  handleSecondStepData(obj: SecondStepData): void;
+}
