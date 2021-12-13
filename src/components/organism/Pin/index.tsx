@@ -1,3 +1,4 @@
+import React from 'react';
 import PinOpen from '../../../assets/icons/icon_marker_open.svg';
 import PinClose from '../../../assets/icons/icon_marker_close.svg';
 import PinSelectedOpen from '../../../assets/icons/icon_marker_open_selected.svg';
@@ -26,4 +27,4 @@ const Pin = ({ selected, state, ...props }: PinProps) => {
   );
 };
 
-export default Pin;
+export default React.memo(Pin);

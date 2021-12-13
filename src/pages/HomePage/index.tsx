@@ -1,132 +1,155 @@
-import { useState, useEffect, useCallback } from 'react';
-import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
-import { useParams, Link, Route, Routes } from 'react-router-dom';
-import { Pin, PreviewBottomSheet } from '../../components/organism';
+import { useState, useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { PreviewBottomSheet } from '../../components/organism';
+
+import Map from './Map';
 
 const dummy = [
   {
     postId: 0,
     state: 'Closed',
-    location: [
+    location: {
+      latitude: '37.491837217869616',
+      longitude: '127.02959879978368',
+    },
+  },
+  {
+    postId: 1,
+    state: 'Opend',
+    location: {
+      latitude: '37.48802955953209',
+      longitude: '127.02570733476914',
+    },
+  },
+  {
+    postId: 2,
+    state: 'Openable',
+    location: {
+      latitude: '37.48722960663839',
+      longitude: '127.0299415713133',
+    },
+  },
+];
+const PreviewPosts = [
+  {
+    postId: 0,
+    title: '제목입니당',
+    previewText: '엿보기 문구입니당',
+    availableAt: 'yyyy-MM-dd',
+    state: 'Closed',
+    location: {
+      latitude: '37.491837217869616',
+      longitude: '127.02959879978368',
+    },
+    authorityCount: 3,
+    authorityImageList: [
       {
-        latitude: '37.491837217869616',
-        longitude: '127.02959879978368',
+        imageOrder: 0,
+        authorityId: 0,
+        imageUrl: '',
+      },
+      {
+        imageOrder: 0,
+        authorityId: 0,
+        imageUrl: '',
       },
     ],
   },
   {
     postId: 1,
-    state: 'Opend',
-    location: [
+    title: '제목입니당',
+    previewText: '엿보기 문구입니당',
+    availableAt: 'yyyy-MM-dd',
+    state: 'Closed',
+    location: {
+      latitude: '37.48802955953209',
+      longitude: '127.02570733476914',
+    },
+    authorityCount: 3,
+    authorityImageList: [
       {
-        latitude: '37.48802955953209',
-        longitude: '127.02570733476914',
+        imageOrder: 0,
+        authorityId: 0,
+        imageUrl: '',
+      },
+      {
+        imageOrder: 0,
+        authorityId: 0,
+        imageUrl: '',
       },
     ],
   },
   {
     postId: 2,
-    state: 'Openable',
-    location: [
+    title: '제목입니당',
+    previewText: '엿보기 문구입니당',
+    availableAt: 'yyyy-MM-dd',
+    state: 'Closed',
+    location: {
+      latitude: '37.48722960663839',
+      longitude: '127.0299415713133',
+    },
+    authorityCount: 3,
+    authorityImageList: [
       {
-        latitude: '37.48722960663839',
-        longitude: '127.0299415713133',
+        imageOrder: 0,
+        authorityId: 0,
+        imageUrl: '',
+      },
+      {
+        imageOrder: 0,
+        authorityId: 0,
+        imageUrl: '',
       },
     ],
   },
 ];
-const dummyPost = {
-  postId: 0,
-  title: '제목입니당',
-  previewText: '엿보기 문구입니당',
-  availableAt: 'yyyy-MM-dd',
-  state: 'Closed',
-  location: {
-    latitude: '37.491837217869616',
-    longitude: '127.02959879978368',
-  },
-  authorityCount: 3,
-  authorityImageList: [
-    {
-      imageOrder: 0,
-      authorityId: 0,
-      imageUrl: '',
-    },
-    {
-      imageOrder: 0,
-      authorityId: 0,
-      imageUrl: '',
-    },
-  ],
-};
-interface Location {
-  latitude: string;
-  longitude: string;
-}
-
-interface Post {
+interface PreviewPost {
   postId: number;
+  title: string;
+  previewText: string;
+  availableAt: string;
   state: string;
-  location: Location[];
+  location: {
+    latitude: string;
+    longitude: string;
+  };
+  authorityCount: number;
+  authorityImageList: {
+    imageOrder: number;
+    authorityId: number;
+    imageUrl: string;
+  }[];
 }
 
 const HomePage = () => {
-  const [viewport, setViewport] = useState({
-    latitude: 37,
-    longitude: 127,
-    zoom: 5,
-    bearing: 0,
-    pitch: 0,
-  });
-  const [selectedMarker, setselectedMarker] = useState<Post | null>(null);
-  const { id } = useParams();
-  const handleSelectedMarker = useCallback((data: Post) => {
-    setselectedMarker(data);
-  }, []);
+  const { pathname } = useLocation();
+  const [selectedPost, setselectedPost] = useState<PreviewPost | null>(null);
 
-  const positionOptions = { enableHighAccuracy: true };
+  const handleSelectedPost = (postid: number) => {
+    // 엿보기 페이지 api 통신
+    setselectedPost(PreviewPosts[postid]);
+  };
 
   useEffect(() => {
-    !id ? setselectedMarker(null) : '';
-  }, [id]);
+    pathname.slice(1) ? handleSelectedPost(parseInt(pathname.slice(1))) : setselectedPost(null);
+  }, [pathname]);
 
   return (
     <div>
-      <MapGL
-        {...viewport}
-        width="100vw"
-        height="100vh"
-        mapStyle="mapbox://styles/mapbox/light-v10"
-        onViewportChange={setViewport}
-        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-      >
-        <GeolocateControl
-          style={{ top: 0, left: 0, margin: 10 }}
-          positionOptions={positionOptions}
-          trackUserLocation
-          auto
-        />
-        {dummy.map((data, i) => (
-          <Marker
-            key={i}
-            latitude={parseFloat(data.location[0].latitude)}
-            longitude={parseFloat(data.location[0].longitude)}
-            onClick={() => {
-              handleSelectedMarker(data);
-            }}
-          >
-            <Link to={`${data.postId}`}>
-              <Pin
-                selected={selectedMarker?.postId === data.postId ? true : false}
-                state={data.state}
-              ></Pin>
-            </Link>
-          </Marker>
-        ))}
-      </MapGL>
-      <Routes>
-        <Route path=":id" element={<PreviewBottomSheet previewPost={dummyPost} />} />
-      </Routes>
+      <Map
+        currentLocation={!pathname.slice(1) ? true : false}
+        selectedPost={selectedPost}
+        postList={dummy}
+        onClick={handleSelectedPost}
+      />
+      {selectedPost ? (
+        <Routes>
+          <Route path=":id" element={<PreviewBottomSheet previewPost={selectedPost} />} />
+        </Routes>
+      ) : (
+        ''
+      )}
     </div>
   );
 };
