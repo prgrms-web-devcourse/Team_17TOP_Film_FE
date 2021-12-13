@@ -1,8 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
 import { Pin } from '../../components/organism';
-
 interface Post {
   postId: number;
   state: string;
@@ -11,14 +10,34 @@ interface Post {
     longitude: string;
   };
 }
-interface Props {
-  location?: {
+interface PreviewPost {
+  postId: number;
+  title: string;
+  previewText: string;
+  availableAt: string;
+  state: string;
+  location: {
     latitude: string;
     longitude: string;
   };
-  postList: Post[];
+  authorityCount: number;
+  authorityImageList: {
+    imageOrder: number;
+    authorityId: number;
+    imageUrl: string;
+  }[];
 }
-const Map = ({ location, postList }: Props) => {
+interface Props {
+  currentLocation: boolean;
+  selectedPost: PreviewPost | null;
+  postList: Post[];
+  onClick: (id: number) => void;
+}
+const Map = ({ currentLocation, selectedPost, postList, onClick }: Props) => {
+  const positionOptions = { enableHighAccuracy: true };
+  const navigate = useNavigate();
+
+  const [locationControl, setLocationControl] = useState(false);
   const [viewport, setViewport] = useState({
     latitude: 37,
     longitude: 127,
@@ -26,30 +45,28 @@ const Map = ({ location, postList }: Props) => {
     bearing: 0,
     pitch: 0,
   });
-  const [selectedMarker, setselectedMarker] = useState<Post | null>(null);
 
-  const handleSelectedMarker = useCallback((data: Post) => {
-    setselectedMarker(data);
+  const handleSelectedMarker = useCallback((id: number) => {
+    // 상위 컴포넌트에 선택된 포스트 id 알려주기
+    onClick(id);
   }, []);
 
-  const positionOptions = { enableHighAccuracy: true };
-
-  const { id } = useParams();
-  const navigate = useNavigate();
-
+  // 현재위치 기반으로 지도를 띄워야 하는 경우
   useEffect(() => {
-    !id ? setselectedMarker(null) : '';
-  }, [id]);
-
-  useEffect(() => {
-    if (location) {
-      setViewport((prev) => ({
-        ...prev,
-        latitude: parseFloat(location.latitude),
-        longitude: parseFloat(location.longitude),
-      }));
+    if (currentLocation) {
+      setLocationControl(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (selectedPost) {
+      setViewport((prev) => ({
+        ...prev,
+        latitude: parseFloat(selectedPost.location.latitude),
+        longitude: parseFloat(selectedPost.location.longitude),
+      }));
+    }
+  }, [selectedPost]);
 
   return (
     <MapGL
@@ -64,7 +81,7 @@ const Map = ({ location, postList }: Props) => {
         style={{ top: 0, left: 0, margin: 10 }}
         positionOptions={positionOptions}
         trackUserLocation
-        auto
+        auto={locationControl}
       />
       {postList.map((data, i) => (
         <Marker
@@ -72,12 +89,12 @@ const Map = ({ location, postList }: Props) => {
           latitude={parseFloat(data.location.latitude)}
           longitude={parseFloat(data.location.longitude)}
           onClick={() => {
-            handleSelectedMarker(data);
+            handleSelectedMarker(data.postId);
             navigate(`${data.postId}`);
           }}
         >
           <Pin
-            selected={selectedMarker?.postId === data.postId ? true : false}
+            selected={selectedPost?.postId === data.postId ? true : false}
             state={data.state}
           ></Pin>
         </Marker>
