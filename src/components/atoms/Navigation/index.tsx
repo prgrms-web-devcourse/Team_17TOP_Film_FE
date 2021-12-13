@@ -6,7 +6,14 @@ import { Props as FooterNavProps } from './FooterNavigation';
 interface Props extends HeaderNavProps, FooterNavProps {
   navType: 'header' | 'footer';
 }
-const Navigation = ({ navType, leftSide, rightSide, middleSide, contents, bgColor }: Props) => {
+const Navigation = ({
+  navType,
+  leftSide,
+  rightSide,
+  middleSide,
+  contents,
+  bgColor = 'white',
+}: Props) => {
   const isHeader = navType == 'header';
   return (
     <>
@@ -15,6 +22,7 @@ const Navigation = ({ navType, leftSide, rightSide, middleSide, contents, bgColo
           leftSide={leftSide}
           middleSide={middleSide}
           rightSide={rightSide}
+          bgColor={bgColor}
           gap={20}
         />
       )}

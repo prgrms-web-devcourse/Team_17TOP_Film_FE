@@ -10,7 +10,7 @@ const Wrapper = styled.div<{ bgColor?: string }>`
   justify-content: center;
   align-items: center;
   box-shadow: ${({ theme }) => theme.colors.shadow};
-  background-color: bgColor;
+  background-color: ${({ bgColor }) => bgColor};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +28,4 @@ const Side = styled.div`
   align-items: center;
 `;
 
-// const RightSide = styled(LeftSide)`
-//   margin: 0 28px 0 auto;
-// `;
 export { Wrapper, MiddleSide, Side };
