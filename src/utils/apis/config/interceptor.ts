@@ -15,7 +15,8 @@ const authInterceptor = (instance: AxiosInstance) => {
     (res: AxiosResponse) => ({
       ...res,
       error: {
-        code: res.status,
+        status: res.status,
+        errorCode: null,
         errorMessage: null,
       },
     }),
@@ -24,7 +25,8 @@ const authInterceptor = (instance: AxiosInstance) => {
         ...res,
         data: null,
         error: {
-          code: res.response.status,
+          status: res.response.status,
+          errorCode: res.response.data.code,
           errorMessage: res.response.data.message,
         },
       };
