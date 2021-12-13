@@ -11,10 +11,11 @@ export interface Location {
 }
 
 export interface ThirdStepProp {
-  handleAvailableAt(data: string): void;
+  handleAvailableAt(data: string | null): void;
   latitude: number | undefined;
   longitude: number | undefined;
   goPrevStep(): void;
+  storedAvailableAt: string | null;
 }
 
 export interface ConfirmModalProps {

@@ -10,10 +10,14 @@ const CreatePostPage = () => {
   const [step, setStep] = useState(1);
   const [location, setLocation] = useState<Location | null>(null);
   const [secondStepData, setSecondStepData] = useState<SecondStepData>();
-  const [availableAt, setAvailableAt] = useState('');
+  const [availableAt, setAvailableAt] = useState<string | null>(null);
   const [storedLocation, setStoredLocation] = useLocalStorage<Location | null>('location', null);
   const [storedSecondStepData, setStoredSecondStepData] = useLocalStorage<SecondStepData | null>(
     'secondStepData',
+    null,
+  );
+  const [storedAvailableAt, setStoredAvailiableAt] = useLocalStorage<string | null>(
+    'availableAt',
     null,
   );
   const goNextStep = () => {
@@ -39,8 +43,9 @@ const CreatePostPage = () => {
     setLocation(data);
   };
 
-  const handleAvailableAt = (data: string) => {
+  const handleAvailableAt = (data: string | null) => {
     setAvailableAt(data);
+    setStoredAvailiableAt(data);
   };
 
   const handleStoredSecondStepData = (data: SecondStepData) => {
@@ -69,6 +74,7 @@ const CreatePostPage = () => {
           longitude={location?.longitude}
           handleAvailableAt={handleAvailableAt}
           goPrevStep={goPrevStep}
+          storedAvailableAt={storedAvailableAt}
         />
       )}
     </CreatePostPageContainer>
