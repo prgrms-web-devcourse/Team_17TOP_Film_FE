@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
-import { Text, Button } from '../../components/atoms';
+import { Text, Button, Header } from '../../components/atoms';
+
+const HomePageHeader = styled(Header)`
+  z-index: 10;
+`;
 
 const PostCreateBtn = styled(Button)`
   position: fixed;
@@ -24,4 +28,4 @@ const ButtonGroup = styled.div`
   align-items: center;
   gap: 8px;
 `;
-export { PostCreateBtn, ModalWrapper, ModalText, ButtonGroup };
+export { HomePageHeader, PostCreateBtn, ModalWrapper, ModalText, ButtonGroup };

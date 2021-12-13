@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { PreviewBottomSheet } from '../../components/organism';
 import { Button, Modal } from '../../components/atoms';
-import { PostCreateBtn, ModalWrapper, ButtonGroup, ModalText } from './style';
+import { HomePageHeader, PostCreateBtn, ModalWrapper, ButtonGroup, ModalText } from './style';
 import Map from './Map';
 import { Cookies } from 'react-cookie';
 
@@ -148,6 +148,10 @@ const HomePage = () => {
   const handleOpenablePostsModal = () => {
     cookies.set('invisibleModal', true, { maxAge: 3600 });
   };
+  const handleLogout = () => {
+    // 로그아웃 api
+    console.log('로그아웃');
+  };
 
   useEffect(() => {
     // Map 리스트 api 통신
@@ -165,6 +169,7 @@ const HomePage = () => {
 
   return (
     <div>
+      <HomePageHeader rightComp="lock" handleRightEvent={handleLogout} midText="내 필름" />
       <Map
         currentLocation={!pathname.slice(1) ? true : false}
         selectedPost={selectedPost}
