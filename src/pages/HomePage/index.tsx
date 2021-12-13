@@ -4,6 +4,7 @@ import { PreviewBottomSheet } from '../../components/organism';
 import { Button, Modal } from '../../components/atoms';
 import { ModalWrapper, ButtonGroup, ModalText } from './style';
 import Map from './Map';
+import { Cookies } from 'react-cookie';
 
 const dummy = [
   {
@@ -132,11 +133,8 @@ interface PreviewPost {
   }[];
 }
 
-// TODO
-// 보러가기 클릭 시 엿보기 route 처리, Map에 해당 포스트 넘기기
-// 모달에서 다음에 보기 클릭 시 Map에 위치 props 넘기지 않기, localstorage에 저장(하루동안 모달 다시 보여주지 않기)
-
 const HomePage = () => {
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [selectedPost, setselectedPost] = useState<PreviewPost | null>(null);
@@ -147,13 +145,17 @@ const HomePage = () => {
     // 엿보기 페이지 api 통신
     setselectedPost(PreviewPosts[postid]);
   };
+  const handleOpenablePostsModal = () => {
+    cookies.set('invisibleModal', true, { maxAge: 3600 });
+  };
 
   useEffect(() => {
     // Map 리스트 api 통신
-    // list 받으면 find로 Openable 체크
-    const currentOpenablePosts = dummy.filter((post) => post.state === 'Openable');
-    setOpenablePosts(currentOpenablePosts);
-    currentOpenablePosts ? setModalVisible(true) : '';
+    if (!cookies.get('invisibleModal')) {
+      const currentOpenablePosts = dummy.filter((post) => post.state === 'Openable');
+      setOpenablePosts(currentOpenablePosts);
+      currentOpenablePosts ? setModalVisible(true) : '';
+    }
   }, []);
 
   useEffect(() => {
@@ -181,7 +183,14 @@ const HomePage = () => {
             오늘 찾을 수 있는 사진이 {openablePosts?.length}개 있어요!
           </ModalText>
           <ButtonGroup>
-            <Button buttonType="SecondaryBtn" width={'100%'} onClick={() => setModalVisible(false)}>
+            <Button
+              buttonType="SecondaryBtn"
+              width={'100%'}
+              onClick={() => {
+                setModalVisible(false);
+                handleOpenablePostsModal();
+              }}
+            >
               나중에 볼래요
             </Button>
             <Button
