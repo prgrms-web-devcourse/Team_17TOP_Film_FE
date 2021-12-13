@@ -10,8 +10,6 @@ interface PinProps {
   state: string;
 }
 const Pin = ({ selected, state, ...props }: PinProps) => {
-  console.log('pin');
-
   return (
     <div {...props}>
       {selected ? (
