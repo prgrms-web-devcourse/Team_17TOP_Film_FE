@@ -1,7 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { Certificate } from 'crypto';
 import { getLocalStorage } from '../../getLocalStorage';
-import { CustomResponseFormat } from './type';
 
 const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use((config) => {
@@ -14,22 +12,23 @@ const authInterceptor = (instance: AxiosInstance) => {
   });
 
   instance.interceptors.response.use(
-    (res) => ({
+    (res: AxiosResponse) => ({
       ...res,
       error: {
         code: res.status,
-        message: null,
+        errorMessage: null,
       },
     }),
     (res) => {
-      console.error(res);
-      return {
+      const result = {
         ...res,
+        data: null,
         error: {
-          code: res.status,
-          message: null,
+          code: res.response.status,
+          errorMessage: res.response.data.message,
         },
       };
+      return Promise.resolve(result);
     },
   );
 };
