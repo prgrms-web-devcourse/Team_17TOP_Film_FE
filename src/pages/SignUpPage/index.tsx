@@ -18,8 +18,7 @@ const SignUpPage = () => {
     if (nicknameErrorMsg) {
       return setInpError(nicknameErrorMsg);
     }
-    const token = JSON.parse(localStorage.getItem('token') as string);
-    signUpApi(nickname, token);
+    signUpApi(nickname);
     setNickname('');
     setInpError('');
   };
