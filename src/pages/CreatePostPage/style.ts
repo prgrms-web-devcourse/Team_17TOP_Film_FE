@@ -69,6 +69,10 @@ const FormTextArea = styled.textarea`
     color: ${({ theme }) => theme.colors.gray500};
   }
   box-sizing: border-box;
+  :focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 const FormInput = styled.input`
@@ -82,6 +86,10 @@ const FormInput = styled.input`
     color: ${({ theme }) => theme.colors.gray500};
   }
   box-sizing: border-box;
+  :focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 const FormContentWrapper = styled.div`
