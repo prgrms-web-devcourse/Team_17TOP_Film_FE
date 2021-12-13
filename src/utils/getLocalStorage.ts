@@ -1,6 +1,6 @@
-const getLocalStorage = (tokenName: string, errorFallback: () => void) => {
+const getLocalStorage = (key: string, errorFallback: () => void) => {
   try {
-    const token = localStorage.getItem(tokenName);
+    const token = localStorage.getItem(key);
     if (!token) {
       return errorFallback();
     }
