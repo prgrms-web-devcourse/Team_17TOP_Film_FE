@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Text } from '../../../components/atoms';
+import { Modal, Text } from '../../../components/atoms';
 import {
   NextStepButton,
   PreviewImg,
@@ -15,11 +15,14 @@ import {
   NextStepText,
 } from '../style';
 import { SecondStepProps } from '../types';
+import AlertModal from './AlertModal';
 
 const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStepProps) => {
   const [imageURL, setImageURL] = useState('');
   const [file, setFile] = useState<File>();
   const [state, setState] = useState({ title: '', previewText: '', content: '' });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [alertText, setAlertText] = useState('');
 
   const handleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -56,10 +59,23 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStep
   }, [file]);
 
   const checkForm = () => {
-    if (!(file || state.content)) {
-      return false;
+    const { title, previewText } = state;
+    if (title && previewText && (file || state.content)) {
+      return saveFormData();
     }
-    return true;
+
+    const alertTextArr = [];
+    if (!title) {
+      alertTextArr.push('"필름 이름"');
+    }
+    if (!previewText) {
+      alertTextArr.push('"엿보기 문구"');
+    }
+    if (!(file || state.content)) {
+      alertTextArr.push('"사진과 내용중 한가지"');
+    }
+    setAlertText(`${alertTextArr.join(', ')}`);
+    return setIsModalOpen(true);
   };
 
   const saveFormData = () => {
@@ -120,14 +136,18 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStep
           ></FormTextArea>
         </FormContentWrapper>
       </PostFormContainer>
-      <NextStepButton
-        buttonType="PrimaryBtn"
-        onClick={() => {
-          checkForm() ? saveFormData() : alert('이미지를 업로드 하거나 내용을 입력해주세요');
-        }}
-      >
+      <NextStepButton buttonType="PrimaryBtn" onClick={checkForm}>
         <NextStepText textType="Paragraph1">다음</NextStepText>
       </NextStepButton>
+      {isModalOpen ? (
+        <AlertModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          alertText={alertText}
+        />
+      ) : (
+        <></>
+      )}
     </StepContainer>
   );
 };

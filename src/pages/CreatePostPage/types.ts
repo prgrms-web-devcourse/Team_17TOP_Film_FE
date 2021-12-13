@@ -27,3 +27,9 @@ export interface SecondStepProps {
   goPrevStep(): void;
   handleSecondStepData(obj: SecondStepData): void;
 }
+
+export interface AlertModalProps {
+  isModalOpen: boolean;
+  alertText: string;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
