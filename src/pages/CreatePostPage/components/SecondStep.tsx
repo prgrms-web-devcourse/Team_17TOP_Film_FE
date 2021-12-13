@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Text } from '../../components/atoms';
+import { Text } from '../../../components/atoms';
 import {
   NextStepButton,
   PreviewImg,
@@ -9,11 +9,12 @@ import {
   FormInput,
   FormContentWrapper,
   PostFormContainer,
-  SecondStepContainer,
   UploadTextWrapper,
   DeleteImgButton,
-} from './style';
-import { SecondStepData } from './types';
+  StepContainer,
+  NextStepText,
+} from '../style';
+import { SecondStepData } from '../types';
 
 interface Props {
   goNextStep(): void;
@@ -68,13 +69,13 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => 
   };
 
   const saveFormData = () => {
-    const data = { ...state, imageFiles: [file] };
+    const data = { ...state, imageFiles: [{ imageOrder: 0, image: file }] };
     handleSecondStepData(data);
     goNextStep();
   };
 
   return (
-    <SecondStepContainer>
+    <StepContainer>
       <button onClick={goPrevStep}>뒤로가기</button>
       <PostFormContainer>
         <Text textType="Heading3">필름에 내용을 담아주세요</Text>
@@ -131,9 +132,9 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: Props) => 
           checkForm() ? saveFormData() : alert('이미지를 업로드 하거나 내용을 입력해주세요');
         }}
       >
-        <Text textType="Paragraph1">다음</Text>
+        <NextStepText textType="Paragraph1">다음</NextStepText>
       </NextStepButton>
-    </SecondStepContainer>
+    </StepContainer>
   );
 };
 

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from '../../components/atoms';
-import { NextStepButton, MapHeaderText } from './style';
+import { NextStepButton, MapHeaderText, NextStepText } from '../style';
 import Map from './Map';
-import { Location } from './types';
+import { Location } from '../types';
 
 interface Props {
   goNextStep(): void;
@@ -61,7 +60,7 @@ const FirstStep = ({ goNextStep, location, handleLocation }: Props) => {
         onChangeMarker={handleMarker}
       />
       <NextStepButton buttonType="PrimaryBtn" onClick={saveLocation}>
-        <Text textType="Paragraph1">여기에 만들래요</Text>
+        <NextStepText textType="Paragraph1">여기에 만들래요</NextStepText>
       </NextStepButton>
     </>
   );
