@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Header, BackBtn, SignUpFormWrapper, Label, Input, FooterBtn, ErrorText } from './style';
 import { BiLeftArrowAlt } from 'react-icons/bi';
-import { validateNickname } from './util';
+import { validateNickname, handleSignUpApiError } from './util';
 import { signUpApi } from '../../utils/apis/user';
 
 const SignUpPage = () => {
@@ -11,6 +11,7 @@ const SignUpPage = () => {
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
   };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -18,7 +19,12 @@ const SignUpPage = () => {
     if (nicknameErrorMsg) {
       return setInpError(nicknameErrorMsg);
     }
-    signUpApi(nickname);
+
+    const { data, error } = await signUpApi(nickname);
+    if (!data) {
+      const { errorCode } = error;
+      return handleSignUpApiError(errorCode);
+    }
     setNickname('');
     setInpError('');
   };
