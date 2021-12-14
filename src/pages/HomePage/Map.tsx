@@ -2,31 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
 import { Pin } from '../../components/organism';
-interface Post {
-  postId: number;
-  state: string;
-  location: {
-    latitude: string;
-    longitude: string;
-  };
-}
-interface PreviewPost {
-  postId: number;
-  title: string;
-  previewText: string;
-  availableAt: string;
-  state: string;
-  location: {
-    latitude: string;
-    longitude: string;
-  };
-  authorityCount: number;
-  authorityImageList: {
-    imageOrder: number;
-    authorityId: number;
-    imageUrl: string;
-  }[];
-}
+import { Post, PreviewPost } from '../../utils/apis/post/type';
 interface Props {
   currentLocation: boolean;
   selectedPost: PreviewPost | null;
