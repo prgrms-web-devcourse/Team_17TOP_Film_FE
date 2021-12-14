@@ -39,7 +39,7 @@ const CreatePostPage = () => {
   };
 
   const handleLocation = (data: Location) => {
-    setStoredLocation(data as { latitude: number; longitude: number });
+    setStoredLocation(data as Location);
     setLocation(data);
   };
 
