@@ -22,7 +22,7 @@ const ThirdStep = ({
   storedAvailableAt,
   handleIsConfirm,
 }: ThirdStepProp) => {
-  const [date, setDate] = useState(storedAvailableAt);
+  const [date, setDate] = useState(storedAvailableAt || '');
   const [state, setState] = useState({ year: '', month: '', day: '' });
   const [minDay, setMinDay] = useState('');
   const dateInputRef = useRef(null);
