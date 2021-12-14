@@ -1,11 +1,13 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Header, BackBtn, SignUpFormWrapper, Label, Input, FooterBtn, ErrorText } from './style';
 import { BiLeftArrowAlt } from 'react-icons/bi';
-import { validateNickname, handleSignUpApiError } from './util';
-import { signUpApi } from '../../utils/apis/user';
+import { validateNickname } from './util/util';
 import { useUserInfo } from '../../contexts/UserProvider';
+import { useSignUpApi } from './util/handleApi';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const { saveAllUserInfo } = useUserInfo();
   const [nickname, setNickname] = useState('');
   const [inpError, setInpError] = useState('');
@@ -22,16 +24,12 @@ const SignUpPage = () => {
       return setInpError(nicknameErrorMsg);
     }
 
-    const { data: userData, error } = await signUpApi(nickname);
+    const userData = await useSignUpApi(nickname);
     if (!userData) {
-      const { errorCode } = error;
-      return handleSignUpApiError(errorCode);
+      return;
     }
-
     saveAllUserInfo(userData);
-
-    setNickname('');
-    setInpError('');
+    navigate('/');
   };
 
   return (
