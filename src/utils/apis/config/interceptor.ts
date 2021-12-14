@@ -26,8 +26,8 @@ const authInterceptor = (instance: AxiosInstance) => {
         data: null,
         error: {
           status: res.response.status,
-          errorCode: res.response.data.code,
-          errorMessage: res.response.data.message,
+          errorCode: res?.response?.data?.code || null,
+          errorMessage: res?.response?.data?.message || '예기치 못한 에러입니다.',
         },
       };
       return Promise.resolve(result);
