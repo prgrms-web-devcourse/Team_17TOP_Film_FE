@@ -1,12 +1,12 @@
 import { authInstance } from '../config/createInstance';
-import { PostList, PreviewPost } from './type';
+import { PostListApi, PreviewPostApi } from './type';
 
-const getPostList = async () => {
-  return authInstance.get<PostList>(`/api/v1/maps`);
+const getPostListApi = async () => {
+  return authInstance.get<PostListApi>(`/api/v1/maps`);
 };
 
-const getPreviewPost = async (postId: number) => {
-  return authInstance.get<PreviewPost>(`/api/v1/posts/${postId}`);
+const getPreviewPostApi = async (postId: number) => {
+  return authInstance.get<PreviewPostApi>(`/api/v1/posts/${postId}`);
 };
 
-export { getPostList, getPreviewPost };
+export { getPostListApi, getPreviewPostApi };
