@@ -22,7 +22,7 @@ const CreatePostPageContainer = styled.div`
   position: relative;
 `;
 const NextStepButton = styled(Button)`
-  position: sticky;
+  position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 2;
@@ -68,7 +68,6 @@ const FormTextArea = styled.textarea`
   ::placeholder {
     color: ${({ theme }) => theme.colors.gray500};
   }
-  box-sizing: border-box;
   :focus {
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary};
@@ -108,9 +107,18 @@ const PostFormContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const StepContainer = styled.div`
+const SecondStepContainer = styled.div`
+  width: 100vw;
+  padding-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+`;
+
+const ThirdStepContainer = styled.div`
   width: 100vw;
   height: 100vh;
+  padding-bottom: 54px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -156,6 +164,7 @@ const DateInput = styled.input`
 const GuideText = styled(Text)`
   text-align: center;
   color: ${({ theme }) => theme.colors.primary};
+  margin-bottom: 8px;
 `;
 const NextStepText = styled(Text)`
   color: white;
@@ -212,7 +221,7 @@ export {
   PostFormContainer,
   UploadTextWrapper,
   DeleteImgButton,
-  StepContainer,
+  SecondStepContainer,
   FormWrapper,
   ThirdStepPostFormContainer,
   DateInput,
@@ -224,4 +233,5 @@ export {
   AlertContent,
   AlertTitle,
   AlertModalTextContainer,
+  ThirdStepContainer,
 };

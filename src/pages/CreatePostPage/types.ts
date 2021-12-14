@@ -14,6 +14,7 @@ export interface ThirdStepProp {
   handleAvailableAt(data: string): void;
   latitude: number | undefined;
   longitude: number | undefined;
+  goPrevStep(): void;
 }
 
 export interface ConfirmModalProps {

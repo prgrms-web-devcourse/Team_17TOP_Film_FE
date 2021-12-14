@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { NextStepButton, MapHeaderText, NextStepText } from '../style';
 import Map from './Map';
 import { Location } from '../types';
+import UploadHeader from './UploadHeader';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   goNextStep(): void;
@@ -12,6 +14,7 @@ interface Props {
 const FirstStep = ({ goNextStep, location, handleLocation }: Props) => {
   const [userLocation, setUserLocation] = useState({ latitude: 37, longitude: 127 });
   const [marker, setMarker] = useState({ latitude: 37, longitude: 126 });
+  const navigate = useNavigate();
 
   const getGeoLocation = () => {
     if (!navigator.geolocation) {
@@ -48,6 +51,7 @@ const FirstStep = ({ goNextStep, location, handleLocation }: Props) => {
 
   return (
     <>
+      <UploadHeader handleBackBtn={() => navigate(-1)}></UploadHeader>
       <MapHeaderText textType="Heading3">
         필름을 맡길
         <br />

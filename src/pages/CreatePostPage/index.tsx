@@ -52,6 +52,7 @@ const CreatePostPage = () => {
           latitude={location?.latitude}
           longitude={location?.longitude}
           handleAvailableAt={handleAvailableAt}
+          goPrevStep={goPrevStep}
         />
       )}
     </CreatePostPageContainer>

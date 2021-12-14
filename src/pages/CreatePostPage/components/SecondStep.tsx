@@ -11,11 +11,12 @@ import {
   PostFormContainer,
   UploadTextWrapper,
   DeleteImgButton,
-  StepContainer,
+  SecondStepContainer,
   NextStepText,
 } from '../style';
 import { SecondStepProps } from '../types';
 import AlertModal from './AlertModal';
+import UploadHeader from './UploadHeader';
 
 const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStepProps) => {
   const [imageURL, setImageURL] = useState('');
@@ -85,8 +86,8 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStep
   };
 
   return (
-    <StepContainer>
-      <button onClick={goPrevStep}>뒤로가기</button>
+    <SecondStepContainer>
+      <UploadHeader handleBackBtn={goPrevStep} />
       <PostFormContainer>
         <Text textType="Heading3">필름에 내용을 담아주세요</Text>
         <FormContentWrapper>
@@ -148,7 +149,7 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStep
       ) : (
         <></>
       )}
-    </StepContainer>
+    </SecondStepContainer>
   );
 };
 

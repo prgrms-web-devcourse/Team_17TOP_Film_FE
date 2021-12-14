@@ -1,7 +1,7 @@
 import {
   FormContentWrapper,
   NextStepButton,
-  StepContainer,
+  ThirdStepContainer,
   FormWrapper,
   ThirdStepPostFormContainer,
   DateInput,
@@ -12,8 +12,9 @@ import { Text } from '../../../components/atoms';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { ThirdStepProp } from '../types';
 import ConfirmModal from './ConfirmModal';
+import UploadHeader from './UploadHeader';
 
-const ThirdStep = ({ latitude, longitude, handleAvailableAt }: ThirdStepProp) => {
+const ThirdStep = ({ latitude, longitude, handleAvailableAt, goPrevStep }: ThirdStepProp) => {
   const [date, setDate] = useState('');
   const [state, setState] = useState({ year: '', month: '', day: '' });
   const [minDay, setMinDay] = useState('');
@@ -50,7 +51,8 @@ const ThirdStep = ({ latitude, longitude, handleAvailableAt }: ThirdStepProp) =>
   }, []);
 
   return (
-    <StepContainer>
+    <ThirdStepContainer>
+      <UploadHeader handleBackBtn={goPrevStep} />
       <ThirdStepPostFormContainer>
         <FormWrapper>
           <Text textType="Heading3">사진 찾는 날을 선택 해주세요</Text>
@@ -85,7 +87,7 @@ const ThirdStep = ({ latitude, longitude, handleAvailableAt }: ThirdStepProp) =>
       ) : (
         ''
       )}
-    </StepContainer>
+    </ThirdStepContainer>
   );
 };
 
