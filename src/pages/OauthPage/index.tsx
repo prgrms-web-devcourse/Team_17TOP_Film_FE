@@ -15,9 +15,10 @@ const OauthPage = () => {
     } = await isUserSignUpApi();
 
     if (isDuplicate) {
+      saveAllUserInfo({ nickname, profileImageUrl });
       return navigate('/');
     }
-    saveAllUserInfo({ nickname, profileImageUrl });
+
     navigate('/signup');
   }, []);
 
