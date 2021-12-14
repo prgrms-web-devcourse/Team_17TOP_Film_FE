@@ -3,7 +3,7 @@ import { ButtonProps } from './types';
 
 const Button = ({
   children,
-  buttonType = '',
+  buttonType,
   type = 'button',
   width = 'auto',
   height = 'auto',
