@@ -1,10 +1,21 @@
 import styled from '@emotion/styled';
-import { Text } from '../../components/atoms';
+import { Text, Button, Header } from '../../components/atoms';
+
+const HomePageHeader = styled(Header)`
+  z-index: 10;
+`;
+
+const PostCreateBtn = styled(Button)`
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  border-radius: 0;
+  height: 56px;
+`;
 
 const ModalWrapper = styled.div`
   min-width: 300px;
   text-align: center;
-  width: calc(100% - 20px);
 `;
 const ModalText = styled(Text)`
   margin-top: ${({ theme }) => theme.gaps.gap2};
@@ -17,4 +28,4 @@ const ButtonGroup = styled.div`
   align-items: center;
   gap: 8px;
 `;
-export { ModalWrapper, ModalText, ButtonGroup };
+export { HomePageHeader, PostCreateBtn, ModalWrapper, ModalText, ButtonGroup };

@@ -78,7 +78,7 @@ const Map = ({ currentLocation, selectedPost, postList, onClick }: Props) => {
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
     >
       <GeolocateControl
-        style={{ top: 0, left: 0, margin: 10 }}
+        style={{ bottom: 56, right: 0, margin: 20 }}
         positionOptions={positionOptions}
         trackUserLocation
         auto={locationControl}
