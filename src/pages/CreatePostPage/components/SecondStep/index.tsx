@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Text } from '../../../components/atoms';
-import { useLocalStorage } from '../../../hooks';
+import { Text } from '../../../../components/atoms';
+import { useLocalStorage } from '../../../../hooks';
 import {
   NextStepButton,
   PreviewImg,
@@ -14,10 +14,10 @@ import {
   DeleteImgButton,
   SecondStepContainer,
   NextStepText,
-} from '../style';
-import { SecondStepProps } from '../types';
+} from '../../style';
+import { SecondStepProps } from '../../types';
 import AlertModal from './AlertModal';
-import UploadHeader from './UploadHeader';
+import UploadHeader from '../UploadHeader';
 
 const SecondStep = ({
   goNextStep,

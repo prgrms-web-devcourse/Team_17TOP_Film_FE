@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { NextStepButton, MapHeaderText, NextStepText } from '../style';
+import { NextStepButton, MapHeaderText, NextStepText } from '../../style';
 import Map from './Map';
-import { Location } from '../types';
-import UploadHeader from './UploadHeader';
+import { FirstStepProps, Location } from '../../types';
+import UploadHeader from '../UploadHeader';
 import { useNavigate } from 'react-router-dom';
 
-interface Props {
-  goNextStep(): void;
-  location: Location | null;
-  handleLocation(data: Location): void;
-}
-
-const FirstStep = ({ goNextStep, location, handleLocation }: Props) => {
+const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => {
   const [userLocation, setUserLocation] = useState({ latitude: 37, longitude: 127 });
   const [marker, setMarker] = useState({ latitude: 37, longitude: 126 });
   const navigate = useNavigate();
