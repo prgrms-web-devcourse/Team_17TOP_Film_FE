@@ -137,6 +137,8 @@ const HomePage = () => {
   const cookies = new Cookies();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const [isMap, setIsMap] = useState(false);
   const [selectedPost, setselectedPost] = useState<PreviewPost | null>(null);
   const [openablePosts, setOpenablePosts] = useState<Post[] | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -148,6 +150,17 @@ const HomePage = () => {
   const handleOpenablePostsModal = () => {
     cookies.set('invisibleModal', true, { maxAge: 3600 });
   };
+  const handleViewLater = () => {
+    setModalVisible(false);
+    handleOpenablePostsModal();
+    setIsMap(true);
+  };
+
+  const handleViewNow = () => {
+    navigate(`${openablePosts && openablePosts[0].postId}`);
+    setModalVisible(false);
+    setIsMap(true);
+  };
   const handleLogout = () => {
     // 로그아웃 api
     console.log('로그아웃');
@@ -156,11 +169,16 @@ const HomePage = () => {
   useEffect(() => {
     // Map 리스트 api 통신
     if (cookies.get('invisibleModal')) {
+      setIsMap(true);
       return;
     }
     const currentOpenablePosts = dummy.filter((post) => post.state === 'Openable');
-    setOpenablePosts(currentOpenablePosts);
-    currentOpenablePosts ? setModalVisible(true) : '';
+    if (currentOpenablePosts.length) {
+      setOpenablePosts(currentOpenablePosts);
+      setModalVisible(true);
+    } else {
+      setIsMap(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -170,7 +188,7 @@ const HomePage = () => {
   return (
     <div>
       <HomePageHeader rightComp="lock" handleRightEvent={handleLogout} midText="내 필름" />
-      {!modalVisible && (
+      {isMap && (
         <Map
           currentLocation={!pathname.slice(1) ? true : false}
           selectedPost={selectedPost}
@@ -178,6 +196,7 @@ const HomePage = () => {
           onClick={handleSelectedPost}
         />
       )}
+
       {selectedPost && (
         <Routes>
           <Route path=":id" element={<PreviewBottomSheet previewPost={selectedPost} />} />
@@ -196,24 +215,10 @@ const HomePage = () => {
             오늘 찾을 수 있는 사진이 {openablePosts?.length}개 있어요!
           </ModalText>
           <ButtonGroup>
-            <Button
-              buttonType="SecondaryBtn"
-              width={'100%'}
-              onClick={() => {
-                setModalVisible(false);
-                handleOpenablePostsModal();
-              }}
-            >
+            <Button buttonType="SecondaryBtn" width={'100%'} onClick={handleViewLater}>
               나중에 볼래요
             </Button>
-            <Button
-              buttonType="PrimaryBtn"
-              width={'100%'}
-              onClick={() => {
-                navigate(`${openablePosts && openablePosts[0].postId}`);
-                setModalVisible(false);
-              }}
-            >
+            <Button buttonType="PrimaryBtn" width={'100%'} onClick={handleViewNow}>
               보러갈래요!
             </Button>
           </ButtonGroup>
