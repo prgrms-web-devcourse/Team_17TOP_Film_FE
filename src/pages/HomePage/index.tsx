@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { PreviewBottomSheet } from '../../components/organism';
-
+import { Button, Modal } from '../../components/atoms';
+import { ModalWrapper, ButtonGroup, ModalText } from './style';
 import Map from './Map';
+import { Cookies } from 'react-cookie';
 
 const dummy = [
   {
@@ -104,6 +106,15 @@ const PreviewPosts = [
     ],
   },
 ];
+
+interface Post {
+  postId: number;
+  state: string;
+  location: {
+    latitude: string;
+    longitude: string;
+  };
+}
 interface PreviewPost {
   postId: number;
   title: string;
@@ -123,13 +134,30 @@ interface PreviewPost {
 }
 
 const HomePage = () => {
+  const cookies = new Cookies();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [selectedPost, setselectedPost] = useState<PreviewPost | null>(null);
+  const [openablePosts, setOpenablePosts] = useState<Post[] | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleSelectedPost = (postid: number) => {
     // 엿보기 페이지 api 통신
     setselectedPost(PreviewPosts[postid]);
   };
+  const handleOpenablePostsModal = () => {
+    cookies.set('invisibleModal', true, { maxAge: 3600 });
+  };
+
+  useEffect(() => {
+    // Map 리스트 api 통신
+    if (cookies.get('invisibleModal')) {
+      return;
+    }
+    const currentOpenablePosts = dummy.filter((post) => post.state === 'Openable');
+    setOpenablePosts(currentOpenablePosts);
+    currentOpenablePosts ? setModalVisible(true) : '';
+  }, []);
 
   useEffect(() => {
     pathname.slice(1) ? handleSelectedPost(parseInt(pathname.slice(1))) : setselectedPost(null);
@@ -150,6 +178,35 @@ const HomePage = () => {
       ) : (
         ''
       )}
+      <Modal visible={modalVisible} onClose={() => setModalVisible(false)}>
+        <ModalWrapper>
+          <ModalText textType="Heading4">
+            오늘 찾을 수 있는 사진이 {openablePosts?.length}개 있어요!
+          </ModalText>
+          <ButtonGroup>
+            <Button
+              buttonType="SecondaryBtn"
+              width={'100%'}
+              onClick={() => {
+                setModalVisible(false);
+                handleOpenablePostsModal();
+              }}
+            >
+              나중에 볼래요
+            </Button>
+            <Button
+              buttonType="PrimaryBtn"
+              width={'100%'}
+              onClick={() => {
+                navigate(`${openablePosts && openablePosts[0].postId}`);
+                setModalVisible(false);
+              }}
+            >
+              보러갈래요!
+            </Button>
+          </ButtonGroup>
+        </ModalWrapper>
+      </Modal>
     </div>
   );
 };
