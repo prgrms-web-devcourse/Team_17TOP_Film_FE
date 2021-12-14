@@ -170,18 +170,18 @@ const HomePage = () => {
   return (
     <div>
       <HomePageHeader rightComp="lock" handleRightEvent={handleLogout} midText="내 필름" />
-      <Map
-        currentLocation={!pathname.slice(1) ? true : false}
-        selectedPost={selectedPost}
-        postList={dummy}
-        onClick={handleSelectedPost}
-      />
-      {selectedPost ? (
+      {!modalVisible && (
+        <Map
+          currentLocation={!pathname.slice(1) ? true : false}
+          selectedPost={selectedPost}
+          postList={dummy}
+          onClick={handleSelectedPost}
+        />
+      )}
+      {selectedPost && (
         <Routes>
           <Route path=":id" element={<PreviewBottomSheet previewPost={selectedPost} />} />
         </Routes>
-      ) : (
-        ''
       )}
       <PostCreateBtn
         buttonType="PrimaryBtn"
