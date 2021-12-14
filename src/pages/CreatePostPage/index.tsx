@@ -16,7 +16,7 @@ const CreatePostPage = () => {
     'secondStepData',
     null,
   );
-  const [storedAvailableAt, setStoredAvailiableAt] = useLocalStorage<string | null>(
+  const [storedAvailableAt, setStoredAvailableAt] = useLocalStorage<string | null>(
     'availableAt',
     null,
   );
@@ -45,7 +45,7 @@ const CreatePostPage = () => {
 
   const handleAvailableAt = (data: string | null) => {
     setAvailableAt(data);
-    setStoredAvailiableAt(data);
+    setStoredAvailableAt(data);
   };
 
   const handleStoredSecondStepData = (data: SecondStepData) => {
