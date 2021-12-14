@@ -46,9 +46,8 @@ const Map = ({ currentLocation, selectedPost, postList, onClick }: Props) => {
     pitch: 0,
   });
 
-  const handleSelectedMarker = useCallback((id: number) => {
-    // 상위 컴포넌트에 선택된 포스트 id 알려주기
-    onClick(id);
+  const handleSelectedMarker = useCallback((postId: number) => {
+    onClick(postId);
   }, []);
 
   // 현재위치 기반으로 지도를 띄워야 하는 경우

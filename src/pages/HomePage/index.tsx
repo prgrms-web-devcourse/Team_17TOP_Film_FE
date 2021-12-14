@@ -5,7 +5,7 @@ import { Button, Modal } from '../../components/atoms';
 import { HomePageHeader, PostCreateBtn, ModalWrapper, ButtonGroup, ModalText } from './style';
 import Map from './Map';
 import { Cookies } from 'react-cookie';
-import { getPostListApi } from '../../utils/apis/post';
+import { getPostListApi, getPreviewPostApi } from '../../utils/apis/post';
 import { Post, PreviewPost } from '../../utils/apis/post/type';
 
 const PreviewPosts = [
@@ -101,10 +101,13 @@ const HomePage = () => {
     }
   }, [getPostListApi]);
 
-  const handleSelectedPost = (postid: number) => {
-    // 엿보기 페이지 api 통신
-    setselectedPost(PreviewPosts[postid]);
-  };
+  const handleSelectedPost = useCallback(
+    async (postId: number) => {
+      const { data, error } = await getPreviewPostApi(postId);
+      setselectedPost(data);
+    },
+    [getPreviewPostApi],
+  );
   const handleOpenablePostsModal = () => {
     cookies.set('invisibleModal', true, { maxAge: 3600 });
   };
