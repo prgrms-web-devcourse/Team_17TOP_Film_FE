@@ -3,8 +3,10 @@ import { Header, BackBtn, SignUpFormWrapper, Label, Input, FooterBtn, ErrorText 
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { validateNickname, handleSignUpApiError } from './util';
 import { signUpApi } from '../../utils/apis/user';
+import { useUserInfo } from '../../contexts/UserProvider';
 
 const SignUpPage = () => {
+  const { saveAllUserInfo } = useUserInfo();
   const [nickname, setNickname] = useState('');
   const [inpError, setInpError] = useState('');
 
@@ -20,11 +22,14 @@ const SignUpPage = () => {
       return setInpError(nicknameErrorMsg);
     }
 
-    const { data, error } = await signUpApi(nickname);
-    if (!data) {
+    const { data: userData, error } = await signUpApi(nickname);
+    if (!userData) {
       const { errorCode } = error;
       return handleSignUpApiError(errorCode);
     }
+
+    saveAllUserInfo(userData);
+
     setNickname('');
     setInpError('');
   };
