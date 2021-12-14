@@ -151,11 +151,12 @@ const HomePage = () => {
 
   useEffect(() => {
     // Map 리스트 api 통신
-    if (!cookies.get('invisibleModal')) {
-      const currentOpenablePosts = dummy.filter((post) => post.state === 'Openable');
-      setOpenablePosts(currentOpenablePosts);
-      currentOpenablePosts ? setModalVisible(true) : '';
+    if (cookies.get('invisibleModal')) {
+      return;
     }
+    const currentOpenablePosts = dummy.filter((post) => post.state === 'Openable');
+    setOpenablePosts(currentOpenablePosts);
+    currentOpenablePosts ? setModalVisible(true) : '';
   }, []);
 
   useEffect(() => {
@@ -197,7 +198,7 @@ const HomePage = () => {
               buttonType="PrimaryBtn"
               width={'100%'}
               onClick={() => {
-                openablePosts ? navigate(`${openablePosts[0].postId}`) : '';
+                navigate(`${openablePosts && openablePosts[0].postId}`);
                 setModalVisible(false);
               }}
             >
