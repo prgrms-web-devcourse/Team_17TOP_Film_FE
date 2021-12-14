@@ -28,9 +28,9 @@ const SecondStep = ({
   const [imageURL, setImageURL] = useState(storedSecondStepData?.image as string);
   const [file, setFile] = useState<File>();
   const [state, setState] = useState({
-    title: storedSecondStepData?.title as string,
-    previewText: storedSecondStepData?.previewText as string,
-    content: storedSecondStepData?.content as string,
+    title: storedSecondStepData?.title || '',
+    previewText: storedSecondStepData?.previewText || '',
+    content: storedSecondStepData?.content || '',
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alertText, setAlertText] = useState('');

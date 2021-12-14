@@ -16,12 +16,14 @@ export interface ThirdStepProp {
   longitude: number | undefined;
   goPrevStep(): void;
   storedAvailableAt: string | null;
+  handleIsConfirm(): void;
 }
 
 export interface ConfirmModalProps {
   isModalOpen: true;
   handleIsModalClose(): void;
   saveAvailableAt(): void;
+  handleIsConfirm(): void;
 }
 
 export interface SecondStepProps {

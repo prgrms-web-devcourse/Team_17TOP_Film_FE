@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CreatePostPageContainer } from './style';
 import FirstStep from './components/FirstStep';
 import SecondStep from './components/SecondStep';
 import { SecondStepData, Location } from './types';
 import ThirdStep from './components/ThirdStep';
 import { useLocalStorage } from '../../hooks';
+import { createPostApi } from '../../utils/apis/posts';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePostPage = () => {
   const [step, setStep] = useState(1);
@@ -20,6 +22,8 @@ const CreatePostPage = () => {
     'availableAt',
     null,
   );
+  const [isConfirm, setIsConfirm] = useState(false);
+  const navigate = useNavigate();
   const goNextStep = () => {
     if (step === 4) {
       return;
@@ -52,6 +56,45 @@ const CreatePostPage = () => {
     setStoredSecondStepData(data);
   };
 
+  const handleIsConfirm = () => {
+    setIsConfirm(true);
+  };
+
+  const createPost = async (formData: FormData) => {
+    setIsConfirm(false);
+    const { data, error } = await createPostApi(formData);
+    if (error.errorMessage) {
+      console.warn(error.errorMessage);
+      return;
+    }
+    setStoredLocation(null);
+    setStoredSecondStepData(null);
+    setStoredAvailableAt(null);
+    navigate(`/${data.postId}`);
+  };
+
+  useEffect(() => {
+    if (!isConfirm) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append(
+      'com',
+      JSON.stringify({
+        title: secondStepData?.title,
+        content: secondStepData?.content,
+        previewText: secondStepData?.previewText,
+        latitude: location?.latitude.toString(),
+        longitude: location?.longitude.toString(),
+        availableAt,
+      }),
+    );
+    formData.append('files', secondStepData?.image as Blob);
+
+    createPost(formData);
+  }, [isConfirm]);
+
   return (
     <CreatePostPageContainer>
       {step === 1 ? (
@@ -75,6 +118,7 @@ const CreatePostPage = () => {
           handleAvailableAt={handleAvailableAt}
           goPrevStep={goPrevStep}
           storedAvailableAt={storedAvailableAt}
+          handleIsConfirm={handleIsConfirm}
         />
       )}
     </CreatePostPageContainer>

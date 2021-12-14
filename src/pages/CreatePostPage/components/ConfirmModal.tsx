@@ -2,10 +2,16 @@ import { Modal, Button } from '../../../components/atoms';
 import { ButtonWrapper, ModalNoticeContainer, ModalNoticeText } from '../style';
 import { ConfirmModalProps } from '../types';
 
-const ConfirmModal = ({ isModalOpen, handleIsModalClose, saveAvailableAt }: ConfirmModalProps) => {
+const ConfirmModal = ({
+  isModalOpen,
+  handleIsModalClose,
+  saveAvailableAt,
+  handleIsConfirm,
+}: ConfirmModalProps) => {
   const confirm = () => {
     handleIsModalClose();
     saveAvailableAt();
+    handleIsConfirm();
   };
 
   return (

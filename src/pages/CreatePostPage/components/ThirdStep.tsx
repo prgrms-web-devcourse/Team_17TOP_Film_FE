@@ -20,6 +20,7 @@ const ThirdStep = ({
   handleAvailableAt,
   goPrevStep,
   storedAvailableAt,
+  handleIsConfirm,
 }: ThirdStepProp) => {
   const [date, setDate] = useState(storedAvailableAt);
   const [state, setState] = useState({ year: '', month: '', day: '' });
@@ -72,7 +73,7 @@ const ThirdStep = ({
             <DateInput
               ref={dateInputRef}
               type="date"
-              value={date!}
+              value={date ? date : ''}
               min={minDay}
               onChange={handleDateChange}
             ></DateInput>
@@ -94,6 +95,7 @@ const ThirdStep = ({
           handleIsModalClose={handleIsModalClose}
           isModalOpen={isModalOpen}
           saveAvailableAt={saveAvailableAt}
+          handleIsConfirm={handleIsConfirm}
         ></ConfirmModal>
       ) : (
         ''
