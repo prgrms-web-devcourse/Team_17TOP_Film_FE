@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosResponse } from 'axios';
 import { getLocalStorage } from '../../getLocalStorage';
 
 const authInterceptor = (instance: AxiosInstance) => {
@@ -10,6 +10,29 @@ const authInterceptor = (instance: AxiosInstance) => {
     };
     return config;
   });
+
+  instance.interceptors.response.use(
+    (res: AxiosResponse) => ({
+      ...res,
+      error: {
+        status: res.status,
+        errorCode: null,
+        errorMessage: null,
+      },
+    }),
+    (res) => {
+      const result = {
+        ...res,
+        data: null,
+        error: {
+          status: res.response.status,
+          errorCode: res.response.data.code,
+          errorMessage: res.response.data.message,
+        },
+      };
+      return Promise.resolve(result);
+    },
+  );
 };
 
 export { authInterceptor };

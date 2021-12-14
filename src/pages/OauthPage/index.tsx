@@ -7,11 +7,15 @@ const OauthPage = () => {
   const test = useLocation();
   const navigate = useNavigate();
   const routingBasedOnSignUpStatus = useCallback(async () => {
-    const isSignUp = await isUserSignUpApi();
+    const {
+      data: { isDuplicate },
+    } = await isUserSignUpApi();
 
-    if (isSignUp) {
+    if (isDuplicate) {
+      console.log(isDuplicate);
       return navigate('/');
     }
+    console.log(isDuplicate);
     navigate('/signup');
   }, []);
 

@@ -9,5 +9,17 @@ const validateNickname = (nickname: string) => {
   }
   return;
 };
+const handleSignUpApiError = (errorCode: string) => {
+  console.log(errorCode);
+  if (errorCode === 'U001') {
+    return console.error('중복된 닉네임이 존재합니다.');
+  }
+  if (errorCode === 'U002') {
+    return console.error('이미 계정이 존재합니다.');
+  }
+  if (errorCode === 'U003') {
+    return console.error('닉네임 양식이 일치하지 않습니다.');
+  }
+};
 
-export { validateNickname };
+export { validateNickname, handleSignUpApiError };
