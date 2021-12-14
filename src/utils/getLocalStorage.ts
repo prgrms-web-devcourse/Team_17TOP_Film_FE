@@ -7,7 +7,7 @@ const getLocalStorage = (key: string, errorFallback: () => void) => {
     return JSON.parse(token);
   } catch (error) {
     console.error(error);
-    errorFallback();
+    return errorFallback();
   }
 };
 export { getLocalStorage };
