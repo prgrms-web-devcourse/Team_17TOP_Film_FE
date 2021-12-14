@@ -1,5 +1,7 @@
 import React from 'react';
 import { Header } from '../../components/atoms';
+import Profile from './components/Profile';
+import { Body } from './style';
 const MyPage = () => {
   return (
     <>
@@ -9,6 +11,9 @@ const MyPage = () => {
         rightComp="timeline"
         handleRightEvent={() => console.log('right click')}
       />
+      <Body>
+        <Profile />
+      </Body>
     </>
   );
 };
