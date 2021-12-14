@@ -73,7 +73,7 @@ const ThirdStep = ({
             <DateInput
               ref={dateInputRef}
               type="date"
-              value={date!}
+              value={date ? date : ''}
               min={minDay}
               onChange={handleDateChange}
             ></DateInput>
