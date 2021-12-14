@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header } from '../../components/atoms';
 import Profile from './components/Profile';
+import Tabs from './components/Tabs';
 import { Body } from './style';
 const MyPage = () => {
   return (
@@ -13,6 +14,7 @@ const MyPage = () => {
       />
       <Body>
         <Profile />
+        <Tabs />
       </Body>
     </>
   );
