@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Text } from '../../../components/atoms';
+import { useLocalStorage } from '../../../hooks';
 import {
   NextStepButton,
   PreviewImg,
@@ -27,6 +28,7 @@ const SecondStep = ({
 }: SecondStepProps) => {
   const [imageURL, setImageURL] = useState(storedSecondStepData?.image as string);
   const [file, setFile] = useState<File>();
+  const [storedFilename, setStoredFilename] = useLocalStorage<string | null>('filename', null);
   const [state, setState] = useState({
     title: storedSecondStepData?.title || '',
     previewText: storedSecondStepData?.previewText || '',
@@ -52,7 +54,26 @@ const SecondStep = ({
     setImageURL('');
   };
 
-  const FileToDataURL = (file: File) => {
+  const dataURLToFile = async (url: string, filename: string) => {
+    const type = filename.split('.').pop();
+    const convertedFile = await fetch(url)
+      .then((res) => res.arrayBuffer())
+      .then((buf) => new File([buf], filename, { type: `image/${type}` }));
+
+    return convertedFile;
+  };
+
+  const asyncDataURLToFile = async () => {
+    if (storedSecondStepData?.image && storedFilename) {
+      const convertFile = await dataURLToFile(
+        storedSecondStepData?.image as string,
+        storedFilename,
+      );
+      await setFile(convertFile);
+    }
+  };
+
+  const fileToDataURL = (file: File) => {
     const reader = new FileReader();
 
     if (file) {
@@ -66,8 +87,16 @@ const SecondStep = ({
   };
 
   useEffect(() => {
-    file && FileToDataURL(file);
+    if (file) {
+      fileToDataURL(file);
+    }
   }, [file]);
+
+  useEffect(() => {
+    if (storedSecondStepData?.image && storedFilename) {
+      asyncDataURLToFile();
+    }
+  }, []);
 
   const checkForm = () => {
     const { title, previewText } = state;
@@ -94,6 +123,7 @@ const SecondStep = ({
     const storedData = { ...state, image: imageURL };
     handleSecondStepData(data);
     handleStoredSecondStepData(storedData);
+    file && setStoredFilename(file.name);
     goNextStep();
   };
 
