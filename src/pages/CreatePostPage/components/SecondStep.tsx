@@ -18,10 +18,20 @@ import { SecondStepProps } from '../types';
 import AlertModal from './AlertModal';
 import UploadHeader from './UploadHeader';
 
-const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStepProps) => {
-  const [imageURL, setImageURL] = useState('');
+const SecondStep = ({
+  goNextStep,
+  goPrevStep,
+  handleSecondStepData,
+  handleStoredSecondStepData,
+  storedSecondStepData,
+}: SecondStepProps) => {
+  const [imageURL, setImageURL] = useState(storedSecondStepData?.image as string);
   const [file, setFile] = useState<File>();
-  const [state, setState] = useState({ title: '', previewText: '', content: '' });
+  const [state, setState] = useState({
+    title: storedSecondStepData?.title as string,
+    previewText: storedSecondStepData?.previewText as string,
+    content: storedSecondStepData?.content as string,
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alertText, setAlertText] = useState('');
 
@@ -80,8 +90,10 @@ const SecondStep = ({ goNextStep, goPrevStep, handleSecondStepData }: SecondStep
   };
 
   const saveFormData = () => {
-    const data = { ...state, imageFiles: [{ imageOrder: 0, image: file }] };
+    const data = { ...state, image: file };
+    const storedData = { ...state, image: imageURL };
     handleSecondStepData(data);
+    handleStoredSecondStepData(storedData);
     goNextStep();
   };
 

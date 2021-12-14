@@ -14,8 +14,14 @@ import { ThirdStepProp } from '../types';
 import ConfirmModal from './ConfirmModal';
 import UploadHeader from './UploadHeader';
 
-const ThirdStep = ({ latitude, longitude, handleAvailableAt, goPrevStep }: ThirdStepProp) => {
-  const [date, setDate] = useState('');
+const ThirdStep = ({
+  latitude,
+  longitude,
+  handleAvailableAt,
+  goPrevStep,
+  storedAvailableAt,
+}: ThirdStepProp) => {
+  const [date, setDate] = useState(storedAvailableAt);
   const [state, setState] = useState({ year: '', month: '', day: '' });
   const [minDay, setMinDay] = useState('');
   const dateInputRef = useRef(null);
@@ -34,16 +40,21 @@ const ThirdStep = ({ latitude, longitude, handleAvailableAt, goPrevStep }: Third
   };
 
   useEffect(() => {
-    const dateToArr = date.split('-');
-    setState((prevState) => ({
-      ...prevState,
-      year: dateToArr[0],
-      month: dateToArr[1],
-      day: dateToArr[2],
-    }));
+    const dateToArr = date?.split('-');
+    if (dateToArr) {
+      setState((prevState) => ({
+        ...prevState,
+        year: dateToArr[0],
+        month: dateToArr[1],
+        day: dateToArr[2],
+      }));
+    }
   }, [date]);
 
   useEffect(() => {
+    if (date) {
+      return;
+    }
     const today = new Date();
     const tomorrow = new Date(today.setDate(today.getDate() + 1)).toISOString().split('T')[0];
     setMinDay(tomorrow);
@@ -61,7 +72,7 @@ const ThirdStep = ({ latitude, longitude, handleAvailableAt, goPrevStep }: Third
             <DateInput
               ref={dateInputRef}
               type="date"
-              value={date}
+              value={date!}
               min={minDay}
               onChange={handleDateChange}
             ></DateInput>

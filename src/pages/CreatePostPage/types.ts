@@ -1,5 +1,5 @@
 export interface SecondStepData {
-  imageFiles: { imageOrder: number; image: File | undefined }[];
+  image: File | undefined | string;
   title: string;
   previewText: string;
   content: string;
@@ -11,10 +11,11 @@ export interface Location {
 }
 
 export interface ThirdStepProp {
-  handleAvailableAt(data: string): void;
+  handleAvailableAt(data: string | null): void;
   latitude: number | undefined;
   longitude: number | undefined;
   goPrevStep(): void;
+  storedAvailableAt: string | null;
 }
 
 export interface ConfirmModalProps {
@@ -26,7 +27,9 @@ export interface ConfirmModalProps {
 export interface SecondStepProps {
   goNextStep(): void;
   goPrevStep(): void;
-  handleSecondStepData(obj: SecondStepData): void;
+  handleSecondStepData(data: SecondStepData): void;
+  handleStoredSecondStepData(data: SecondStepData): void;
+  storedSecondStepData: SecondStepData | null;
 }
 
 export interface AlertModalProps {
