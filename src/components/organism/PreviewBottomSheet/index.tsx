@@ -46,9 +46,13 @@ const PreviewBottomSheet = ({ previewPost, postDeleteEvent }: Props) => {
           </Avatar.Group>
         </AuthorityList>
       </FilmInfoWrapper>
-      {previewPost.state === 'CLOSED' && userInfo.nickname === previewPost.authorNickname && (
+      {previewPost.state === 'CLOSED' && userInfo.nickname === previewPost.authorNickname ? (
         <Button buttonType="SecondaryBtn" width="100%" onClick={postDeleteEvent}>
           필름 삭제하기
+        </Button>
+      ) : (
+        <Button buttonType="SecondaryBtn" width="100%">
+          사진 나오는중...
         </Button>
       )}
       {previewPost.state === 'OPENABLE' && (
