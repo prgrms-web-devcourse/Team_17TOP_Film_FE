@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import MapGl, { Marker } from 'react-map-gl';
-import { MAP_STYLE } from '../../../utils/constants/mapConstants';
+import { MAP_STYLE } from '../../../../utils/constants/mapConstants';
 import Pin from './Pin';
-import { Location } from '../types';
+import { Location } from '../../types';
 
 interface Props {
   latitude: number;

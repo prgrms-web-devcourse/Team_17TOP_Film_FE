@@ -1,6 +1,6 @@
-import { Button, Modal } from '../../../components/atoms';
-import { AlertContent, AlertModalTextContainer, AlertTitle } from '../style';
-import { AlertModalProps } from '../types';
+import { Button, Modal } from '../../../../components/atoms';
+import { AlertContent, AlertModalTextContainer, AlertTitle } from '../../style';
+import { AlertModalProps } from '../../types';
 
 const AlertModal = ({ isModalOpen, alertText, setIsModalOpen }: AlertModalProps) => {
   return (

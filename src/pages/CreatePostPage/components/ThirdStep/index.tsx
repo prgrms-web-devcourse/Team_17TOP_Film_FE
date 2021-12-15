@@ -7,12 +7,12 @@ import {
   DateInput,
   GuideText,
   NextStepText,
-} from '../style';
-import { Text } from '../../../components/atoms';
+} from '../../style';
+import { Text } from '../../../../components/atoms';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { ThirdStepProp } from '../types';
+import { ThirdStepProp } from '../../types';
 import ConfirmModal from './ConfirmModal';
-import UploadHeader from './UploadHeader';
+import UploadHeader from '../UploadHeader';
 
 const ThirdStep = ({
   latitude,
@@ -22,7 +22,7 @@ const ThirdStep = ({
   storedAvailableAt,
   handleIsConfirm,
 }: ThirdStepProp) => {
-  const [date, setDate] = useState(storedAvailableAt);
+  const [date, setDate] = useState(storedAvailableAt || '');
   const [state, setState] = useState({ year: '', month: '', day: '' });
   const [minDay, setMinDay] = useState('');
   const dateInputRef = useRef(null);

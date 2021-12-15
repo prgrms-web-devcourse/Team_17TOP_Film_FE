@@ -67,9 +67,10 @@ const CreatePostPage = () => {
       console.warn(error.errorMessage);
       return;
     }
-    setStoredLocation(null);
-    setStoredSecondStepData(null);
-    setStoredAvailableAt(null);
+    window.localStorage.removeItem('location');
+    window.localStorage.removeItem('secondStepData');
+    window.localStorage.removeItem('availableAt');
+    window.localStorage.removeItem('filename');
     navigate(`/${data.postId}`);
   };
 
