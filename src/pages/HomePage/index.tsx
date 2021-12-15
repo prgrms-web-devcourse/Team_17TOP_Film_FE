@@ -10,6 +10,7 @@ import ConfirmModal from './Modal';
 
 const HomePage = () => {
   const cookies = new Cookies();
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -17,7 +18,9 @@ const HomePage = () => {
   const [postList, setPostList] = useState<Post[]>([]);
   const [selectedPost, setselectedPost] = useState<PreviewPost | null>(null);
   const [openablePosts, setOpenablePosts] = useState<Post[] | null>(null);
-  const [modalVisible, setModalVisible] = useState(false);
+
+  const [todayPostViewModalVisible, setTodayPostViewModalVisible] = useState(false);
+  const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
 
   const getPostList = useCallback(async () => {
     const { data, error } = await getPostListApi();
@@ -45,13 +48,13 @@ const HomePage = () => {
   };
 
   const handleViewLater = () => {
-    setModalVisible(false);
+    setTodayPostViewModalVisible(false);
     cookies.set('invisibleModal', true, { maxAge: 3600 });
     setIsMap(true);
   };
 
   const handleViewNow = () => {
-    setModalVisible(false);
+    setTodayPostViewModalVisible(false);
     navigate(`${openablePosts && openablePosts[0].postId}`);
     setIsMap(true);
   };
@@ -72,7 +75,7 @@ const HomePage = () => {
 
     if (currentOpenablePosts.length) {
       setOpenablePosts(currentOpenablePosts);
-      setModalVisible(true);
+      setTodayPostViewModalVisible(true);
     } else {
       setIsMap(true);
     }
@@ -99,7 +102,10 @@ const HomePage = () => {
           <Route
             path=":id"
             element={
-              <PreviewBottomSheet previewPost={selectedPost} postDeleteMethod={handleDeletePost} />
+              <PreviewBottomSheet
+                previewPost={selectedPost}
+                postDeleteEvent={() => setPostDeleteModalVisible(true)}
+              />
             }
           />
         </Routes>
@@ -112,14 +118,25 @@ const HomePage = () => {
         필름 맡기기
       </PostCreateBtn>
       <ConfirmModal
-        modalVisible={modalVisible}
+        modalVisible={todayPostViewModalVisible}
         modalText={`오늘 찾을 수 있는 사진이 ${openablePosts?.length}개 있어요!`}
         primaryBtnText={`보러갈래요!`}
         secondaryBtnText={`나중에 볼래요`}
-        handleClose={() => setModalVisible(false)}
+        handleClose={() => setTodayPostViewModalVisible(false)}
         primaryBtnEvent={handleViewNow}
         secondaryBtnEvent={handleViewLater}
       />
+      {selectedPost && (
+        <ConfirmModal
+          modalVisible={postDeleteModalVisible}
+          modalText={`정말 필름을 삭제하시겠어요?`}
+          primaryBtnText={`네..ㅜㅜ`}
+          secondaryBtnText={`잠시만요!`}
+          handleClose={() => setPostDeleteModalVisible(false)}
+          primaryBtnEvent={() => handleDeletePost(selectedPost?.postId)}
+          secondaryBtnEvent={() => setPostDeleteModalVisible(false)}
+        />
+      )}
     </div>
   );
 };

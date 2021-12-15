@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiX } from 'react-icons/bi';
 import { Avatar, Button, Text } from '../../atoms';
@@ -16,10 +16,10 @@ import ProfileImg from '../../../assets/images/img_profile.svg';
 import { useUserInfo } from '../../../contexts/UserProvider';
 interface Props {
   previewPost: PreviewPost;
-  postDeleteMethod(postId: number): void;
+  postDeleteEvent: () => void;
 }
 
-const PreviewBottomSheet = ({ previewPost, postDeleteMethod }: Props) => {
+const PreviewBottomSheet = ({ previewPost, postDeleteEvent }: Props) => {
   const { userInfo } = useUserInfo();
 
   return (
@@ -47,13 +47,7 @@ const PreviewBottomSheet = ({ previewPost, postDeleteMethod }: Props) => {
         </AuthorityList>
       </FilmInfoWrapper>
       {previewPost.state === 'CLOSED' && userInfo.nickname === previewPost.authorNickname && (
-        <Button
-          buttonType="SecondaryBtn"
-          width="100%"
-          onClick={() => {
-            postDeleteMethod(previewPost.postId);
-          }}
-        >
+        <Button buttonType="SecondaryBtn" width="100%" onClick={postDeleteEvent}>
           필름 삭제하기
         </Button>
       )}
