@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
 const Container = styled.div`
-  position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translate(-50%, 0);
+  position: fixed;
+  top: 32px;
+  left: 20px;
+  width: calc(100% - 40px);
   z-index: 1500;
 `;
 
