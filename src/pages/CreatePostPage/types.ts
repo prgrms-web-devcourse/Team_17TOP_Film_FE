@@ -39,3 +39,9 @@ export interface AlertModalProps {
   alertText: string;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface FirstStepProps {
+  goNextStep(): void;
+  location: Location | null;
+  handleLocation(data: Location): void;
+}
