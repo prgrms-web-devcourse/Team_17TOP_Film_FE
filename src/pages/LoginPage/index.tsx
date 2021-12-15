@@ -1,7 +1,17 @@
 import { Container, Wrapper, Text, Img, Button } from './style';
 import LoginWallPaper from '../../assets/LoginPage/LoginWallPaper.jpeg';
+import { Navigate, useLocation } from 'react-router-dom';
+import Toast from '../../components/organism/Toast';
+import { useEffect } from 'react';
 
 const LogInPage = () => {
+  const { state } = useLocation();
+  useEffect(() => {
+    if (!state?.needLogin) return;
+    Toast.info('로그인이 필요합니다.');
+    history.pushState({ state: { needLogin: false } }, '');
+  }, []);
+
   const handleBtnClick = () => {
     location.href = process.env.REACT_APP_REDIRECT_URI as string;
   };

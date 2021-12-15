@@ -6,9 +6,7 @@ const PrivateRoute = () => {
   const location = useLocation();
 
   if (!userInfo.nickname) {
-    // Todo
-    // 정보가 없어 로그인이 필요합니다 알려주기
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to="/login" state={{ from: location, needLogin: true }} />;
   }
   return <Outlet />;
 };
