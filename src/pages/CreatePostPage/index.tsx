@@ -1,45 +1,126 @@
 import { useEffect, useState } from 'react';
-import Map from './Map';
-import { CreatePostPageContainer, FirstStepButton, MapHeaderText } from './style';
-import { Text } from '../../components/atoms';
+import { CreatePostPageContainer } from './style';
+import FirstStep from './components/FirstStep';
+import SecondStep from './components/SecondStep';
+import { SecondStepData, Location } from './types';
+import ThirdStep from './components/ThirdStep';
+import { useLocalStorage } from '../../hooks';
+import { createPostApi } from '../../utils/apis/posts';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePostPage = () => {
-  const [userLocation, setUserLocation] = useState({ latitude: 37, longitude: 127 });
-  const [selectedLocation, setSelectedLocation] = useState({ latitude: 37, longitude: 127 });
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setUserLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      });
-    } else {
-      console.warn('GPS를 지원하지 않습니다.');
+  const [step, setStep] = useState(1);
+  const [location, setLocation] = useState<Location | null>(null);
+  const [secondStepData, setSecondStepData] = useState<SecondStepData>();
+  const [availableAt, setAvailableAt] = useState<string | null>(null);
+  const [storedLocation, setStoredLocation] = useLocalStorage<Location | null>('location', null);
+  const [storedSecondStepData, setStoredSecondStepData] = useLocalStorage<SecondStepData | null>(
+    'secondStepData',
+    null,
+  );
+  const [storedAvailableAt, setStoredAvailableAt] = useLocalStorage<string | null>(
+    'availableAt',
+    null,
+  );
+  const [isConfirm, setIsConfirm] = useState(false);
+  const navigate = useNavigate();
+  const goNextStep = () => {
+    if (step === 4) {
+      return;
     }
-  }, []);
+    setStep((prev) => prev + 1);
+  };
+
+  const goPrevStep = () => {
+    if (step === 1) {
+      return;
+    }
+    setStep((prev) => prev - 1);
+  };
+
+  const handleSecondStepData = (data: SecondStepData) => {
+    setSecondStepData(data);
+  };
+
+  const handleLocation = (data: Location) => {
+    setStoredLocation(data as Location);
+    setLocation(data);
+  };
+
+  const handleAvailableAt = (data: string | null) => {
+    setAvailableAt(data);
+    setStoredAvailableAt(data);
+  };
+
+  const handleStoredSecondStepData = (data: SecondStepData) => {
+    setStoredSecondStepData(data);
+  };
+
+  const handleIsConfirm = () => {
+    setIsConfirm(true);
+  };
+
+  const createPost = async (formData: FormData) => {
+    setIsConfirm(false);
+    const { data, error } = await createPostApi(formData);
+    if (error.errorMessage) {
+      console.warn(error.errorMessage);
+      return;
+    }
+    setStoredLocation(null);
+    setStoredSecondStepData(null);
+    setStoredAvailableAt(null);
+    navigate(`/${data.postId}`);
+  };
 
   useEffect(() => {
-    console.log('마커 위치 정보');
-    console.log(selectedLocation);
-  }, [selectedLocation]);
+    if (!isConfirm) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append(
+      'com',
+      JSON.stringify({
+        title: secondStepData?.title,
+        content: secondStepData?.content,
+        previewText: secondStepData?.previewText,
+        latitude: location?.latitude.toString(),
+        longitude: location?.longitude.toString(),
+        availableAt,
+      }),
+    );
+    formData.append('files', secondStepData?.image as Blob);
+
+    createPost(formData);
+  }, [isConfirm]);
 
   return (
     <CreatePostPageContainer>
-      <MapHeaderText textType="Heading3">
-        필름을 맡길
-        <br />
-        위치로 마커를 옮겨주세요
-      </MapHeaderText>
-      <Map
-        latitude={userLocation.latitude}
-        longitude={userLocation.longitude}
-        onChangeLocation={setSelectedLocation}
-      />
-      <FirstStepButton buttonType="PrimaryBtn">
-        <Text textType="Paragraph1">여기에 만들래요</Text>
-      </FirstStepButton>
+      {step === 1 ? (
+        <FirstStep
+          goNextStep={goNextStep}
+          location={storedLocation ? storedLocation : location}
+          handleLocation={handleLocation}
+        />
+      ) : step === 2 ? (
+        <SecondStep
+          goNextStep={goNextStep}
+          goPrevStep={goPrevStep}
+          handleSecondStepData={handleSecondStepData}
+          handleStoredSecondStepData={handleStoredSecondStepData}
+          storedSecondStepData={storedSecondStepData}
+        />
+      ) : (
+        <ThirdStep
+          latitude={location?.latitude}
+          longitude={location?.longitude}
+          handleAvailableAt={handleAvailableAt}
+          goPrevStep={goPrevStep}
+          storedAvailableAt={storedAvailableAt}
+          handleIsConfirm={handleIsConfirm}
+        />
+      )}
     </CreatePostPageContainer>
   );
 };

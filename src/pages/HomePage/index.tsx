@@ -1,101 +1,117 @@
-import { useState } from 'react';
-import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
-import { Pin } from '../../components/organism';
-
-const dummy = [
-  {
-    postId: 0,
-    state: 'Closed',
-    location: [
-      {
-        latitude: '37.491837217869616',
-        longitude: '127.02959879978368',
-      },
-    ],
-  },
-  {
-    postId: 1,
-    state: 'Opend',
-    location: [
-      {
-        latitude: '37.48802955953209',
-        longitude: '127.02570733476914',
-      },
-    ],
-  },
-  {
-    postId: 2,
-    state: 'Openable',
-    location: [
-      {
-        latitude: '37.48722960663839',
-        longitude: '127.0299415713133',
-      },
-    ],
-  },
-];
-
-interface Location {
-  latitude: string;
-  longitude: string;
-}
-
-interface Post {
-  postId: number;
-  state: string;
-  location: Location[];
-}
+import { useState, useEffect, useCallback } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { PreviewBottomSheet } from '../../components/organism';
+import { Button, Modal } from '../../components/atoms';
+import { HomePageHeader, PostCreateBtn, ModalWrapper, ButtonGroup, ModalText } from './style';
+import Map from './Map';
+import { Cookies } from 'react-cookie';
+import { getPostListApi, getPreviewPostApi } from '../../utils/apis/post';
+import { Post, PreviewPost } from '../../utils/apis/post/type';
 
 const HomePage = () => {
-  const [viewport, setViewport] = useState({
-    latitude: 37,
-    longitude: 127,
-    zoom: 5,
-    bearing: 0,
-    pitch: 0,
-  });
-  const [selectedMarker, setselectedMarker] = useState<Post | null>(null);
+  const cookies = new Cookies();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-  const handleSelectedMarker = (data: Post) => {
-    setselectedMarker(data);
+  const [isMap, setIsMap] = useState(false);
+  const [postList, setPostList] = useState<Post[]>([]);
+  const [selectedPost, setselectedPost] = useState<PreviewPost | null>(null);
+  const [openablePosts, setOpenablePosts] = useState<Post[] | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const getPostList = useCallback(async () => {
+    const { data, error } = await getPostListApi();
+    if (data) {
+      setPostList((prev) => [...prev, ...data.posts]);
+    }
+  }, [getPostListApi]);
+
+  const handleSelectedPost = useCallback(
+    async (postId: number) => {
+      const { data, error } = await getPreviewPostApi(postId);
+      setselectedPost(data);
+    },
+    [getPreviewPostApi],
+  );
+  const handleOpenablePostsModal = () => {
+    cookies.set('invisibleModal', true, { maxAge: 3600 });
+  };
+  const handleViewLater = () => {
+    setModalVisible(false);
+    handleOpenablePostsModal();
+    setIsMap(true);
   };
 
-  const positionOptions = { enableHighAccuracy: true };
+  const handleViewNow = () => {
+    navigate(`${openablePosts && openablePosts[0].postId}`);
+    setModalVisible(false);
+    setIsMap(true);
+  };
+  const handleLogout = () => {
+    // 로그아웃 api
+    console.log('로그아웃');
+  };
+
+  useEffect(() => {
+    getPostList();
+
+    if (cookies.get('invisibleModal')) {
+      setIsMap(true);
+      return;
+    }
+    const currentOpenablePosts = postList.filter((post) => post.state === 'Openable');
+    if (currentOpenablePosts.length) {
+      setOpenablePosts(currentOpenablePosts);
+      setModalVisible(true);
+    } else {
+      setIsMap(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    pathname.slice(1) ? handleSelectedPost(parseInt(pathname.slice(1))) : setselectedPost(null);
+  }, [pathname]);
+
   return (
-    <MapGL
-      {...viewport}
-      width="100vw"
-      height="100vh"
-      mapStyle="mapbox://styles/mapbox/light-v10"
-      onViewportChange={setViewport}
-      mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-    >
-      <GeolocateControl
-        style={{ top: 0, left: 0, margin: 10 }}
-        positionOptions={positionOptions}
-        trackUserLocation
-        auto
-      />
-      {dummy.map((data, i) => {
-        return (
-          <Marker
-            key={i}
-            latitude={parseFloat(data.location[0].latitude)}
-            longitude={parseFloat(data.location[0].longitude)}
-            onClick={() => {
-              handleSelectedMarker(data);
-              console.log(`data`, data);
-            }}
-          >
-            <Pin
-              selected={selectedMarker?.postId === data.postId ? true : false}
-              state={data.state}
-            ></Pin>
-          </Marker>
-        );
-      })}
-      <p>테스트 입니다2</p>
-    </MapGL>
+    <div>
+      <HomePageHeader rightComp="lock" handleRightEvent={handleLogout} midText="내 필름" />
+      {isMap && (
+        <Map
+          currentLocation={!pathname.slice(1) ? true : false}
+          selectedPost={selectedPost}
+          postList={postList}
+          onClick={handleSelectedPost}
+        />
+      )}
+
+      {selectedPost && (
+        <Routes>
+          <Route path=":id" element={<PreviewBottomSheet previewPost={selectedPost} />} />
+        </Routes>
+      )}
+      <PostCreateBtn
+        buttonType="PrimaryBtn"
+        width={'100%'}
+        onClick={() => navigate(`/post/create`)}
+      >
+        필름 맡기기
+      </PostCreateBtn>
+      <Modal visible={modalVisible} onClose={() => setModalVisible(false)}>
+        <ModalWrapper>
+          <ModalText textType="Heading4">
+            오늘 찾을 수 있는 사진이 {openablePosts?.length}개 있어요!
+          </ModalText>
+          <ButtonGroup>
+            <Button buttonType="SecondaryBtn" width={'100%'} onClick={handleViewLater}>
+              나중에 볼래요
+            </Button>
+            <Button buttonType="PrimaryBtn" width={'100%'} onClick={handleViewNow}>
+              보러갈래요!
+            </Button>
+          </ButtonGroup>
+        </ModalWrapper>
+      </Modal>
+    </div>
   );
 };
 

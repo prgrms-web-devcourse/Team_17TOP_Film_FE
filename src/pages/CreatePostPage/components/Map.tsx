@@ -1,25 +1,22 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import MapGl, { Marker } from 'react-map-gl';
+import { MAP_STYLE } from '../../../utils/constants/mapConstants';
 import Pin from './Pin';
+import { Location } from '../types';
 
 interface Props {
   latitude: number;
   longitude: number;
-  onChangeLocation: Dispatch<
-    SetStateAction<{
-      latitude: number;
-      longitude: number;
-    }>
-  >;
+  marker: Location;
+  onChangeMarker(data: Location): void;
 }
 
-const Map = ({ latitude, longitude, onChangeLocation }: Props) => {
+const Map = ({ latitude, longitude, marker, onChangeMarker }: Props) => {
   const [viewport, setViewport] = useState({
     latitude: 37,
     longitude: 126,
     zoom: 15,
   });
-  const [marker, setMarker] = useState({ latitude: 37, longitude: 126 });
 
   useEffect(() => {
     setViewport({
@@ -28,20 +25,16 @@ const Map = ({ latitude, longitude, onChangeLocation }: Props) => {
       longitude,
     });
 
-    setMarker({
+    onChangeMarker({
       latitude,
       longitude,
     });
   }, [latitude, longitude]);
 
   const onMarkerDragEnd = useCallback((event) => {
-    setMarker({
-      longitude: event.lngLat[0],
+    onChangeMarker({
       latitude: event.lngLat[1],
-    });
-    onChangeLocation({
       longitude: event.lngLat[0],
-      latitude: event.lngLat[1],
     });
   }, []);
   return (
@@ -49,7 +42,7 @@ const Map = ({ latitude, longitude, onChangeLocation }: Props) => {
       {...viewport}
       width="100%"
       height="100%"
-      mapStyle="mapbox://styles/mapbox/light-v10"
+      mapStyle={MAP_STYLE}
       onViewportChange={setViewport}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
     >
