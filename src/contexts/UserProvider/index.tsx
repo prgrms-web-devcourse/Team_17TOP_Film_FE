@@ -1,4 +1,8 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useCallback, useContext, useEffect, useReducer } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import Toast from '../../components/organism/Toast';
+import { USER_NEED_LOGIN } from '../../utils/apis/config/constants';
+import { isUserSignUpApi } from '../../utils/apis/user';
 import { reducer } from './reducer';
 import { Props, UserContextInterface, UserInfo } from './types';
 
@@ -9,8 +13,23 @@ const UserProvider = ({
   children,
   initialUserInfo = { nickname: '', profileImageUrl: '' },
 }: Props) => {
+  const navigate = useNavigate();
   const [userInfo, dispatch] = useReducer(reducer, initialUserInfo);
 
+  const refreshUserContext = useCallback(async () => {
+    const { data } = await isUserSignUpApi();
+    if (!data) {
+      Toast.info(USER_NEED_LOGIN);
+      return navigate('/login');
+    }
+    saveAllUserInfo({ nickname: data.nickname, profileImageUrl: data.profileImageUrl });
+  }, []);
+
+  useEffect(() => {
+    if (userInfo.nickname.length === 0) {
+      refreshUserContext();
+    }
+  }, [userInfo.nickname, userInfo.profileImageUrl]);
   const saveAllUserInfo = (userInfo: UserInfo) => {
     dispatch({
       type: 'SAVE_ALL_USER_INFO',
@@ -21,7 +40,9 @@ const UserProvider = ({
   };
 
   return (
-    <UserContext.Provider value={{ userInfo, saveAllUserInfo }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ userInfo, saveAllUserInfo, refreshUserContext }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

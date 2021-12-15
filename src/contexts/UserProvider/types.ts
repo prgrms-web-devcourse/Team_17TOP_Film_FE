@@ -11,6 +11,7 @@ export interface UserInfo {
 export interface UserContextInterface {
   userInfo: UserInfo;
   saveAllUserInfo: (userInfo: UserInfo) => void;
+  refreshUserContext: () => void;
 }
 
 type ActionType = 'SAVE_ALL_USER_INFO';
