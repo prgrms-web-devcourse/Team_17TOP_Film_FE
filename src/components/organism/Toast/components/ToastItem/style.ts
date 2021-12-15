@@ -34,4 +34,23 @@ const Content = styled.h1`
   font-weight: 400;
   line-height: 1.4;
 `;
-export { Container, Content };
+const ProgressBar = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(0, 0, 0, 30%);
+  animation-name: progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  @keyframes progress {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
+  }
+`;
+export { Container, Content, ProgressBar };

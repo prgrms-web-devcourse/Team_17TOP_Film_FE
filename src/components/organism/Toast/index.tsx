@@ -28,8 +28,11 @@ class Toast {
     );
   }
 
-  show(message: string, duration = 2000) {
-    this.createToast?.(message, duration);
+  info(message: string, duration = 2000) {
+    this.createToast?.(message, duration, 'info');
+  }
+  warn(message: string, duration = 2000) {
+    this.createToast?.(message, duration, 'warn');
   }
 }
 export default new Toast();

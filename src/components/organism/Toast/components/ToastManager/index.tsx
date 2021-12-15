@@ -7,8 +7,9 @@ export interface Toast {
   id: string;
   message: string;
   duration: number;
+  type: 'info' | 'warn';
 }
-export type CreateToast = (message: string, duration: number) => void;
+export type CreateToast = (message: string, duration: number, type: any) => void;
 interface Props {
   bind: (createToast: CreateToast) => void;
 }
@@ -16,11 +17,12 @@ interface Props {
 const ToastManager = ({ bind }: Props) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const createToast: CreateToast = useCallback((message, duration) => {
+  const createToast: CreateToast = useCallback((message, duration, type) => {
     const newToast = {
       id: v4(),
       message,
       duration,
+      type,
     };
     setToasts((oldToasts) => [...oldToasts, newToast]);
   }, []);
@@ -35,8 +37,14 @@ const ToastManager = ({ bind }: Props) => {
 
   return (
     <Container>
-      {toasts.map(({ id, message, duration }) => (
-        <ToastItem message={message} duration={duration} key={id} onDone={() => removeToast(id)} />
+      {toasts.map(({ id, message, duration, type }) => (
+        <ToastItem
+          type={type}
+          message={message}
+          duration={duration}
+          key={id}
+          onDone={() => removeToast(id)}
+        />
       ))}
     </Container>
   );
