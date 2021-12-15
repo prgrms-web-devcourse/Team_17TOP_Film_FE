@@ -5,7 +5,7 @@ import { Button, Modal } from '../../components/atoms';
 import { HomePageHeader, PostCreateBtn, ModalWrapper, ButtonGroup, ModalText } from './style';
 import Map from './Map';
 import { Cookies } from 'react-cookie';
-import { getPostListApi, getPreviewPostApi } from '../../utils/apis/post';
+import { getPostListApi, getPreviewPostApi, deletePostApi } from '../../utils/apis/post';
 import { Post, PreviewPost } from '../../utils/apis/post/type';
 
 const HomePage = () => {
@@ -22,7 +22,7 @@ const HomePage = () => {
   const getPostList = useCallback(async () => {
     const { data, error } = await getPostListApi();
     if (data) {
-      setPostList((prev) => [...prev, ...data.posts]);
+      setPostList(data.posts);
     }
   }, [getPostListApi]);
 
@@ -33,6 +33,17 @@ const HomePage = () => {
     },
     [getPreviewPostApi],
   );
+
+  const handleDeletePost = async (postId: number) => {
+    const { data, error } = await deletePostApi(postId);
+    if (!data) {
+      console.log(error);
+      return;
+    }
+    navigate(`/`);
+    getPostList();
+  };
+
   const handleOpenablePostsModal = () => {
     cookies.set('invisibleModal', true, { maxAge: 3600 });
   };
@@ -54,6 +65,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getPostList();
+    console.log('getPost');
 
     if (cookies.get('invisibleModal')) {
       setIsMap(true);
@@ -86,7 +98,12 @@ const HomePage = () => {
 
       {selectedPost && (
         <Routes>
-          <Route path=":id" element={<PreviewBottomSheet previewPost={selectedPost} />} />
+          <Route
+            path=":id"
+            element={
+              <PreviewBottomSheet previewPost={selectedPost} postDeleteMethod={handleDeletePost} />
+            }
+          />
         </Routes>
       )}
       <PostCreateBtn

@@ -13,14 +13,15 @@ import {
 } from './style';
 import { PreviewPost } from '../../../utils/apis/post/type';
 import ProfileImg from '../../../assets/images/img_profile.svg';
+import { useUserInfo } from '../../../contexts/UserProvider';
 interface Props {
   previewPost: PreviewPost;
+  postDeleteMethod(postId: number): void;
 }
 
-const PreviewBottomSheet = ({ previewPost }: Props) => {
-  useEffect(() => {
-    console.log(previewPost);
-  }, []);
+const PreviewBottomSheet = ({ previewPost, postDeleteMethod }: Props) => {
+  const { userInfo } = useUserInfo();
+
   return (
     <BottomSheetWrapper>
       <FilmTitle textType="Heading3">{previewPost.title}</FilmTitle>
@@ -45,9 +46,14 @@ const PreviewBottomSheet = ({ previewPost }: Props) => {
           </Avatar.Group>
         </AuthorityList>
       </FilmInfoWrapper>
-      {/* TODO: 추후에 작성자만 삭제할 수 있는 로직 추가 */}
-      {previewPost.state === 'CLOSED' && (
-        <Button buttonType="SecondaryBtn" width="100%">
+      {previewPost.state === 'CLOSED' && userInfo.nickname === previewPost.authorNickname && (
+        <Button
+          buttonType="SecondaryBtn"
+          width="100%"
+          onClick={() => {
+            postDeleteMethod(previewPost.postId);
+          }}
+        >
           필름 삭제하기
         </Button>
       )}
