@@ -139,6 +139,8 @@ const ThirdStepPostFormContainer = styled(PostFormContainer)`
 
 const DateInput = styled.input`
   padding: 0 16px 0 16px;
+  width: 100%;
+  background: none;
   height: 48px;
   border-radius: 4px;
   border-color: ${({ theme }) => theme.colors.gray400};
