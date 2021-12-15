@@ -65,11 +65,8 @@ const SecondStep = ({
 
   const asyncDataURLToFile = async () => {
     if (storedSecondStepData?.image && storedFilename) {
-      const convertFile = await dataURLToFile(
-        storedSecondStepData?.image as string,
-        storedFilename,
-      );
-      await setFile(convertFile);
+      const convertFile = await dataURLToFile(storedSecondStepData.image as string, storedFilename);
+      setFile(convertFile);
     }
   };
 
