@@ -1,8 +1,17 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { UploadContainer, UploadInput } from './style';
 import { UploadProps } from './types';
 
-const Upload = ({ children, name, accept, droppable, value, onChange, ...props }: UploadProps) => {
+const Upload = ({
+  children,
+  name,
+  accept,
+  droppable,
+  value,
+  fileDelete,
+  onChange,
+  ...props
+}: UploadProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState(value);
   const [uploading, setUploading] = useState(false);
@@ -57,6 +66,15 @@ const Upload = ({ children, name, accept, droppable, value, onChange, ...props }
       onChange(changedFile);
     }
   }, []);
+
+  useEffect(() => {
+    if (!fileDelete) {
+      return;
+    }
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
+  }, [fileDelete]);
 
   return (
     <UploadContainer

@@ -160,6 +160,7 @@ const SecondStep = ({
             accept="image/*"
             onChange={handleSetImageFile}
             imageURL={imageURL}
+            fileDelete={file ? false : true}
           >
             <ImageUploadIcon imageURL={imageURL}>+</ImageUploadIcon>
             {imageURL ? <PreviewImg src={imageURL} /> : ''}
