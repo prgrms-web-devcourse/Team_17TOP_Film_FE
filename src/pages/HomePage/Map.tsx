@@ -2,31 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
 import { Pin } from '../../components/organism';
-interface Post {
-  postId: number;
-  state: string;
-  location: {
-    latitude: string;
-    longitude: string;
-  };
-}
-interface PreviewPost {
-  postId: number;
-  title: string;
-  previewText: string;
-  availableAt: string;
-  state: string;
-  location: {
-    latitude: string;
-    longitude: string;
-  };
-  authorityCount: number;
-  authorityImageList: {
-    imageOrder: number;
-    authorityId: number;
-    imageUrl: string;
-  }[];
-}
+import { Post, PreviewPost } from '../../utils/apis/post/type';
 interface Props {
   currentLocation: boolean;
   selectedPost: PreviewPost | null;
@@ -46,9 +22,8 @@ const Map = ({ currentLocation, selectedPost, postList, onClick }: Props) => {
     pitch: 0,
   });
 
-  const handleSelectedMarker = useCallback((id: number) => {
-    // 상위 컴포넌트에 선택된 포스트 id 알려주기
-    onClick(id);
+  const handleSelectedMarker = useCallback((postId: number) => {
+    onClick(postId);
   }, []);
 
   // 현재위치 기반으로 지도를 띄워야 하는 경우

@@ -13,12 +13,12 @@ const Pin = ({ selected, state, ...props }: PinProps) => {
   return (
     <div {...props}>
       {selected ? (
-        state === 'Closed' ? (
+        state === 'CLOSED' ? (
           <PinImg src={PinSelectedClose} />
         ) : (
           <PinImg src={PinSelectedOpen} />
         )
-      ) : state === 'Closed' ? (
+      ) : state === 'CLOSED' ? (
         <PinImg src={PinClose} />
       ) : (
         <PinImg src={PinOpen} />
