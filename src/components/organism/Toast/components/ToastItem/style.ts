@@ -1,21 +1,17 @@
 import styled from '@emotion/styled';
+import { MdClose } from 'react-icons/md';
 
 const Container = styled.div`
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  height: 50px;
-  align-items: center;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  height: inherit;
+  word-wrap: break-word;
+
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   opacity: 1;
   border-radius: 4px;
   transition: opacity 0.4s ease-out;
-  padding: 0 20px;
+  padding: 20px;
   &:not(:first-of-type) {
     margin-top: 8px;
   }
@@ -28,8 +24,11 @@ const Container = styled.div`
     }
   }
 `;
-
+const Body = styled.div`
+  display: flex;
+`;
 const Content = styled.h1`
+  max-width: calc(100% - 56px);
   font-size: '1rem';
   font-weight: 400;
   line-height: 1.4;
@@ -53,4 +52,11 @@ const ProgressBar = styled.div`
     }
   }
 `;
-export { Container, Content, ProgressBar };
+
+const CloseBtn = styled(MdClose)`
+  color: white;
+  size: 1rem;
+  position: absolute;
+  right: 20px;
+`;
+export { Container, Content, ProgressBar, Body, CloseBtn };
