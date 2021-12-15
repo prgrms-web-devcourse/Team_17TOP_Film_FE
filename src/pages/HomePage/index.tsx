@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { PreviewBottomSheet } from '../../components/organism';
-import { Button, Modal } from '../../components/atoms';
-import { HomePageHeader, PostCreateBtn, ModalWrapper, ButtonGroup, ModalText } from './style';
+import { HomePageHeader, PostCreateBtn } from './style';
 import Map from './Map';
 import { Cookies } from 'react-cookie';
 import { getPostListApi, getPreviewPostApi, deletePostApi } from '../../utils/apis/post';
 import { Post, PreviewPost } from '../../utils/apis/post/type';
+import ConfirmModal from './Modal';
 
 const HomePage = () => {
   const cookies = new Cookies();
@@ -44,18 +44,15 @@ const HomePage = () => {
     getPostList();
   };
 
-  const handleOpenablePostsModal = () => {
-    cookies.set('invisibleModal', true, { maxAge: 3600 });
-  };
   const handleViewLater = () => {
     setModalVisible(false);
-    handleOpenablePostsModal();
+    cookies.set('invisibleModal', true, { maxAge: 3600 });
     setIsMap(true);
   };
 
   const handleViewNow = () => {
-    navigate(`${openablePosts && openablePosts[0].postId}`);
     setModalVisible(false);
+    navigate(`${openablePosts && openablePosts[0].postId}`);
     setIsMap(true);
   };
   const handleLogout = () => {
@@ -72,6 +69,7 @@ const HomePage = () => {
       return;
     }
     const currentOpenablePosts = postList.filter((post) => post.state === 'Openable');
+
     if (currentOpenablePosts.length) {
       setOpenablePosts(currentOpenablePosts);
       setModalVisible(true);
@@ -113,21 +111,15 @@ const HomePage = () => {
       >
         필름 맡기기
       </PostCreateBtn>
-      <Modal visible={modalVisible} onClose={() => setModalVisible(false)}>
-        <ModalWrapper>
-          <ModalText textType="Heading4">
-            오늘 찾을 수 있는 사진이 {openablePosts?.length}개 있어요!
-          </ModalText>
-          <ButtonGroup>
-            <Button buttonType="SecondaryBtn" width={'100%'} onClick={handleViewLater}>
-              나중에 볼래요
-            </Button>
-            <Button buttonType="PrimaryBtn" width={'100%'} onClick={handleViewNow}>
-              보러갈래요!
-            </Button>
-          </ButtonGroup>
-        </ModalWrapper>
-      </Modal>
+      <ConfirmModal
+        modalVisible={modalVisible}
+        modalText={`오늘 찾을 수 있는 사진이 ${openablePosts?.length}개 있어요!`}
+        primaryBtnText={`보러갈래요!`}
+        secondaryBtnText={`나중에 볼래요`}
+        handleClose={() => setModalVisible(false)}
+        primaryBtnEvent={handleViewNow}
+        secondaryBtnEvent={handleViewLater}
+      />
     </div>
   );
 };
