@@ -5,7 +5,6 @@ const Container = styled.div`
   position: relative;
   height: inherit;
   word-wrap: break-word;
-
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   opacity: 1;
@@ -13,14 +12,17 @@ const Container = styled.div`
   transition: opacity 0.4s ease-out;
   padding: 20px;
   &:not(:first-of-type) {
-    margin-top: 8px;
+    margin-bottom: 8px;
   }
-  &:first-of-type {
+  &:last-of-type {
     animation: move 0.4s ease-out forwards;
   }
   @keyframes move {
     0% {
-      margin-top: 8px;
+      transform: translateY(-50%);
+    }
+    100% {
+      transform: translateY(0);
     }
   }
 `;
