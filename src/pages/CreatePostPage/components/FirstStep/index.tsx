@@ -4,6 +4,7 @@ import Map from './Map';
 import { FirstStepProps, Location } from '../../types';
 import UploadHeader from '../UploadHeader';
 import { useNavigate } from 'react-router-dom';
+import Toast from '../../../../components/organism/Toast';
 
 const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => {
   const [userLocation, setUserLocation] = useState({ latitude: 37, longitude: 127 });
@@ -12,7 +13,7 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
 
   const getGeoLocation = () => {
     if (!navigator.geolocation) {
-      console.warn('GPS를 지원하지 않습니다.');
+      Toast.info('GPS를 지원하지 않습니다.');
       return;
     }
     navigator.geolocation.getCurrentPosition((position) => {

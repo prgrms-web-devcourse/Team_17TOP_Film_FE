@@ -7,6 +7,7 @@ import ThirdStep from './components/ThirdStep';
 import { useLocalStorage } from '../../hooks';
 import { createPostApi } from '../../utils/apis/posts';
 import { useNavigate } from 'react-router-dom';
+import Toast from '../../components/organism/Toast';
 
 const CreatePostPage = () => {
   const [step, setStep] = useState(1);
@@ -64,7 +65,7 @@ const CreatePostPage = () => {
     setIsConfirm(false);
     const { data, error } = await createPostApi(formData);
     if (error.errorMessage) {
-      console.warn(error.errorMessage);
+      Toast.warn('잠시후에 다시 시도해주세요 🔧');
       return;
     }
     window.localStorage.removeItem('location');
