@@ -65,7 +65,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getPostList();
-    console.log('getPost');
+    // console.log('getPost');
 
     if (cookies.get('invisibleModal')) {
       setIsMap(true);
