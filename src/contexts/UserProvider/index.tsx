@@ -15,13 +15,12 @@ const UserProvider = ({
   const [userInfo, dispatch] = useReducer(reducer, initialUserInfo);
 
   const refreshUserContext = async () => {
-    saveAllUserInfo({ nickname: '', profileImageUrl: '' });
     const { data } = await isUserSignUpApi();
-
     if (!data) {
       saveAllUserInfo({ nickname: '', profileImageUrl: '' });
+      localStorage.removeItem('token');
       // return;
-      return navigate('/login');
+      navigate('/login');
     }
     saveAllUserInfo({
       nickname: data.nickname,
@@ -37,9 +36,7 @@ const UserProvider = ({
       },
     });
   };
-  useLayoutEffect(() => {
-    // refreshUserContext();
-  }, []);
+
   return (
     <UserContext.Provider value={{ userInfo, saveAllUserInfo, refreshUserContext }}>
       {children}
