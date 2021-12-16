@@ -28,6 +28,33 @@ export interface PreviewPost {
   }[];
 }
 
+export interface PostDetail {
+  postId: number;
+  title: string;
+  content: string;
+  imgaeUrls: {
+    imageOrder: number;
+    imageUrl: string;
+  }[];
+  authorNickname: string;
+  authorImageUrl: string;
+  createdAt: string;
+  authorityImageList: {
+    imageOrder: number;
+    authorityId: number;
+    imageUrl: string;
+  }[];
+  location: {
+    latitude: string;
+    longitude: string;
+  };
+  openerNickname: string;
+  openerImageUrl: string;
+  isOpened: boolean;
+  openedAt: string;
+  previewText: string;
+}
+
 export interface PostListApi {
   data: {
     posts: Post[];
@@ -43,5 +70,9 @@ export interface DeletePostApi {
   data: {
     postId: number;
   };
+  error: ErrorType;
+}
+export interface PostDetailApi {
+  data: PostDetail;
   error: ErrorType;
 }
