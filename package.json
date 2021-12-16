@@ -2,6 +2,7 @@
   "name": "film_project",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@craco/craco": "^6.4.2",
     "@emotion/react": "^11.7.0",
