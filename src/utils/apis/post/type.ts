@@ -19,6 +19,7 @@ export interface PreviewPost {
     latitude: string;
     longitude: string;
   };
+  authorNickname: string;
   authorityCount: number;
   authorityImageList: {
     imageOrder: number;
@@ -35,5 +36,12 @@ export interface PostListApi {
 }
 export interface PreviewPostApi {
   data: PreviewPost;
+  error: ErrorType;
+}
+
+export interface DeletePostApi {
+  data: {
+    postId: number;
+  };
   error: ErrorType;
 }
