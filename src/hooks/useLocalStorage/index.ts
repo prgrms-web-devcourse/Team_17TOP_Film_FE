@@ -3,8 +3,8 @@ import { getLocalStorage } from '../../utils/getLocalStorage';
 
 function useLocalStorage<T>(key: string, initialValue: T) {
   const [storedValue, setStoredValue] = useState<T>(() => {
-    const item = getLocalStorage(key, () => initialValue);
-    return item ? item : initialValue;
+    const item = localStorage.get(key);
+    return item ? (JSON.parse(item) as T) : initialValue;
   });
 
   const setValue = (value: T | ((val: T) => T)) => {

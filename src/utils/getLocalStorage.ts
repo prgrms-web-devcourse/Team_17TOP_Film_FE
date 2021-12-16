@@ -1,13 +1,9 @@
-const getLocalStorage = (key: string, errorFallback: () => void) => {
+const getLocalStorage = (key: string) => {
   try {
     const token = localStorage.getItem(key);
-    if (!token) {
-      return errorFallback();
-    }
-    return JSON.parse(token);
+    return token ? JSON.parse(token) : '';
   } catch (error) {
     console.error(error);
-    return errorFallback();
   }
 };
 export { getLocalStorage };
