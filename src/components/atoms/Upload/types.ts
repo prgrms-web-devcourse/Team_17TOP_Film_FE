@@ -7,4 +7,5 @@ export interface UploadProps {
   accept?: string;
   value?: File;
   droppable: boolean;
+  fileDelete?: boolean;
 }

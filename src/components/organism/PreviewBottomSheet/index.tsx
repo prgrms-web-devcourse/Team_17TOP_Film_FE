@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiX } from 'react-icons/bi';
 import { Avatar, Button, Text } from '../../atoms';
@@ -13,14 +13,15 @@ import {
 } from './style';
 import { PreviewPost } from '../../../utils/apis/post/type';
 import ProfileImg from '../../../assets/images/img_profile.svg';
+import { useUserInfo } from '../../../contexts/UserProvider';
 interface Props {
   previewPost: PreviewPost;
+  postDeleteEvent: () => void;
 }
 
-const PreviewBottomSheet = ({ previewPost }: Props) => {
-  useEffect(() => {
-    console.log(previewPost);
-  }, []);
+const PreviewBottomSheet = ({ previewPost, postDeleteEvent }: Props) => {
+  const { userInfo } = useUserInfo();
+
   return (
     <BottomSheetWrapper>
       <FilmTitle textType="Heading3">{previewPost.title}</FilmTitle>
@@ -45,10 +46,13 @@ const PreviewBottomSheet = ({ previewPost }: Props) => {
           </Avatar.Group>
         </AuthorityList>
       </FilmInfoWrapper>
-      {/* TODO: 추후에 작성자만 삭제할 수 있는 로직 추가 */}
-      {previewPost.state === 'CLOSED' && (
-        <Button buttonType="SecondaryBtn" width="100%">
+      {previewPost.state === 'CLOSED' && userInfo.nickname === previewPost.authorNickname ? (
+        <Button buttonType="SecondaryBtn" width="100%" onClick={postDeleteEvent}>
           필름 삭제하기
+        </Button>
+      ) : (
+        <Button buttonType="SecondaryBtn" width="100%">
+          사진 나오는중...
         </Button>
       )}
       {previewPost.state === 'OPENABLE' && (
