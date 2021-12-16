@@ -32,7 +32,7 @@ export interface PostDetail {
   postId: number;
   title: string;
   content: string;
-  imgaeUrls: {
+  imageUrls: {
     imageOrder: number;
     imageUrl: string;
   }[];
