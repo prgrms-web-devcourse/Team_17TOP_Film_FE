@@ -65,7 +65,6 @@ const HomePage = () => {
 
   useEffect(() => {
     getPostList();
-    // console.log('getPost');
 
     if (cookies.get('invisibleModal')) {
       setIsMap(true);
@@ -104,6 +103,7 @@ const HomePage = () => {
             element={
               <PreviewBottomSheet
                 previewPost={selectedPost}
+                postViewEvent={() => navigate(`/post/${selectedPost.postId}`)}
                 postDeleteEvent={() => setPostDeleteModalVisible(true)}
               />
             }
