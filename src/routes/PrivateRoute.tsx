@@ -1,12 +1,12 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useUserInfo } from '../contexts/UserProvider';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 const PrivateRoute = () => {
+  const navigate = useNavigate;
   const { userInfo } = useUserInfo();
-  const location = useLocation();
 
-  if (!userInfo.nickname) {
-    return <Navigate to="/login" state={{ from: location, needLogin: true }} />;
+  if (userInfo.nickname.length < 1) {
+    return <Navigate to="/login" />;
   }
   return <Outlet />;
 };

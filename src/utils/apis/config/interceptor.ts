@@ -3,7 +3,7 @@ import { getLocalStorage } from '../../getLocalStorage';
 
 const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use((config) => {
-    const token = getLocalStorage('token', () => (location.href = '/login'));
+    const token = getLocalStorage('token');
     config.headers = {
       authorization: `Bearer ${token}`,
       ...config.headers,
@@ -25,7 +25,7 @@ const authInterceptor = (instance: AxiosInstance) => {
         ...res,
         data: null,
         error: {
-          status: res.response.status,
+          status: res?.response?.status,
           errorCode: res?.response?.data?.code || null,
           errorMessage: res?.response?.data?.message || '예기치 못한 에러입니다.',
         },

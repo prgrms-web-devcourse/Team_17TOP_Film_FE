@@ -18,7 +18,6 @@ const OauthPage = () => {
       saveAllUserInfo({ nickname, profileImageUrl });
       return navigate('/');
     }
-
     navigate('/signup');
   }, []);
 

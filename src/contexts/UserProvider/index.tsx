@@ -1,7 +1,5 @@
-import { createContext, useCallback, useContext, useEffect, useReducer } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import Toast from '../../components/organism/Toast';
-import { USER_NEED_LOGIN } from '../../utils/apis/config/constants';
+import { createContext, useCallback, useContext, useLayoutEffect, useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { isUserSignUpApi } from '../../utils/apis/user';
 import { reducer } from './reducer';
 import { Props, UserContextInterface, UserInfo } from './types';
@@ -13,23 +11,21 @@ const UserProvider = ({
   children,
   initialUserInfo = { nickname: '', profileImageUrl: '' },
 }: Props) => {
-  const navigate = useNavigate();
   const [userInfo, dispatch] = useReducer(reducer, initialUserInfo);
 
   const refreshUserContext = useCallback(async () => {
+    saveAllUserInfo({ nickname: '', profileImageUrl: '' });
     const { data } = await isUserSignUpApi();
+
     if (!data) {
-      Toast.info(USER_NEED_LOGIN);
-      return navigate('/login');
+      return saveAllUserInfo({ nickname: '', profileImageUrl: '' });
     }
-    saveAllUserInfo({ nickname: data.nickname, profileImageUrl: data.profileImageUrl });
+    saveAllUserInfo({
+      nickname: data.nickname,
+      profileImageUrl: data.profileImageUrl,
+    });
   }, []);
 
-  useEffect(() => {
-    if (userInfo.nickname.length === 0) {
-      refreshUserContext();
-    }
-  }, [userInfo.nickname, userInfo.profileImageUrl]);
   const saveAllUserInfo = (userInfo: UserInfo) => {
     dispatch({
       type: 'SAVE_ALL_USER_INFO',
@@ -38,7 +34,9 @@ const UserProvider = ({
       },
     });
   };
-
+  useLayoutEffect(() => {
+    refreshUserContext();
+  }, [refreshUserContext]);
   return (
     <UserContext.Provider value={{ userInfo, saveAllUserInfo, refreshUserContext }}>
       {children}
