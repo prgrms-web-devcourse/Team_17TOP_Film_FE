@@ -11,20 +11,23 @@ const UserProvider = ({
   children,
   initialUserInfo = { nickname: '', profileImageUrl: '' },
 }: Props) => {
+  const navigate = useNavigate();
   const [userInfo, dispatch] = useReducer(reducer, initialUserInfo);
 
-  const refreshUserContext = useCallback(async () => {
+  const refreshUserContext = async () => {
     saveAllUserInfo({ nickname: '', profileImageUrl: '' });
     const { data } = await isUserSignUpApi();
 
     if (!data) {
-      return saveAllUserInfo({ nickname: '', profileImageUrl: '' });
+      saveAllUserInfo({ nickname: '', profileImageUrl: '' });
+      // return;
+      return navigate('/login');
     }
     saveAllUserInfo({
       nickname: data.nickname,
       profileImageUrl: data.profileImageUrl,
     });
-  }, []);
+  };
 
   const saveAllUserInfo = (userInfo: UserInfo) => {
     dispatch({
@@ -35,8 +38,8 @@ const UserProvider = ({
     });
   };
   useLayoutEffect(() => {
-    refreshUserContext();
-  }, [refreshUserContext]);
+    // refreshUserContext();
+  }, []);
   return (
     <UserContext.Provider value={{ userInfo, saveAllUserInfo, refreshUserContext }}>
       {children}
