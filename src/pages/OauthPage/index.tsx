@@ -10,11 +10,10 @@ const OauthPage = () => {
   const { saveAllUserInfo } = useUserInfo();
 
   const routingBasedOnSignUpStatus = useCallback(async () => {
-    const {
-      data: { isDuplicate, nickname, profileImageUrl },
-    } = await isUserSignUpApi();
-
-    if (isDuplicate) {
+    const { data } = await isUserSignUpApi();
+    console.log(data);
+    const { nickname, profileImageUrl } = data;
+    if (data.isDuplicate) {
       saveAllUserInfo({ nickname, profileImageUrl });
       return navigate('/');
     }

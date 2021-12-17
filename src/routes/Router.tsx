@@ -5,13 +5,15 @@ import PrivateRoute from './PrivateRoute';
 const Router = () => {
   return (
     <Routes>
-      <Route path="/login" element={<LogInPage />} />
+      {/* <Route element={<NotLoginCanUseRoute />}></Route> */}
+
+      <Route element={<PrivateRoute />}></Route>
       <Route path="/oauth/redirect/*" element={<OauthPage />} />
+      <Route path="/login" element={<LogInPage />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route element={<PrivateRoute />}>
-        <Route path="/*" element={<HomePage />} />
-        <Route path="/post/create" element={<CreatePostPage />} />
-      </Route>
+      <Route path="/*" element={<HomePage />} />
+      <Route path="/post/create" element={<CreatePostPage />} />
+      {/* <Route path="/post/:postId" element={<PostDetailPage />} /> */}
     </Routes>
   );
 };
