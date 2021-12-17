@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { getLocalStorage } from '../../getLocalStorage';
+// import { getLocalStorage } from '../../getLocalStorage';
 
 const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use((config) => {
