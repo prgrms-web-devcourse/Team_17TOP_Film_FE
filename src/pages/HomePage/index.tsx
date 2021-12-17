@@ -24,6 +24,10 @@ const HomePage = () => {
 
   const getPostList = useCallback(async () => {
     const { data, error } = await getPostListApi();
+    if (!data) {
+      console.log(error);
+      return;
+    }
     if (data) {
       setPostList(data.posts);
     }
@@ -32,6 +36,10 @@ const HomePage = () => {
   const handleSelectedPost = useCallback(
     async (postId: number) => {
       const { data, error } = await getPreviewPostApi(postId);
+      if (!data) {
+        console.log(error);
+        return;
+      }
       setselectedPost(data);
     },
     [getPreviewPostApi],

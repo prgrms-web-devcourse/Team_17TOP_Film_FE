@@ -9,9 +9,7 @@ import {
 } from '../pages';
 import PrivateRoute from './PrivateRoute';
 import NotLoginCanUseRoute from './NotLoginCanUseRoute';
-import { useUserInfo } from '../contexts/UserProvider';
 const Router = () => {
-  const { userInfo } = useUserInfo();
   return (
     <Routes>
       <Route element={<NotLoginCanUseRoute />}>

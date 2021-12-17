@@ -30,6 +30,8 @@ jobs:
         env:
           SKIP_PREFLIGHT_CHECK: ${{ secrets.REACT_APP_SKIP_PREFLIGHT_CHECK }}
           REACT_APP_MAPBOX_TOKEN: ${{secrets.REACT_APP_MAPBOX_TOKEN}}
+          REACT_APP_BASE_URL: ${{secrets.REACT_APP_BASE_URL}}
+          REACT_APP_REDIRECT_URI: ${{secrets.REACT_APP_REDIRECT_URI}}
         run: yarn build
 
       - name: Deploy
