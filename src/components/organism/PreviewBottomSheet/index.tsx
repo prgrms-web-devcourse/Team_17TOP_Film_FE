@@ -16,10 +16,11 @@ import ProfileImg from '../../../assets/images/img_profile.svg';
 import { useUserInfo } from '../../../contexts/UserProvider';
 interface Props {
   previewPost: PreviewPost;
+  postViewEvent: () => void;
   postDeleteEvent: () => void;
 }
 
-const PreviewBottomSheet = ({ previewPost, postDeleteEvent }: Props) => {
+const PreviewBottomSheet = ({ previewPost, postViewEvent, postDeleteEvent }: Props) => {
   const { userInfo } = useUserInfo();
 
   return (
@@ -46,22 +47,23 @@ const PreviewBottomSheet = ({ previewPost, postDeleteEvent }: Props) => {
           </Avatar.Group>
         </AuthorityList>
       </FilmInfoWrapper>
-      {previewPost.state === 'CLOSED' && userInfo.nickname === previewPost.authorNickname ? (
+      {previewPost.state === 'CLOSED' && userInfo.nickname === previewPost.authorNickname && (
         <Button buttonType="SecondaryBtn" width="100%" onClick={postDeleteEvent}>
           필름 삭제하기
         </Button>
-      ) : (
+      )}
+      {previewPost.state === 'CLOSED' && userInfo.nickname !== previewPost.authorNickname && (
         <Button buttonType="SecondaryBtn" width="100%">
           사진 나오는중...
         </Button>
       )}
       {previewPost.state === 'OPENABLE' && (
-        <Button buttonType="PrimaryBtn" width="100%">
+        <Button buttonType="PrimaryBtn" width="100%" onClick={postViewEvent}>
           사진 찾기
         </Button>
       )}
       {previewPost.state === 'OPENED' && (
-        <Button buttonType="PrimaryBtn" width="100%">
+        <Button buttonType="PrimaryBtn" width="100%" onClick={postViewEvent}>
           사진 보기
         </Button>
       )}

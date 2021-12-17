@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
+import { BiChevronLeft } from 'react-icons/bi';
 import { Wrapper } from './style';
 
 export interface Props {
@@ -12,7 +12,7 @@ const LeftSide = ({ leftComp, handleLeftEvent }: Props) => {
     case 'backBtn': {
       return (
         <Wrapper onClick={handleLeftEvent}>
-          <MdOutlineKeyboardArrowLeft />
+          <BiChevronLeft size={24} />
         </Wrapper>
       );
     }

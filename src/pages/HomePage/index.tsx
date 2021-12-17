@@ -65,7 +65,6 @@ const HomePage = () => {
 
   useEffect(() => {
     getPostList();
-    console.log('getPost');
 
     if (cookies.get('invisibleModal')) {
       setIsMap(true);
@@ -87,7 +86,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <HomePageHeader rightComp="lock" handleRightEvent={handleLogout} midText="내 필름" />
+      <HomePageHeader rightComp="logout" handleRightEvent={handleLogout} midText="내 필름" />
       {isMap && (
         <Map
           currentLocation={!pathname.slice(1) ? true : false}
@@ -104,6 +103,7 @@ const HomePage = () => {
             element={
               <PreviewBottomSheet
                 previewPost={selectedPost}
+                postViewEvent={() => navigate(`/post/${selectedPost.postId}`)}
                 postDeleteEvent={() => setPostDeleteModalVisible(true)}
               />
             }

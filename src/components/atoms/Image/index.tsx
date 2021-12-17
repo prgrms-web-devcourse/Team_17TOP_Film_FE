@@ -8,8 +8,8 @@ interface Props {
   src: string;
   alt: string;
   placeholder: string;
-  width: number;
-  height: number;
+  width: number | string;
+  height: number | string;
   block?: boolean;
   [x: string]: any;
 }

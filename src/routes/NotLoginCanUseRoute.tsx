@@ -1,14 +1,14 @@
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useUserInfo } from '../contexts/UserProvider';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
-import { useLayoutEffect } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRoute = () => {
   const token = localStorage.getItem('token');
   const { refreshUserContext } = useUserInfo();
   useLayoutEffect(() => {
-    token && refreshUserContext();
+    refreshUserContext();
   }, []);
 
-  return token ? <Outlet /> : <Navigate to="/login" />;
+  return !token ? <Outlet /> : <Navigate to="/" />;
 };
 export default PrivateRoute;

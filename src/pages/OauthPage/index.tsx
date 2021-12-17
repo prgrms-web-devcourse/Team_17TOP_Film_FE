@@ -12,13 +12,12 @@ const OauthPage = () => {
   const routingBasedOnSignUpStatus = useCallback(async () => {
     const { data } = await isUserSignUpApi();
     console.log(data);
-    const { nickname, profileImageUrl } = data;
-    if (data.isDuplicate) {
-      saveAllUserInfo({ nickname, profileImageUrl });
-      return navigate('/');
-    }
-
-    navigate('/signup');
+    // const { nickname, profileImageUrl } = data;
+    // if (data.isDuplicate) {
+    // saveAllUserInfo({ nickname, profileImageUrl });
+    // return navigate('/');
+    // }
+    // navigate('/signup');
   }, []);
 
   useLayoutEffect(() => {

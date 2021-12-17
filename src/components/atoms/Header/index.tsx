@@ -1,4 +1,4 @@
-import { MiddleSide, Wrapper, Side } from './style';
+import { MiddleSide, Wrapper } from './style';
 import LeftSide, { Props as LeftSideInterface } from './components/LeftSide';
 import RightSide, { Props as RightSideInterface } from './components/RightSide';
 
@@ -19,13 +19,9 @@ const Header = ({
 }: Props) => {
   return (
     <Wrapper bgColor={bgColor} {...props}>
+      {leftComp && <LeftSide leftComp={leftComp} handleLeftEvent={handleLeftEvent} />}
       {midText && <MiddleSide>{midText}</MiddleSide>}
-      {(leftComp || rightComp) && (
-        <Side>
-          {leftComp && <LeftSide leftComp={leftComp} handleLeftEvent={handleLeftEvent} />}
-          {rightComp && <RightSide rightComp={rightComp} handleRightEvent={handleRightEvent} />}
-        </Side>
-      )}
+      {rightComp && <RightSide rightComp={rightComp} handleRightEvent={handleRightEvent} />}
     </Wrapper>
   );
 };
