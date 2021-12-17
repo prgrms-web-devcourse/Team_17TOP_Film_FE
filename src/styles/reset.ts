@@ -1,37 +1,6 @@
 import { css } from '@emotion/react';
 
 const reset = css`
-  @font-face {
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    font-style: normal;
-    font-weight: 800;
-    src: url('../assets/fonts/SpoqaHanSansNeo-Bold.woff') format('woff');
-  }
-  @font-face {
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    font-style: normal;
-    font-weight: 600;
-    src: url('../assets/fonts/SpoqaHanSansNeo-Medium.woff') format('woff');
-  }
-  @font-face {
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    font-style: normal;
-    font-weight: 500;
-    src: url('../assets/fonts/SpoqaHanSansNeo-Regular.woff') format('woff');
-  }
-  @font-face {
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    font-style: normal;
-    font-weight: 300;
-    src: url('../assets/fonts/SpoqaHanSansNeo-Light.woff') format('woff');
-  }
-  @font-face {
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    font-style: normal;
-    font-weight: 200;
-    src: url('../assets/fonts/SpoqaHanSansNeo-Regular.woff') format('woff');
-  }
-
   html,
   body,
   div,
@@ -142,9 +111,9 @@ const reset = css`
     display: none;
   }
   html {
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   }
   body {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
     line-height: 1;
   }
   menu,
@@ -166,6 +135,16 @@ const reset = css`
   table {
     border-collapse: collapse;
     border-spacing: 0;
+  }
+  button {
+    border: none;
+    overflow: visible;
+    outline: none;
+    background: transparent;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 `;
 
