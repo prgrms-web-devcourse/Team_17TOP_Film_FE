@@ -10,21 +10,20 @@ const OauthPage = () => {
   const { saveAllUserInfo } = useUserInfo();
 
   const routingBasedOnSignUpStatus = useCallback(async () => {
-    const {
-      data: { isDuplicate, nickname, profileImageUrl },
-    } = await isUserSignUpApi();
-
-    if (isDuplicate) {
-      saveAllUserInfo({ nickname, profileImageUrl });
-      return navigate('/');
-    }
-    navigate('/signup');
+    const { data } = await isUserSignUpApi();
+    console.log(data);
+    // if (isDuplicate) {
+    //   saveAllUserInfo({ nickname, profileImageUrl });
+    //   return navigate('/');
+    // }
+    // navigate('/signup');
   }, []);
 
   useLayoutEffect(() => {
     const { token } = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
+    console.log(token, 'token');
     localStorage.setItem('token', JSON.stringify(token));
     routingBasedOnSignUpStatus();
   }, []);

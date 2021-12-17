@@ -12,12 +12,11 @@ import NotLoginCanUseRoute from './NotLoginCanUseRoute';
 const Router = () => {
   return (
     <Routes>
-      <Route element={<NotLoginCanUseRoute />}>
-        <Route path="/login" element={<LogInPage />} />
-        <Route path="/oauth/redirect/*" element={<OauthPage />} />
-      </Route>
+      <Route element={<NotLoginCanUseRoute />}></Route>
 
       <Route element={<PrivateRoute />}>
+        <Route path="/login" element={<LogInPage />} />
+        <Route path="/oauth/redirect/*" element={<OauthPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/*" element={<HomePage />} />
         <Route path="/post/create" element={<CreatePostPage />} />
