@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useUserInfo } from '../contexts/UserProvider';
 import { Navigate, Outlet } from 'react-router-dom';
 

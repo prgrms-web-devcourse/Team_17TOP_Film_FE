@@ -1,5 +1,5 @@
 import { useUserInfo } from '../contexts/UserProvider';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useLayoutEffect } from 'react';
 
 const PrivateRoute = () => {

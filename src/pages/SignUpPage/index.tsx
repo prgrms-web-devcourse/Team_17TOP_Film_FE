@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useLayoutEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useLayoutEffect, useState } from 'react';
 import { Header, BackBtn, SignUpFormWrapper, Label, Input, FooterBtn, ErrorText } from './style';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { validateNickname } from './util/util';
