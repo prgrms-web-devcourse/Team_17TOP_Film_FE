@@ -4,12 +4,10 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 const NotLoginCanUseRoute = () => {
   const token = localStorage.getItem('token');
-  if (token) {
-    const { refreshUserContext } = useUserInfo();
-    useLayoutEffect(() => {
-      refreshUserContext();
-    }, []);
-  }
+  const { refreshUserContext } = useUserInfo();
+  useLayoutEffect(() => {
+    token && refreshUserContext();
+  }, []);
 
   return !token ? <Outlet /> : <Navigate to="/" />;
 };
