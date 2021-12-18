@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import qs from 'qs';
 import { useUserInfo } from '../../contexts/UserProvider';
 import { isUserSignUpApi } from '../../utils/apis/user';
-
 const OauthPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,8 +27,6 @@ const OauthPage = () => {
     localStorage.setItem('token', JSON.stringify(token));
     routingBasedOnSignUpStatus();
   }, []);
-
   return <></>;
 };
-
 export default OauthPage;

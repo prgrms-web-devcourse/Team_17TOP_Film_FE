@@ -9,7 +9,6 @@ const authInterceptor = (instance: AxiosInstance) => {
     };
     return config;
   });
-
   instance.interceptors.response.use(
     (res: AxiosResponse) => ({
       ...res,
@@ -33,5 +32,4 @@ const authInterceptor = (instance: AxiosInstance) => {
     },
   );
 };
-
 export { authInterceptor };
