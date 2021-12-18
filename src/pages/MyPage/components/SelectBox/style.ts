@@ -23,7 +23,6 @@ const Select = styled.select`
   width: 100%;
   outline: none;
   border-radius: 4px;
-
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -53,10 +52,11 @@ const SelectItemWrapper = styled.ul<{ maxHeight: number }>`
     }
   }
 `;
-const SelectItem = styled.li`
+const SelectItem = styled.li<{ isSelected: boolean }>`
   padding: 10px 10px;
   cursor: pointer;
-  background-color: white;
+  background-color: ${({ theme: { colors }, isSelected }) =>
+    isSelected ? colors.primary : 'white'};
 
   &:hover {
     background-color: ${({ theme: { colors } }) => colors.gray200};
