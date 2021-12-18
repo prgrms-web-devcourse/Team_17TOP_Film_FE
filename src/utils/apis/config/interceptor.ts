@@ -1,16 +1,15 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-// import { getLocalStorage } from '../../getLocalStorage';
+import { getLocalStorage } from '../../getLocalStorage';
 
 const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
+    const token = getLocalStorage('token');
     config.headers = {
       authorization: `Bearer ${token}`,
       ...config.headers,
     };
     return config;
   });
-
   instance.interceptors.response.use(
     (res: AxiosResponse) => ({
       ...res,
@@ -34,5 +33,4 @@ const authInterceptor = (instance: AxiosInstance) => {
     },
   );
 };
-
 export { authInterceptor };
