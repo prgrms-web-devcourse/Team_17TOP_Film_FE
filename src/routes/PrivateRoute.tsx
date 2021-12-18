@@ -4,10 +4,12 @@ import { useLayoutEffect } from 'react';
 
 const PrivateRoute = () => {
   const token = localStorage.getItem('token');
-  const { refreshUserContext } = useUserInfo();
-  useLayoutEffect(() => {
-    token && refreshUserContext();
-  }, []);
+  if (token) {
+    const { refreshUserContext } = useUserInfo();
+    useLayoutEffect(() => {
+      token && refreshUserContext();
+    }, []);
+  }
 
   return token ? <Outlet /> : <Navigate to="/login" />;
 };
