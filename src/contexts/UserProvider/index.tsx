@@ -19,8 +19,8 @@ const UserProvider = ({
     if (!data) {
       saveAllUserInfo({ nickname: '', profileImageUrl: '' });
       localStorage.removeItem('token');
-      // return;
       navigate('/login');
+      return;
     }
     saveAllUserInfo({
       nickname: data.nickname,

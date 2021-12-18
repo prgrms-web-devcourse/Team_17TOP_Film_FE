@@ -1,11 +1,10 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { getLocalStorage } from '../../getLocalStorage';
 
 const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use((config) => {
-    const token = getLocalStorage('token');
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : '';
     config.headers = {
-      authorization: `Bearer ${token}`,
+      authorization: `Bearer ${JSON.parse(token as string)}`,
       ...config.headers,
     };
     return config;
