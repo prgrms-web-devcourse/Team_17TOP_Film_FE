@@ -1,24 +1,24 @@
-import { useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { TabListKey } from '../../constants';
 import { Tab, Wrapper } from './style';
 
-const Tabs = () => {
-  const [selectedTab, setSelectedTab] = useState<'left' | 'right'>('left');
-
-  const handleLeftTabClick = useCallback(() => {
-    setSelectedTab('left');
-  }, []);
-
-  const handleRightTabClick = useCallback(() => {
-    setSelectedTab('right');
-  }, []);
+interface Props {
+  selectedTab: TabListKey;
+  tabList: TabListKey[];
+  handleTabClick: (tabName: TabListKey) => void;
+}
+const Tabs = ({ selectedTab, tabList, handleTabClick }: Props) => {
   return (
     <Wrapper>
-      <Tab className={selectedTab === 'left' ? 'active' : ''} onClick={handleLeftTabClick}>
-        내 사진들
-      </Tab>
-      <Tab className={selectedTab === 'right' ? 'active' : ''} onClick={handleRightTabClick}>
-        공유받은 사진들
-      </Tab>
+      {tabList.map((tabName) => (
+        <Tab
+          key={tabName}
+          isSelected={selectedTab === tabName}
+          onClick={() => handleTabClick(tabName)}
+        >
+          {tabName}
+        </Tab>
+      ))}
     </Wrapper>
   );
 };

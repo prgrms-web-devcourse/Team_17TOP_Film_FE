@@ -4,12 +4,11 @@ const Wrapper = styled.div`
   display: flex;
   margin-top: 44px;
 `;
-const Tab = styled.div`
+const Tab = styled.div<{ isSelected: boolean }>`
   padding: 10px 0;
   width: 50%;
   text-align: center;
-  &.active {
-    border-bottom: 2px solid ${({ theme: { colors } }) => colors.primary};
-  }
+  border-bottom: 2px solid
+    ${({ theme: { colors }, isSelected }) => (isSelected ? colors.primary : undefined)};
 `;
 export { Wrapper, Tab };
