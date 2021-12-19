@@ -13,6 +13,9 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { ThirdStepProp } from '../../types';
 import ConfirmModal from './ConfirmModal';
 import UploadHeader from '../UploadHeader';
+import SelectedUserList from '../../../../components/organism/SelectedUserList';
+import SearchUser from '../../../../components/organism/SearchUser';
+import { useSelectedUserList } from '../../../../contexts/SelectedUserListProvider';
 
 const ThirdStep = ({
   latitude,
@@ -27,6 +30,7 @@ const ThirdStep = ({
   const [minDay, setMinDay] = useState('');
   const dateInputRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const selectedUserList = useSelectedUserList();
 
   const saveAvailableAt = () => {
     handleAvailableAt(date);
@@ -67,9 +71,9 @@ const ThirdStep = ({
       <UploadHeader handleBackBtn={goPrevStep} />
       <ThirdStepPostFormContainer>
         <FormWrapper>
-          <Text textType="Heading3">사진 찾는 날을 선택 해주세요</Text>
+          <Text textType="Heading3">필름 찾는 날을 선택 해주세요</Text>
           <FormContentWrapper>
-            <Text textType="Heading4">사진 찾는 날짜</Text>
+            <Text textType="Heading4">필름 찾는 날짜</Text>
             <DateInput
               ref={dateInputRef}
               type="date"
@@ -78,13 +82,18 @@ const ThirdStep = ({
               onChange={handleDateChange}
             ></DateInput>
           </FormContentWrapper>
+          <FormContentWrapper>
+            <Text textType="Heading4">함께 할 사람들</Text>
+            <SelectedUserList userList={selectedUserList.selectedUserList} />
+            <SearchUser />
+          </FormContentWrapper>
         </FormWrapper>
         <GuideText textType="Heading4">
           {date ? `${state.year}년 ${state.month}월 ${state.day}일` : `0000년 00월 00일`}
           <br />
           {`${latitude}, ${longitude}에`}
           <br />
-          사진이 나올 예정입니다.
+          필름이 나올 예정입니다.
         </GuideText>
       </ThirdStepPostFormContainer>
       <NextStepButton buttonType="PrimaryBtn" onClick={() => setIsModalOpen(true)}>
