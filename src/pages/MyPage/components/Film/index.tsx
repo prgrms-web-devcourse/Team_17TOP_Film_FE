@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Text, Avatar } from '../../../../components/atoms';
 import { Pin } from '../../../../components/organism';
+import ConfirmModal from '../../../HomePage/Modal';
 import { buttonText } from '../../constants';
 import {
   FilmBtn,
@@ -24,6 +26,7 @@ interface Props {
 }
 
 const Film = ({ title, preview, registerDay, avatarList, btnText, postId, deletePost }: Props) => {
+  const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
   const navigate = useNavigate();
   const buttonType =
     btnText === buttonText.WATCH_FILM || btnText === buttonText.FIND_FILM
@@ -36,7 +39,7 @@ const Film = ({ title, preview, registerDay, avatarList, btnText, postId, delete
       return;
     }
     if (btnText === buttonText.REMOVE_FILM) {
-      deletePost(postId);
+      setPostDeleteModalVisible(true);
     }
   };
   return (
@@ -64,6 +67,15 @@ const Film = ({ title, preview, registerDay, avatarList, btnText, postId, delete
       <FilmBtn buttonType={buttonType} onClick={handleBtnClick}>
         {btnText}
       </FilmBtn>
+      <ConfirmModal
+        modalVisible={postDeleteModalVisible}
+        modalText={`정말 필름을 삭제하시겠어요?`}
+        primaryBtnText={`네..ㅜㅜ`}
+        secondaryBtnText={`잠시만요!`}
+        handleClose={() => setPostDeleteModalVisible(false)}
+        primaryBtnEvent={() => deletePost(postId)}
+        secondaryBtnEvent={() => setPostDeleteModalVisible(false)}
+      />
     </Wrapper>
   );
 };
