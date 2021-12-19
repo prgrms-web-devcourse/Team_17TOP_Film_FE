@@ -6,7 +6,7 @@ interface AllPosts {
   data: Post[] | null;
 }
 export interface Post {
-  postId: string;
+  postId: number;
   availableAt: string;
   title: string;
   previewText: string;
