@@ -102,6 +102,7 @@ const MyPage = () => {
             state,
             authorNickname,
             postId,
+            location,
           }) => (
             <Film
               key={postId}
@@ -112,6 +113,8 @@ const MyPage = () => {
               avatarList={authorityImageList.map(createAvatarList)}
               btnText={printBtnText(availableAt, state, authorNickname === userInfo.nickname)}
               deletePost={deletePost}
+              longitude={location.longitude}
+              latitude={location.latitude}
             />
           ),
         )}
