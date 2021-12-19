@@ -7,6 +7,12 @@ import { Cookies } from 'react-cookie';
 import { getPostListApi, getPreviewPostApi, deletePostApi } from '../../utils/apis/post';
 import { Post, PreviewPost } from '../../utils/apis/post/type';
 import ConfirmModal from './Modal';
+import Toast from '../../components/organism/Toast';
+
+interface Location {
+  latitude: number;
+  longitude: number;
+}
 
 const HomePage = () => {
   const cookies = new Cookies();
@@ -18,6 +24,7 @@ const HomePage = () => {
   const [postList, setPostList] = useState<Post[]>([]);
   const [selectedPost, setselectedPost] = useState<PreviewPost | null>(null);
   const [openablePosts, setOpenablePosts] = useState<Post[] | null>(null);
+  const [userLocation, setUserLocation] = useState<Location | null>(null);
 
   const [todayPostViewModalVisible, setTodayPostViewModalVisible] = useState(false);
   const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
@@ -32,6 +39,19 @@ const HomePage = () => {
       setPostList(data.posts);
     }
   }, [getPostListApi]);
+
+  const getGeoLocation = () => {
+    if (!navigator.geolocation) {
+      Toast.info('GPS를 지원하지 않습니다.');
+      return;
+    }
+    navigator.geolocation.getCurrentPosition((position) => {
+      setUserLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
+  };
 
   const handleSelectedPost = useCallback(
     async (postId: number) => {
@@ -73,6 +93,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getPostList();
+    getGeoLocation();
 
     if (cookies.get('invisibleModal')) {
       setIsMap(true);
