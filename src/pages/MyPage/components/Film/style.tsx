@@ -19,9 +19,7 @@ const Title = styled.div`
 const FilmText = styled(Text)`
   margin-right: 12px;
 `;
-const FilmSmallText = styled(Text)`
-  padding-top: 2px;
-`;
+
 const Preview = styled(Text)`
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -39,18 +37,10 @@ const MidContainer = styled.div`
 `;
 const MidContainerLeft = styled.div`
   display: flex;
+  align-items: center;
 `;
 const FilmBtn = styled(Button)`
   width: 100%;
   height: 48px;
 `;
-export {
-  Wrapper,
-  Title,
-  Preview,
-  MidContainer,
-  MidContainerLeft,
-  FilmText,
-  FilmSmallText,
-  FilmBtn,
-};
+export { Wrapper, Title, Preview, MidContainer, MidContainerLeft, FilmText, FilmBtn };
