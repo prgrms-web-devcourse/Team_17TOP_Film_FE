@@ -72,6 +72,7 @@ const CreatePostPage = () => {
     setIsLoading(true);
     const { data, error } = await createPostApi(formData);
     if (error.errorMessage) {
+      setIsLoading(false);
       Toast.warn('잠시후에 다시 시도해주세요 🔧');
       return;
     }
