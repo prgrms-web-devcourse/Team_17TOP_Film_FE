@@ -26,8 +26,9 @@ interface Props {
 }
 
 const Film = ({ title, preview, registerDay, avatarList, btnText, postId, deletePost }: Props) => {
-  const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
   const navigate = useNavigate();
+  const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
+
   const buttonType =
     btnText === buttonText.WATCH_FILM || btnText === buttonText.FIND_FILM
       ? 'PrimaryBtn'
@@ -42,9 +43,15 @@ const Film = ({ title, preview, registerDay, avatarList, btnText, postId, delete
       setPostDeleteModalVisible(true);
     }
   };
+
   const handlePinClick = () => {
     navigate(`/${postId}`);
   };
+
+  const parseRegisterDay = () => {
+    return registerDay.replace(/-/gi, '.');
+  };
+
   return (
     <Wrapper>
       <Title>
@@ -60,7 +67,7 @@ const Film = ({ title, preview, registerDay, avatarList, btnText, postId, delete
       <MidContainer>
         <MidContainerLeft>
           <FilmText textType="Paragraph1">사진 나오는 날</FilmText>
-          <FilmSmallText textType="SmallText">{registerDay}</FilmSmallText>
+          <FilmSmallText textType="SmallText">{parseRegisterDay()}</FilmSmallText>
         </MidContainerLeft>
         <Avatar.Group overlapPx={10}>
           {avatarList.map(({ src, alt }) => (
