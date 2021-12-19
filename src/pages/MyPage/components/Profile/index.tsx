@@ -12,7 +12,7 @@ const Profile = ({ nickname, postsLength, profileImageUrl }: Props) => {
       <Avatar size={60} src={profileImageUrl ? profileImageUrl : ProfileImg} alt="프로필 이미지" />
       <div>
         <Nickname textType="Heading4">{nickname}</Nickname>
-        <Text textType="Heading4">{postsLength}개의 필름📸과 함꼐 하는중</Text>
+        <Text textType="Heading4">{postsLength}개의 필름📸과 함께 하는중</Text>
       </div>
     </Wrapper>
   );
