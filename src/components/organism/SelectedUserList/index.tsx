@@ -1,0 +1,24 @@
+import { UserInfo } from '../SearchUser';
+import SelectedUserCard from './SelectedUserCard.tsx';
+import { ListContainer } from './style';
+
+interface Props {
+  userList: UserInfo[];
+}
+
+const SelectedUserList = ({ userList }: Props) => {
+  return (
+    <ListContainer>
+      {userList.length >= 0
+        ? userList.map((user: UserInfo) => (
+            <SelectedUserCard
+              key={user.nickname}
+              nickname={user.nickname}
+              profileImageUrl={user.profileImageUrl}
+            ></SelectedUserCard>
+          ))
+        : ''}
+    </ListContainer>
+  );
+};
+export default SelectedUserList;
