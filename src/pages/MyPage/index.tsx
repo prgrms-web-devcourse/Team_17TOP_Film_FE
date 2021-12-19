@@ -73,7 +73,11 @@ const MyPage = () => {
       />
 
       <Body>
-        <Profile nickname={userInfo.nickname} postsLength={posts.length} />
+        <Profile
+          profileImageUrl={userInfo.profileImageUrl}
+          nickname={userInfo.nickname}
+          postsLength={posts.length}
+        />
         <Tabs
           selectedTab={selectedTab}
           tabList={Object.values(tabList) as TabListKey[]}
