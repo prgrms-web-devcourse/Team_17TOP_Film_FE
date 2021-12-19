@@ -11,7 +11,7 @@ const useGetAllPost = (): [Post[], Dispatch<SetStateAction<Post[]>>] => {
     if (!data) {
       return Toast.info(UNEXPECTED_ERROR);
     }
-    setPosts(data);
+    setPosts(data.reverse());
   };
 
   useEffect(() => {
