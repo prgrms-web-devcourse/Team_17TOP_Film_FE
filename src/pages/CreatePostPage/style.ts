@@ -137,6 +137,8 @@ const ThirdStepPostFormContainer = styled(PostFormContainer)`
 `;
 
 const DateInput = styled.input`
+  width: 100%;
+  background: white;
   padding: 0 16px 0 16px;
   height: 48px;
   border-radius: 4px;
@@ -163,8 +165,8 @@ const DateInput = styled.input`
 const GuideText = styled(Text)`
   text-align: center;
   color: ${({ theme }) => theme.colors.gray800};
-  margin-top: 250px;
-  margin-bottom: 80px;
+  margin-top: 200px;
+  margin-bottom: 100px;
 `;
 const NextStepText = styled(Text)`
   color: white;
