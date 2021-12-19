@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Button, Text } from '../../components/atoms';
+import { Text } from '../../components/atoms';
 
 const PostDetailWrapper = styled.div`
   margin-top: 52px;
@@ -27,14 +27,7 @@ const RelativeDay = styled(Text)`
   background-color: rgba(245, 84, 78, 0.3);
   color: ${({ theme }) => theme.colors.red900};
   border-radius: 4px;
-  margin-top: ${({ theme }) => theme.gaps.gap1};
-`;
-const LocationButton = styled(Button)`
-  padding: ${({ theme }) => theme.gaps.gap1};
-  border-color: ${({ theme }) => theme.colors.gray500};
-  ${({ theme }) => theme.fonts.Paragraph2};
-  color: ${({ theme }) => theme.colors.gray600};
-  line-height: 1;
+  margin-top: ${({ theme }) => theme.gaps.gap2};
 `;
 
 const DateText = styled(Text)`
@@ -49,13 +42,19 @@ const PostContent = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.gray300};
 `;
 
+const MapWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
 export {
   PostDetailWrapper,
   OpenerInfo,
   PostInfo,
   PostContent,
   AuthoryityList,
-  LocationButton,
   RelativeDay,
   DateText,
+  MapWrapper,
 };
