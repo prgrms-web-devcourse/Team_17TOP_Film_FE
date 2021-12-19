@@ -45,13 +45,14 @@ const ThirdStep = ({
   };
 
   const dateValidate = (date: string) => {
-    const tomorrow = new Date();
-    const storedDate = new Date(date);
+    const today = new Date();
+    const tomorrow = new Date(today.setDate(today.getDate() + 2)).getDate();
+    const storedDate = new Date(date).getDate();
     return tomorrow > storedDate ? false : true;
   };
 
   useEffect(() => {
-    if (!dateValidate(date)) {
+    if (!date) {
       return;
     }
     const dateToArr = date?.split('-');
@@ -71,7 +72,8 @@ const ThirdStep = ({
       return;
     }
     const today = new Date();
-    const tomorrow = new Date(today.setDate(today.getDate() + 1)).toISOString().split('T')[0];
+    const tomorrow = new Date(today.setDate(today.getDate() + 2)).toISOString().split('T')[0];
+
     setMinDay(tomorrow);
     setDate(tomorrow);
   }, []);
