@@ -51,6 +51,9 @@ const ThirdStep = ({
   };
 
   useEffect(() => {
+    if (!dateValidate(date)) {
+      return;
+    }
     const dateToArr = date?.split('-');
     if (dateToArr) {
       setState((prevState) => ({
