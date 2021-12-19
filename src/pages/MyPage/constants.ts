@@ -17,5 +17,12 @@ const tabList = {
   sharedFilm: '공유받은 필름',
 };
 
+const buttonText = {
+  WATCH_FILM: '필름 보기',
+  FIND_FILM: '필름 찾기',
+  LOAD_FILM: '필름 나오는중',
+  REMOVE_FILM: '필름 삭제하기',
+};
+
 export type TabListKey = keyof typeof selectList;
-export { selectList, tabList };
+export { selectList, tabList, buttonText };
