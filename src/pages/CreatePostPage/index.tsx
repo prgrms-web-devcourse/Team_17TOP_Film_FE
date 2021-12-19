@@ -8,6 +8,8 @@ import { useLocalStorage } from '../../hooks';
 import { createPostApi } from '../../utils/apis/posts';
 import { useNavigate } from 'react-router-dom';
 import Toast from '../../components/organism/Toast';
+import { changeAuthorApi } from '../../utils/apis/author';
+import { useSelectedUserList } from '../../contexts/SelectedUserListProvider';
 
 const CreatePostPage = () => {
   const [step, setStep] = useState(1);
@@ -24,6 +26,7 @@ const CreatePostPage = () => {
     null,
   );
   const [isConfirm, setIsConfirm] = useState(false);
+  const selectedUserList = useSelectedUserList();
   const navigate = useNavigate();
   const goNextStep = () => {
     if (step === 4) {
@@ -68,11 +71,27 @@ const CreatePostPage = () => {
       Toast.warn('잠시후에 다시 시도해주세요 🔧');
       return;
     }
-    window.localStorage.removeItem('location');
-    window.localStorage.removeItem('secondStepData');
-    window.localStorage.removeItem('availableAt');
-    window.localStorage.removeItem('filename');
-    navigate(`/${data.postId}`);
+    if (await addAuthor(data.postId)) {
+      window.localStorage.removeItem('location');
+      window.localStorage.removeItem('secondStepData');
+      window.localStorage.removeItem('availableAt');
+      window.localStorage.removeItem('filename');
+      navigate(`/${data.postId}`);
+    }
+  };
+
+  const addAuthor = async (postId: number) => {
+    const selectedUserIdArr = selectedUserList.selectedUserList.map((user) => {
+      return { userId: user.id };
+    });
+    const authorList = { fixAuthorityList: selectedUserIdArr };
+    console.log(authorList);
+    const { error } = await changeAuthorApi({ authorList, postId });
+    if (error.errorMessage) {
+      Toast.warn('잠시후에 다시 시도해주세요 🔧');
+      return false;
+    }
+    return true;
   };
 
   useEffect(() => {
