@@ -14,12 +14,14 @@ import {
 interface Props {
   title: string;
   preview: string;
-  registerDay: number;
+  registerDay: string;
   avatarList: { src: string; alt: string }[];
   btnText: string;
 }
 
 const Film = ({ title, preview, registerDay, avatarList, btnText }: Props) => {
+  const buttonType =
+    btnText === '필름 보기' || btnText === '필름 찾기' ? 'PrimaryBtn' : 'SecondaryBtn';
   return (
     <Wrapper>
       <Title>
@@ -42,7 +44,7 @@ const Film = ({ title, preview, registerDay, avatarList, btnText }: Props) => {
           ))}
         </Avatar.Group>
       </MidContainer>
-      <FilmBtn buttonType="PrimaryBtn">{btnText}</FilmBtn>
+      <FilmBtn buttonType={buttonType}>{btnText}</FilmBtn>
     </Wrapper>
   );
 };
