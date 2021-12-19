@@ -9,6 +9,7 @@ interface Props {
   width: string | number;
   maxHeight: number;
   name: string;
+  handleSelectOptionClick: any;
   [x: string]: any;
 }
 
@@ -19,6 +20,7 @@ const SelectBox = ({
   width,
   maxHeight,
   name,
+  handleSelectOptionClick,
   ...props
 }: Props) => {
   const labelRef = useRef<HTMLLabelElement>(null);
@@ -37,9 +39,11 @@ const SelectBox = ({
   };
 
   const handleSelectBox = (e: any, option?: string) => {
-    option ? setSelectedOption(option) : setSelectedOption(e.target.value);
+    const optionValue = option ? option : e.target.value;
+    setSelectedOption(optionValue);
 
     setClickSelectedBox(false);
+    handleSelectOptionClick(optionValue);
   };
 
   return (
