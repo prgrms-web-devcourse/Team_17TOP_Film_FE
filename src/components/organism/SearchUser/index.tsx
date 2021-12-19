@@ -38,9 +38,7 @@ const SearchUser = () => {
       Toast.warn('서버에 문제가 있네요 잠시후에 다시 시도 해주세요');
       return;
     }
-    if (lastNickname && userData.data.length < 1) {
-      return;
-    }
+    if (userData.data.length < 1) return;
     setLastNickname(userData.data[userData.data.length - 1].nickname);
     firstSend ? setUserList(userData.data) : setUserList((prev) => [...prev, ...userData.data]);
   };
