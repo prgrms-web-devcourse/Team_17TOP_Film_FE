@@ -1,6 +1,7 @@
 import { Container, Input } from './style';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import ResultList from './ResultList';
+import { useSelectedUserList } from '../../../contexts/SelectedUserListProvider';
 
 const DUMMY_USER_LIST = [
   { nickname: '동진', profileImageUrl: 'https://picsum.photos/200' },
@@ -23,7 +24,7 @@ const SearchUser = () => {
   const [userList, setUserList] = useState<UserInfo[]>([]);
   const [selectedUser, setSelectedUser] = useState<UserInfo>();
   const [divLoaded, setDivLoaded] = useState(false);
-
+  const selectedUserList = useSelectedUserList();
   const handleSearchInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
   }, []);
@@ -38,8 +39,7 @@ const SearchUser = () => {
     if (!selectedUser) {
       return;
     }
-    //유저 선택
-    console.log(selectedUser);
+    selectedUserList.addSelectedUser(selectedUser);
   }, [selectedUser]);
 
   useEffect(() => {

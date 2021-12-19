@@ -3,10 +3,19 @@ import { Text } from '../../../atoms';
 import { UserInfo } from '../../SearchUser';
 import { CardContainer, ContentWrapper, ProfileImg, RemoveBtn } from './style';
 
-const SelectedUserCard = ({ nickname, profileImageUrl }: UserInfo) => {
+interface Props {
+  nickname: string;
+  profileImageUrl: string;
+  removeCard: (selectedUser: UserInfo) => void;
+}
+
+const SelectedUserCard = ({ nickname, profileImageUrl, removeCard }: Props) => {
+  const handleRemoveClick = () => {
+    removeCard({ nickname, profileImageUrl });
+  };
   return (
     <CardContainer>
-      <RemoveBtn onClick={() => console.log('빼기')}>
+      <RemoveBtn onClick={handleRemoveClick}>
         <BiX size={24}></BiX>
       </RemoveBtn>
       <ContentWrapper>

@@ -1,3 +1,4 @@
+import { useSelectedUserList } from '../../../contexts/SelectedUserListProvider';
 import { UserInfo } from '../SearchUser';
 import SelectedUserCard from './SelectedUserCard.tsx';
 import { ListContainer } from './style';
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const SelectedUserList = ({ userList }: Props) => {
+  const selectedUserList = useSelectedUserList();
   return (
     <ListContainer>
       {userList.length >= 0
@@ -15,6 +17,7 @@ const SelectedUserList = ({ userList }: Props) => {
               key={user.nickname}
               nickname={user.nickname}
               profileImageUrl={user.profileImageUrl}
+              removeCard={selectedUserList.deleteSelectedUser}
             ></SelectedUserCard>
           ))
         : ''}
