@@ -11,6 +11,7 @@ import {
 } from '../pages';
 import PrivateRoute from './PrivateRoute';
 import NotLoginCanUseRoute from './NotLoginCanUseRoute';
+import SelectedUserListProvider from '../contexts/SelectedUserListProvider';
 const Router = () => {
   return (
     <Routes>
@@ -21,7 +22,14 @@ const Router = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/*" element={<HomePage />} />
-        <Route path="/post/create" element={<CreatePostPage />} />
+        <Route
+          path="/post/create"
+          element={
+            <SelectedUserListProvider>
+              <CreatePostPage />
+            </SelectedUserListProvider>
+          }
+        />
         <Route path="/post/:postId" element={<PostDetailPage />} />
         <Route path="/mypage" element={<MyPage />} />
       </Route>
