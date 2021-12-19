@@ -68,8 +68,6 @@ const HomePage = () => {
   );
 
   const handlePostView = useCallback(() => {
-    console.log('실행');
-
     if (selectedPost && userLocation) {
       const isOpenable = isOpenableDistance(
         parseFloat(selectedPost.location.latitude),
@@ -93,6 +91,21 @@ const HomePage = () => {
     getPostList();
   };
 
+  const handleTodayPostViewModal = () => {
+    if (cookies.get('invisibleModal')) {
+      setIsMap(true);
+      return;
+    }
+    const currentOpenablePosts = postList.filter((post) => post.state === 'OPENABLE');
+
+    if (currentOpenablePosts.length) {
+      setOpenablePosts(currentOpenablePosts);
+      setTodayPostViewModalVisible(true);
+    } else {
+      setIsMap(true);
+    }
+  };
+
   const handleViewLater = () => {
     setTodayPostViewModalVisible(false);
     cookies.set('invisibleModal', true, { maxAge: 3600 });
@@ -108,20 +121,11 @@ const HomePage = () => {
   useEffect(() => {
     getPostList();
     getGeoLocation();
-
-    if (cookies.get('invisibleModal')) {
-      setIsMap(true);
-      return;
-    }
-    const currentOpenablePosts = postList.filter((post) => post.state === 'Openable');
-
-    if (currentOpenablePosts.length) {
-      setOpenablePosts(currentOpenablePosts);
-      setTodayPostViewModalVisible(true);
-    } else {
-      setIsMap(true);
-    }
   }, []);
+
+  useEffect(() => {
+    postList && handleTodayPostViewModal();
+  }, [postList]);
 
   useEffect(() => {
     userLocation && setIsLoading(false);
