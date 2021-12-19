@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Text, Avatar } from '../../../../components/atoms';
 import { Pin } from '../../../../components/organism';
+import Toast from '../../../../components/organism/Toast';
+import { isOpenableDistance } from '../../../../utils/functions/distance';
 import ConfirmModal from '../../../HomePage/Modal';
 import { buttonText } from '../../constants';
 import {
@@ -22,9 +24,21 @@ interface Props {
   btnText: string;
   postId: number;
   deletePost: (deletePostId: number) => void;
+  longitude: string;
+  latitude: string;
 }
 
-const Film = ({ title, preview, registerDay, avatarList, btnText, postId, deletePost }: Props) => {
+const Film = ({
+  title,
+  preview,
+  registerDay,
+  avatarList,
+  btnText,
+  postId,
+  deletePost,
+  longitude,
+  latitude,
+}: Props) => {
   const navigate = useNavigate();
   const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
 
@@ -34,9 +48,27 @@ const Film = ({ title, preview, registerDay, avatarList, btnText, postId, delete
       : 'SecondaryBtn';
 
   const handleBtnClick = () => {
-    if (btnText === buttonText.WATCH_FILM || btnText === buttonText.FIND_FILM) {
+    if (btnText === buttonText.WATCH_FILM) {
       navigate(`/post/${postId}`);
       return;
+    }
+    if (btnText === buttonText.FIND_FILM) {
+      let isOpenable = null;
+      navigator.geolocation.getCurrentPosition((position) => {
+        isOpenable = isOpenableDistance(
+          +latitude,
+          +longitude,
+          position.coords.latitude,
+          position.coords.longitude,
+        );
+      });
+      if (isOpenable) {
+        navigate(`/post/${postId}`);
+        return;
+      }
+      if (!isOpenable) {
+        Toast.info(`지금 필름과 너무 멀리 계시군요..! 1km 이내로 이동해주세요~🏃`);
+      }
     }
     if (btnText === buttonText.REMOVE_FILM) {
       setPostDeleteModalVisible(true);
