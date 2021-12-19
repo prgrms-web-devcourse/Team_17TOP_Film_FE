@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import { Text, Avatar } from '../../../../components/atoms';
 import { Pin } from '../../../../components/organism';
+import { buttonText } from '../../constants';
 import {
   FilmBtn,
   FilmSmallText,
@@ -17,11 +19,22 @@ interface Props {
   registerDay: string;
   avatarList: { src: string; alt: string }[];
   btnText: string;
+  postId: number;
 }
 
-const Film = ({ title, preview, registerDay, avatarList, btnText }: Props) => {
+const Film = ({ title, preview, registerDay, avatarList, btnText, postId }: Props) => {
+  const navigate = useNavigate();
   const buttonType =
-    btnText === '필름 보기' || btnText === '필름 찾기' ? 'PrimaryBtn' : 'SecondaryBtn';
+    btnText === buttonText.WATCH_FILM || btnText === buttonText.FIND_FILM
+      ? 'PrimaryBtn'
+      : 'SecondaryBtn';
+
+  const handleBtnClick = () => {
+    if (btnText === buttonText.WATCH_FILM || btnText === buttonText.FIND_FILM) {
+      navigate(`/post/${postId}`);
+      return;
+    }
+  };
   return (
     <Wrapper>
       <Title>
@@ -44,7 +57,9 @@ const Film = ({ title, preview, registerDay, avatarList, btnText }: Props) => {
           ))}
         </Avatar.Group>
       </MidContainer>
-      <FilmBtn buttonType={buttonType}>{btnText}</FilmBtn>
+      <FilmBtn buttonType={buttonType} onClick={handleBtnClick}>
+        {btnText}
+      </FilmBtn>
     </Wrapper>
   );
 };

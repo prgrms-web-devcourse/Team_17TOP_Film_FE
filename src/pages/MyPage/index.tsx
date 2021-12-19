@@ -21,6 +21,7 @@ const MyPage = () => {
 
   const posts = useGetAllPost();
   const [filteredPosts, setFilteredPosts] = useState<Post[] | []>([]);
+
   useEffect(() => {
     const filtered = !posts
       ? []
@@ -36,12 +37,14 @@ const MyPage = () => {
     const filtered = filterPosts(posts, tabName, optionValue, userInfo.nickname);
     setFilteredPosts(filtered);
   };
+
   const handleSelectOptionClick = (optionValue: string) => {
     if (!posts) return;
     if (optionValue === selectedOption) return;
     const filtered = filterPosts(posts, selectedTab, optionValue, userInfo.nickname);
     setFilteredPosts(filtered);
   };
+
   return (
     <>
       <MyPageHeader
@@ -69,12 +72,18 @@ const MyPage = () => {
           handleSelectOptionClick={handleSelectOptionClick}
         />
         {filteredPosts.map(
-          (
-            { title, previewText, availableAt, authorityImageList, state, authorNickname },
-            index,
-          ) => (
+          ({
+            title,
+            previewText,
+            availableAt,
+            authorityImageList,
+            state,
+            authorNickname,
+            postId,
+          }) => (
             <Film
-              key={index}
+              key={postId}
+              postId={postId}
               title={title}
               preview={previewText}
               registerDay={availableAt}
