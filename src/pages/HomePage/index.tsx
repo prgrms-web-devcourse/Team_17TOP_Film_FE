@@ -77,7 +77,7 @@ const HomePage = () => {
         userLocation.longitude,
       );
       isOpenable && navigate(`/post/${selectedPost?.postId}`);
-      !isOpenable && console.log('열수 있는 거리가 아님');
+      !isOpenable && Toast.info(`지금 필름과 너무 멀리 계시군요..! 1km 이내로 이동해주세요~🏃`);
     }
   }, [selectedPost, userLocation]);
 
