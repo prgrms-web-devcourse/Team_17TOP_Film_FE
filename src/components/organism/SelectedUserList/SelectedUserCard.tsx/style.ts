@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Image } from '../../../atoms';
+import { Image, Text } from '../../../atoms';
 
 const CardContainer = styled.div`
   display: flex;
@@ -16,10 +16,16 @@ const RemoveBtn = styled.div`
 `;
 const ProfileImg = styled(Image)`
   border-radius: 50%;
+  overflow: hidden;
 `;
 const ContentWrapper = styled.div`
   margin-top: 12px;
   margin-right: 20px;
 `;
+const NicknameText = styled(Text)`
+  width: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 
-export { CardContainer, RemoveBtn, ProfileImg, ContentWrapper };
+export { CardContainer, RemoveBtn, ProfileImg, ContentWrapper, NicknameText };

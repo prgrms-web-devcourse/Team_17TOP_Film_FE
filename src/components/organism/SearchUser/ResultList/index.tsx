@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { UserInfo } from '..';
+import { useSelectedUserList } from '../../../../contexts/SelectedUserListProvider';
 import ResultItem from '../ResultItem';
 import { ObserveDiv, ResultListContainer } from './style';
 
@@ -12,6 +13,7 @@ interface Props {
 
 const ResultList = ({ userList, setDivLoaded, handleUserSelect }: Props) => {
   const [target, setTarget] = useState<HTMLDivElement | null>(null);
+  const selectedUserList = useSelectedUserList();
   const rootTarget = useRef(null);
   const observer = useRef(
     new IntersectionObserver(
@@ -23,6 +25,16 @@ const ResultList = ({ userList, setDivLoaded, handleUserSelect }: Props) => {
       { threshold: 1, root: rootTarget.current },
     ),
   );
+
+  const selectedCheck = (nickname: string) => {
+    const alreadyIn = selectedUserList.selectedUserList.filter(
+      (user) => user.nickname === nickname,
+    );
+    if (alreadyIn.length > 0) {
+      return true;
+    }
+    return false;
+  };
 
   useEffect(() => {
     const currentObserver = observer.current;
@@ -36,6 +48,7 @@ const ResultList = ({ userList, setDivLoaded, handleUserSelect }: Props) => {
       }
     };
   }, [target]);
+
   return (
     <ResultListContainer ref={rootTarget}>
       {userList.map((user: UserInfo) => (
@@ -45,6 +58,7 @@ const ResultList = ({ userList, setDivLoaded, handleUserSelect }: Props) => {
           imgAlt={`${user.nickname} Profile Image`}
           nickname={user.nickname}
           handleUserSelect={handleUserSelect}
+          disable={selectedCheck(user.nickname) ? true : false}
         ></ResultItem>
       ))}
       <ObserveDiv ref={setTarget}></ObserveDiv>

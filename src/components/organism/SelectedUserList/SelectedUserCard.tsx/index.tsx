@@ -1,7 +1,7 @@
 import { BiX } from 'react-icons/bi';
-import { Text } from '../../../atoms';
 import { UserInfo } from '../../SearchUser';
-import { CardContainer, ContentWrapper, ProfileImg, RemoveBtn } from './style';
+import { CardContainer, ContentWrapper, NicknameText, ProfileImg, RemoveBtn } from './style';
+import nonProfile from '../../../../assets/images/img_profile.svg';
 
 interface Props {
   nickname: string;
@@ -20,13 +20,13 @@ const SelectedUserCard = ({ nickname, profileImageUrl, removeCard }: Props) => {
       </RemoveBtn>
       <ContentWrapper>
         <ProfileImg
-          src={profileImageUrl}
+          src={profileImageUrl ? profileImageUrl : nonProfile}
           alt={`${nickname} ProfileImage`}
           placeholder=""
           width={36}
           height={36}
         ></ProfileImg>
-        <Text textType="Paragraph1">{nickname}</Text>
+        <NicknameText textType="Paragraph1">{nickname}</NicknameText>
       </ContentWrapper>
     </CardContainer>
   );
