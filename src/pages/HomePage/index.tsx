@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { PreviewBottomSheet } from '../../components/organism';
-import { HomePageHeader, PostCreateBtn } from './style';
+import { GlobalNavigation, PreviewBottomSheet } from '../../components/organism';
+import { HomePageHeader } from './style';
 import Map from './Map';
 import { Cookies } from 'react-cookie';
 import { getPostListApi, getPreviewPostApi, deletePostApi } from '../../utils/apis/post';
@@ -166,13 +166,6 @@ const HomePage = () => {
           />
         </Routes>
       )}
-      <PostCreateBtn
-        buttonType="PrimaryBtn"
-        width={'100%'}
-        onClick={() => navigate(`/post/create`)}
-      >
-        필름 맡기기
-      </PostCreateBtn>
       <ConfirmModal
         modalVisible={todayPostViewModalVisible}
         modalText={`오늘 찾을 수 있는 필름이 ${openablePosts?.length}개 있어요!`}
@@ -193,6 +186,7 @@ const HomePage = () => {
           secondaryBtnEvent={() => setPostDeleteModalVisible(false)}
         />
       )}
+      <GlobalNavigation />
     </div>
   );
 };
