@@ -6,7 +6,6 @@ import ConfirmModal from '../../../HomePage/Modal';
 import { buttonText } from '../../constants';
 import {
   FilmBtn,
-  FilmSmallText,
   FilmText,
   MidContainer,
   MidContainerLeft,
@@ -67,7 +66,7 @@ const Film = ({ title, preview, registerDay, avatarList, btnText, postId, delete
       <MidContainer>
         <MidContainerLeft>
           <FilmText textType="Paragraph1">필름 나오는 날</FilmText>
-          <FilmSmallText textType="SmallText">{parseRegisterDay()}</FilmSmallText>
+          <Text textType="SmallText">{parseRegisterDay()}</Text>
         </MidContainerLeft>
         <Avatar.Group overlapPx={10}>
           {avatarList.map(({ src, alt }) => (
