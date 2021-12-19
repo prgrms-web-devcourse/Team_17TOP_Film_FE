@@ -71,9 +71,9 @@ const ThirdStep = ({
       <UploadHeader handleBackBtn={goPrevStep} />
       <ThirdStepPostFormContainer>
         <FormWrapper>
-          <Text textType="Heading3">사진 찾는 날을 선택 해주세요</Text>
+          <Text textType="Heading3">필름 찾는 날을 선택 해주세요</Text>
           <FormContentWrapper>
-            <Text textType="Heading4">사진 찾는 날짜</Text>
+            <Text textType="Heading4">필름 찾는 날짜</Text>
             <DateInput
               ref={dateInputRef}
               type="date"
@@ -93,7 +93,7 @@ const ThirdStep = ({
           <br />
           {`${latitude}, ${longitude}에`}
           <br />
-          사진이 나올 예정입니다.
+          필름이 나올 예정입니다.
         </GuideText>
       </ThirdStepPostFormContainer>
       <NextStepButton buttonType="PrimaryBtn" onClick={() => setIsModalOpen(true)}>

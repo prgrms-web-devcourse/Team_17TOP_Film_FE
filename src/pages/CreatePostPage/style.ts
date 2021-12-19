@@ -165,7 +165,7 @@ const DateInput = styled.input`
 `;
 const GuideText = styled(Text)`
   text-align: center;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.gray800};
   margin-bottom: 8px;
 `;
 const NextStepText = styled(Text)`
