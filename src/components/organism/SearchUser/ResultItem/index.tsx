@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { UserInfo } from '..';
 import Toast from '../../Toast';
 import { ItemContainer, RoundImage, NicknameText, ItemWrapper, DisableText } from './style';
-
+import nonProfile from '../../../../assets/images/img_profile.svg';
 interface Props {
   imgSrc: string;
   imgAlt: string;
@@ -23,7 +23,7 @@ const ResultItem = ({ imgSrc, imgAlt, nickname, handleUserSelect, disable }: Pro
       >
         <ItemWrapper>
           <RoundImage
-            src={imgSrc}
+            src={imgSrc ? imgSrc : nonProfile}
             alt={imgAlt}
             placeholder={''}
             width={36}

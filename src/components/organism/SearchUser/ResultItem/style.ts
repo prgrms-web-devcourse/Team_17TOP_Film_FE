@@ -19,9 +19,13 @@ const ItemWrapper = styled.div`
 const RoundImage = styled(Image)`
   border-radius: 50%;
   margin-right: 26px;
+  overflow: hidden;
 `;
 
 const NicknameText = styled(Text)`
+  width: 36;
+  overflow: hidden;
+  text-overflow: ellipsis;
   align-self: center;
 `;
 const DisableText = styled(Text)`
