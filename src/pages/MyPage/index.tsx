@@ -13,8 +13,10 @@ import { Film, Profile, SelectBox, Tabs } from './components';
 import { Post } from '../../utils/apis/posts/myPagePosts';
 import { deletePostApi } from '../../utils/apis/post';
 import Toast from '../../components/organism/Toast';
+import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const { userInfo } = useUserInfo();
   const [selectedTab, setSelectedTab] = useState<TabListKey>(
     Object.values(tabList)[0] as TabListKey,
@@ -53,13 +55,21 @@ const MyPage = () => {
       Toast.warn('삭제 도중 에러가 생겼어요! 새로고침후 다시 시도해보세요!');
     }
   };
+
+  const handleLeftHeaderButton = () => {
+    navigate(-1);
+  };
+  const handleRightHeaderButton = () => {
+    // Todo
+    // 타임라인 추후 구현
+  };
   return (
     <>
       <MyPageHeader
         leftComp="backBtn"
-        handleLeftEvent={() => console.log('left clidk')}
+        handleLeftEvent={handleLeftHeaderButton}
         rightComp="timeline"
-        handleRightEvent={() => console.log('right click')}
+        handleRightEvent={handleRightHeaderButton}
       />
 
       <Body>
