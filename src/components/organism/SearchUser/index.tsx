@@ -4,6 +4,7 @@ import ResultList from './ResultList';
 import { useSelectedUserList } from '../../../contexts/SelectedUserListProvider';
 import { getSearchUser } from '../../../utils/apis/searchUser';
 import Toast from '../Toast';
+import { useUserInfo } from '../../../contexts/UserProvider';
 
 export interface UserInfo {
   nickname: string;
@@ -18,9 +19,10 @@ const SearchUser = () => {
   const [divLoaded, setDivLoaded] = useState(false);
   const selectedUserList = useSelectedUserList();
   const [lastNickname, setLastNickname] = useState('');
+  const userInfo = useUserInfo();
 
   const handleSearchInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value);
+    setSearchKeyword(e.target.value.replace(/[^A-Za-z]/gi, ''));
   }, []);
 
   const handleUserSelect = useCallback((data: UserInfo) => {
@@ -39,9 +41,12 @@ const SearchUser = () => {
       Toast.warn('서버에 문제가 있네요 잠시후에 다시 시도 해주세요');
       return;
     }
-    if (userData.data.length < 1) return;
-    setLastNickname(userData.data[userData.data.length - 1].nickname);
-    firstSend ? setUserList(userData.data) : setUserList((prev) => [...prev, ...userData.data]);
+    const searchResults = userData.data.filter(
+      (user) => user.nickname !== userInfo.userInfo.nickname,
+    );
+    if (searchResults.length < 1) return;
+    setLastNickname(searchResults[searchResults.length - 1].nickname);
+    firstSend ? setUserList(searchResults) : setUserList((prev) => [...prev, ...searchResults]);
   };
 
   useEffect(() => {
@@ -71,7 +76,7 @@ const SearchUser = () => {
   return (
     <Container>
       <Input
-        placeholder="닉네임을 입력하세요!"
+        placeholder="닉네임을 입력하세요!(영문으로만 입력 가능합니다.)"
         value={searchKeyword}
         onChange={handleSearchInput}
       />
