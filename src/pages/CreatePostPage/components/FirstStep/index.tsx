@@ -12,16 +12,15 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
   const navigate = useNavigate();
 
   const getGeoLocation = () => {
-    if (!navigator.geolocation) {
-      Toast.info('GPS를 지원하지 않습니다.');
-      return;
-    }
-    navigator.geolocation.getCurrentPosition((position) => {
-      setUserLocation({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
-    });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      () => Toast.warn('GPS를 지원하지 않습니다.'),
+    );
   };
 
   useEffect(() => {
