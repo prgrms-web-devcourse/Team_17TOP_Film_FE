@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 
-const Wrapper = styled.button`
-  position: absolute;
-  padding: 0;
-  left: ${({ theme }) => theme.gaps.default_margin};
+const Wrapper = styled.div`
+  margin: 0 auto 0 28px;
+  cursor: pointer;
 `;
 
 export { Wrapper };
