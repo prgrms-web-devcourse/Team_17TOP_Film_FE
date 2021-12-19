@@ -73,7 +73,7 @@ const MyPage = () => {
       />
 
       <Body>
-        <Profile />
+        <Profile nickname={userInfo.nickname} postsLength={posts.length} />
         <Tabs
           selectedTab={selectedTab}
           tabList={Object.values(tabList) as TabListKey[]}

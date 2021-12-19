@@ -71,7 +71,7 @@ const Film = ({ title, preview, registerDay, avatarList, btnText, postId, delete
         </MidContainerLeft>
         <Avatar.Group overlapPx={10}>
           {avatarList.map(({ src, alt }) => (
-            <Avatar key={src} size={30} src={src} alt={alt} />
+            <Avatar key={alt} size={30} src={src} alt={alt} />
           ))}
         </Avatar.Group>
       </MidContainer>
