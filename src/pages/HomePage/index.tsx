@@ -8,6 +8,7 @@ import { getPostListApi, getPreviewPostApi, deletePostApi } from '../../utils/ap
 import { Post, PreviewPost } from '../../utils/apis/post/type';
 import ConfirmModal from './Modal';
 import Toast from '../../components/organism/Toast';
+import { isOpenableDistance } from '../../utils/functions/distance';
 
 interface Location {
   latitude: number;
@@ -64,6 +65,21 @@ const HomePage = () => {
     },
     [getPreviewPostApi],
   );
+
+  const handlePostView = useCallback(() => {
+    console.log('실행');
+
+    if (selectedPost && userLocation) {
+      const isOpenable = isOpenableDistance(
+        parseFloat(selectedPost.location.latitude),
+        parseFloat(selectedPost.location.longitude),
+        userLocation.latitude,
+        userLocation.longitude,
+      );
+      isOpenable && navigate(`/post/${selectedPost?.postId}`);
+      !isOpenable && console.log('열수 있는 거리가 아님');
+    }
+  }, [selectedPost, userLocation]);
 
   const handleDeletePost = async (postId: number) => {
     const { data, error } = await deletePostApi(postId);
@@ -132,7 +148,7 @@ const HomePage = () => {
             element={
               <PreviewBottomSheet
                 previewPost={selectedPost}
-                postViewEvent={() => navigate(`/post/${selectedPost.postId}`)}
+                postViewEvent={handlePostView}
                 postDeleteEvent={() => setPostDeleteModalVisible(true)}
               />
             }
