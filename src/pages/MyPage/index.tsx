@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Body, MyPageHeader } from './style';
+import { Body, MyPageHeader, MyPageSelectBox } from './style';
 import { tabList, TabListKey } from './constants';
 import { useUserInfo } from '../../contexts/UserProvider';
 import {
@@ -9,7 +9,7 @@ import {
   printBtnText,
   useGetAllPost,
 } from './util';
-import { Film, Profile, SelectBox, Tabs } from './components';
+import { Film, Profile, Tabs } from './components';
 import { Post } from '../../utils/apis/posts/myPagePosts';
 import { deletePostApi } from '../../utils/apis/post';
 import Toast from '../../components/organism/Toast';
@@ -79,8 +79,7 @@ const MyPage = () => {
           tabList={Object.values(tabList) as TabListKey[]}
           handleTabClick={handleTabClick}
         />
-        <SelectBox
-          css={{ margin: '16px 20px' }}
+        <MyPageSelectBox
           options={findValueOfSelectList(selectedTab)}
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
