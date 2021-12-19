@@ -85,7 +85,6 @@ const CreatePostPage = () => {
       return { userId: user.id };
     });
     const authorList = { fixAuthorityList: selectedUserIdArr };
-    console.log(authorList);
     const { error } = await changeAuthorApi({ authorList, postId });
     if (error.errorMessage) {
       Toast.warn('잠시후에 다시 시도해주세요 🔧');
