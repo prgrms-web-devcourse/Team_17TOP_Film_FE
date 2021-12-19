@@ -22,7 +22,7 @@ const SearchUser = () => {
   const userInfo = useUserInfo();
 
   const handleSearchInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value);
+    setSearchKeyword(e.target.value.replace(/[^A-Za-z]/gi, ''));
   }, []);
 
   const handleUserSelect = useCallback((data: UserInfo) => {
@@ -76,7 +76,7 @@ const SearchUser = () => {
   return (
     <Container>
       <Input
-        placeholder="닉네임을 입력하세요!"
+        placeholder="닉네임을 입력하세요!(영문으로만 입력 가능합니다.)"
         value={searchKeyword}
         onChange={handleSearchInput}
       />
