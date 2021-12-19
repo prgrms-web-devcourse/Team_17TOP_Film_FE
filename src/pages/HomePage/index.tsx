@@ -88,6 +88,7 @@ const HomePage = () => {
       console.log(error);
       return;
     }
+    setPostDeleteModalVisible(false);
     navigate(`/`);
     getPostList();
   };
@@ -170,7 +171,7 @@ const HomePage = () => {
       </PostCreateBtn>
       <ConfirmModal
         modalVisible={todayPostViewModalVisible}
-        modalText={`오늘 찾을 수 있는 사진이 ${openablePosts?.length}개 있어요!`}
+        modalText={`오늘 찾을 수 있는 필름이 ${openablePosts?.length}개 있어요!`}
         primaryBtnText={`보러갈래요!`}
         secondaryBtnText={`나중에 볼래요`}
         handleClose={() => setTodayPostViewModalVisible(false)}
