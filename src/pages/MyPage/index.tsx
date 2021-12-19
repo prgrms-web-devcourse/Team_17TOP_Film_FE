@@ -11,6 +11,8 @@ import {
 } from './util';
 import { Film, Profile, SelectBox, Tabs } from './components';
 import { Post } from '../../utils/apis/posts/myPagePosts';
+import { deletePostApi } from '../../utils/apis/post';
+import Toast from '../../components/organism/Toast';
 
 const MyPage = () => {
   const { userInfo } = useUserInfo();
@@ -19,7 +21,7 @@ const MyPage = () => {
   );
   const [selectedOption, setSelectedOption] = useState(findValueOfSelectList(selectedTab)[0]);
 
-  const posts = useGetAllPost();
+  const [posts, setPosts] = useGetAllPost();
   const [filteredPosts, setFilteredPosts] = useState<Post[] | []>([]);
 
   useEffect(() => {
@@ -44,7 +46,13 @@ const MyPage = () => {
     const filtered = filterPosts(posts, selectedTab, optionValue, userInfo.nickname);
     setFilteredPosts(filtered);
   };
-
+  const deletePost = async (deletePostId: number) => {
+    setPosts((prevPosts) => prevPosts.filter(({ postId }) => deletePostId !== postId));
+    const { error } = await deletePostApi(deletePostId);
+    if (error?.errorMessage) {
+      Toast.warn('삭제 도중 에러가 생겼어요! 새로고침후 다시 시도해보세요!');
+    }
+  };
   return (
     <>
       <MyPageHeader
@@ -89,6 +97,7 @@ const MyPage = () => {
               registerDay={availableAt}
               avatarList={authorityImageList.map(createAvatarList)}
               btnText={printBtnText(availableAt, state, authorNickname === userInfo.nickname)}
+              deletePost={deletePost}
             />
           ),
         )}

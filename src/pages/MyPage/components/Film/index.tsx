@@ -20,9 +20,10 @@ interface Props {
   avatarList: { src: string; alt: string }[];
   btnText: string;
   postId: number;
+  deletePost: (deletePostId: number) => void;
 }
 
-const Film = ({ title, preview, registerDay, avatarList, btnText, postId }: Props) => {
+const Film = ({ title, preview, registerDay, avatarList, btnText, postId, deletePost }: Props) => {
   const navigate = useNavigate();
   const buttonType =
     btnText === buttonText.WATCH_FILM || btnText === buttonText.FIND_FILM
@@ -33,6 +34,9 @@ const Film = ({ title, preview, registerDay, avatarList, btnText, postId }: Prop
     if (btnText === buttonText.WATCH_FILM || btnText === buttonText.FIND_FILM) {
       navigate(`/post/${postId}`);
       return;
+    }
+    if (btnText === buttonText.REMOVE_FILM) {
+      deletePost(postId);
     }
   };
   return (

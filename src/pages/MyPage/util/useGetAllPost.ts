@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Toast from '../../../components/organism/Toast';
 import { UNEXPECTED_ERROR } from '../../../utils/apis/config/constants';
 import getAllPostsApi, { Post } from '../../../utils/apis/posts/myPagePosts';
 
-const useGetAllPost = () => {
-  const [posts, setPosts] = useState<Post[] | null>(null);
+const useGetAllPost = (): [Post[], Dispatch<SetStateAction<Post[]>>] => {
+  const [posts, setPosts] = useState<Post[]>([]);
 
   const getAllPosts = async () => {
     const { data } = await getAllPostsApi();
@@ -18,7 +18,7 @@ const useGetAllPost = () => {
     getAllPosts();
   }, []);
 
-  return posts;
+  return [posts, setPosts];
 };
 
 export default useGetAllPost;
