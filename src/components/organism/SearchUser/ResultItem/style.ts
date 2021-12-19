@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Image, Text } from '../../../atoms';
 
 const ItemContainer = styled.div`
+  display: flex;
   padding: 12px 0;
   :not(:nth-last-of-type(2)) {
     border-bottom: 1px solid;
@@ -23,5 +24,11 @@ const RoundImage = styled(Image)`
 const NicknameText = styled(Text)`
   align-self: center;
 `;
+const DisableText = styled(Text)`
+  align-self: center;
+  color: ${({ theme }) => theme.colors.red900};
+  margin-left: 8px;
+  line-height: 12px;
+`;
 
-export { ItemContainer, RoundImage, NicknameText, ItemWrapper };
+export { ItemContainer, RoundImage, NicknameText, ItemWrapper, DisableText };
