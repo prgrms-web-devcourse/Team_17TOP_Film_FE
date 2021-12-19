@@ -2,17 +2,8 @@ import { Container, Input } from './style';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import ResultList from './ResultList';
 import { useSelectedUserList } from '../../../contexts/SelectedUserListProvider';
-
-const DUMMY_USER_LIST = [
-  { nickname: '동진', profileImageUrl: 'https://picsum.photos/200' },
-  { nickname: '소정', profileImageUrl: 'https://picsum.photos/200' },
-  { nickname: '정호', profileImageUrl: 'https://picsum.photos/200' },
-  { nickname: '정호2', profileImageUrl: 'https://picsum.photos/200' },
-  { nickname: '정호3', profileImageUrl: 'https://picsum.photos/200' },
-  { nickname: '정호4', profileImageUrl: 'https://picsum.photos/200' },
-  { nickname: '정호5', profileImageUrl: 'https://picsum.photos/200' },
-  { nickname: '정호6', profileImageUrl: 'https://picsum.photos/200' },
-];
+import { getSearchUser } from '../../../utils/apis/searchUser';
+import Toast from '../Toast';
 
 export interface UserInfo {
   nickname: string;
@@ -25,6 +16,8 @@ const SearchUser = () => {
   const [selectedUser, setSelectedUser] = useState<UserInfo>();
   const [divLoaded, setDivLoaded] = useState(false);
   const selectedUserList = useSelectedUserList();
+  const [lastNickname, setLastNickname] = useState('');
+
   const handleSearchInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
   }, []);
@@ -35,11 +28,29 @@ const SearchUser = () => {
     setUserList([]);
   }, []);
 
+  const getUserList = async (firstSend: boolean) => {
+    const userData = await getSearchUser({
+      keyword: searchKeyword,
+      lastNickname: firstSend ? '' : lastNickname,
+      size: 5,
+    });
+    if (!userData.data) {
+      Toast.warn('서버에 문제가 있네요 잠시후에 다시 시도 해주세요');
+      return;
+    }
+    if (lastNickname && userData.data.length < 1) {
+      return;
+    }
+    setLastNickname(userData.data[userData.data.length - 1].nickname);
+    firstSend ? setUserList(userData.data) : setUserList((prev) => [...prev, ...userData.data]);
+  };
+
   useEffect(() => {
     if (!selectedUser) {
       return;
     }
     selectedUserList.addSelectedUser(selectedUser);
+    setLastNickname('');
   }, [selectedUser]);
 
   useEffect(() => {
@@ -47,15 +58,14 @@ const SearchUser = () => {
       setUserList([]);
       return;
     }
-    setUserList(DUMMY_USER_LIST);
-    //api 로직 -> response -> setUserList
+    getUserList(true);
   }, [searchKeyword]);
 
   useEffect(() => {
     if (!divLoaded) {
       return;
     }
-    setUserList((prev) => [...prev, ...DUMMY_USER_LIST]);
+    getUserList(false);
     setDivLoaded(false);
   }, [divLoaded]);
 
