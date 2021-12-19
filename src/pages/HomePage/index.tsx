@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { PreviewBottomSheet } from '../../components/organism';
 import { HomePageHeader, PostCreateBtn } from './style';
@@ -9,7 +9,7 @@ import { Post, PreviewPost } from '../../utils/apis/post/type';
 import ConfirmModal from './Modal';
 import Toast from '../../components/organism/Toast';
 import { isOpenableDistance } from '../../utils/functions/distance';
-
+import Loader from '../../components/organism/Loader';
 interface Location {
   latitude: number;
   longitude: number;
@@ -20,6 +20,7 @@ const HomePage = () => {
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
 
   const [isMap, setIsMap] = useState(false);
   const [postList, setPostList] = useState<Post[]>([]);
@@ -126,11 +127,16 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
+    userLocation && setIsLoading(false);
+  }, [userLocation]);
+
+  useEffect(() => {
     pathname.slice(1) ? handleSelectedPost(parseInt(pathname.slice(1))) : setselectedPost(null);
   }, [pathname]);
 
   return (
     <div>
+      {isLoading && <Loader />}
       <HomePageHeader rightComp="logout" handleRightEvent={handleLogout} midText="내 필름" />
       {isMap && (
         <Map
