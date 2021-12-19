@@ -6,7 +6,7 @@ const MyPageHeader = styled(Header)`
   z-index: 100;
 `;
 const Body = styled.div`
-  padding-top: 52px;
+  padding: 52px 0px;
 `;
 const MyPageSelectBox = styled(SelectBox)`
   margin: 16px 20px;
