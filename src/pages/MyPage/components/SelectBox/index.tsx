@@ -1,4 +1,4 @@
-import { Dispatch, KeyboardEvent, MouseEvent, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, KeyboardEvent, MouseEvent, SetStateAction, useRef } from 'react';
 import { Select, Label, SelectItemWrapper, SelectItem } from './style';
 import useSelect from './useSelect';
 

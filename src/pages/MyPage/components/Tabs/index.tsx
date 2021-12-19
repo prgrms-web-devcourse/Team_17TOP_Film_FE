@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { TabListKey } from '../../constants';
 import { Tab, Wrapper } from './style';
 
