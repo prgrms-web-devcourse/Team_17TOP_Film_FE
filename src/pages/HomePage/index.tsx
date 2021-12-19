@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { PreviewBottomSheet } from '../../components/organism';
-import { HomePageHeader, PostCreateBtn } from './style';
+import { GlobalNavigation, PreviewBottomSheet } from '../../components/organism';
+import { HomePageHeader } from './style';
 import Map from './Map';
 import { Cookies } from 'react-cookie';
 import { getPostListApi, getPreviewPostApi, deletePostApi } from '../../utils/apis/post';
@@ -68,8 +68,6 @@ const HomePage = () => {
   );
 
   const handlePostView = useCallback(() => {
-    console.log('실행');
-
     if (selectedPost && userLocation) {
       const isOpenable = isOpenableDistance(
         parseFloat(selectedPost.location.latitude),
@@ -88,8 +86,24 @@ const HomePage = () => {
       console.log(error);
       return;
     }
+    setPostDeleteModalVisible(false);
     navigate(`/`);
     getPostList();
+  };
+
+  const handleTodayPostViewModal = () => {
+    if (cookies.get('invisibleModal')) {
+      setIsMap(true);
+      return;
+    }
+    const currentOpenablePosts = postList.filter((post) => post.state === 'OPENABLE');
+
+    if (currentOpenablePosts.length) {
+      setOpenablePosts(currentOpenablePosts);
+      setTodayPostViewModalVisible(true);
+    } else {
+      setIsMap(true);
+    }
   };
 
   const handleViewLater = () => {
@@ -103,28 +117,15 @@ const HomePage = () => {
     navigate(`${openablePosts && openablePosts[0].postId}`);
     setIsMap(true);
   };
-  const handleLogout = () => {
-    // 로그아웃 api
-    console.log('로그아웃');
-  };
 
   useEffect(() => {
     getPostList();
     getGeoLocation();
-
-    if (cookies.get('invisibleModal')) {
-      setIsMap(true);
-      return;
-    }
-    const currentOpenablePosts = postList.filter((post) => post.state === 'Openable');
-
-    if (currentOpenablePosts.length) {
-      setOpenablePosts(currentOpenablePosts);
-      setTodayPostViewModalVisible(true);
-    } else {
-      setIsMap(true);
-    }
   }, []);
+
+  useEffect(() => {
+    postList && handleTodayPostViewModal();
+  }, [postList]);
 
   useEffect(() => {
     userLocation && setIsLoading(false);
@@ -137,7 +138,11 @@ const HomePage = () => {
   return (
     <div>
       {isLoading && <Loader>필름 불러오는 중...</Loader>}
-      <HomePageHeader rightComp="logout" handleRightEvent={handleLogout} midText="내 필름" />
+      <HomePageHeader
+        midText="내 필름"
+        rightComp="mypage"
+        handleRightEvent={() => navigate('/mypage')}
+      />
       {isMap && (
         <Map
           currentLocation={!pathname.slice(1) ? true : false}
@@ -161,16 +166,9 @@ const HomePage = () => {
           />
         </Routes>
       )}
-      <PostCreateBtn
-        buttonType="PrimaryBtn"
-        width={'100%'}
-        onClick={() => navigate(`/post/create`)}
-      >
-        필름 맡기기
-      </PostCreateBtn>
       <ConfirmModal
         modalVisible={todayPostViewModalVisible}
-        modalText={`오늘 찾을 수 있는 사진이 ${openablePosts?.length}개 있어요!`}
+        modalText={`오늘 찾을 수 있는 필름이 ${openablePosts?.length}개 있어요!`}
         primaryBtnText={`보러갈래요!`}
         secondaryBtnText={`나중에 볼래요`}
         handleClose={() => setTodayPostViewModalVisible(false)}
@@ -188,6 +186,7 @@ const HomePage = () => {
           secondaryBtnEvent={() => setPostDeleteModalVisible(false)}
         />
       )}
+      <GlobalNavigation />
     </div>
   );
 };
