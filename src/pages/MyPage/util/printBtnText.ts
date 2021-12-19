@@ -14,9 +14,9 @@ const printBtnText = (availableAt: string, state: string, isAuthor: boolean) => 
   }
   if (!canOpen && state === 'CLOSED') {
     if (isAuthor) {
-      return buttonText.LOAD_FILM;
+      return buttonText.REMOVE_FILM;
     }
   }
-  return buttonText.REMOVE_FILM;
+  return buttonText.LOAD_FILM;
 };
 export default printBtnText;
