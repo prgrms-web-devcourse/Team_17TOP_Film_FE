@@ -5,9 +5,10 @@ import { FirstStepProps, Location } from '../../types';
 import UploadHeader from '../UploadHeader';
 import { useNavigate } from 'react-router-dom';
 import Toast from '../../../../components/organism/Toast';
+import Loader from '../../../../components/organism/Loader';
 
 const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => {
-  const [userLocation, setUserLocation] = useState({ latitude: 37, longitude: 127 });
+  const [userLocation, setUserLocation] = useState(location || null);
   const [marker, setMarker] = useState({ latitude: 37, longitude: 126 });
   const navigate = useNavigate();
 
@@ -45,18 +46,23 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
 
   return (
     <>
+      {!userLocation ? <Loader>필름 맡기러 가는중...</Loader> : ''}
       <UploadHeader handleBackBtn={() => navigate(-1)}></UploadHeader>
       <MapHeaderText textType="Heading3">
         필름을 맡길
         <br />
         위치로 마커를 옮겨주세요
       </MapHeaderText>
-      <Map
-        latitude={userLocation.latitude}
-        longitude={userLocation.longitude}
-        marker={marker}
-        onChangeMarker={handleMarker}
-      />
+      {userLocation ? (
+        <Map
+          latitude={userLocation.latitude}
+          longitude={userLocation.longitude}
+          marker={marker}
+          onChangeMarker={handleMarker}
+        />
+      ) : (
+        ''
+      )}
       <NextStepButton buttonType="PrimaryBtn" onClick={saveLocation}>
         <NextStepText textType="Paragraph1">여기에 만들래요</NextStepText>
       </NextStepButton>
