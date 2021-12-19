@@ -136,7 +136,7 @@ const HomePage = () => {
 
   return (
     <div>
-      {isLoading && <Loader />}
+      {isLoading && <Loader>필름 불러오는 중...</Loader>}
       <HomePageHeader rightComp="logout" handleRightEvent={handleLogout} midText="내 필름" />
       {isMap && (
         <Map
