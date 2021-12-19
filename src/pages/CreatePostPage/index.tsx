@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import Toast from '../../components/organism/Toast';
 import { changeAuthorApi } from '../../utils/apis/author';
 import { useSelectedUserList } from '../../contexts/SelectedUserListProvider';
+import Loader from '../../components/organism/Loader';
 
 const CreatePostPage = () => {
   const [step, setStep] = useState(1);
@@ -26,8 +27,10 @@ const CreatePostPage = () => {
     null,
   );
   const [isConfirm, setIsConfirm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const selectedUserList = useSelectedUserList();
   const navigate = useNavigate();
+
   const goNextStep = () => {
     if (step === 4) {
       return;
@@ -66,12 +69,14 @@ const CreatePostPage = () => {
 
   const createPost = async (formData: FormData) => {
     setIsConfirm(false);
+    setIsLoading(true);
     const { data, error } = await createPostApi(formData);
     if (error.errorMessage) {
       Toast.warn('잠시후에 다시 시도해주세요 🔧');
       return;
     }
     if (await addAuthor(data.postId)) {
+      setIsLoading(false);
       window.localStorage.removeItem('location');
       window.localStorage.removeItem('secondStepData');
       window.localStorage.removeItem('availableAt');
@@ -117,6 +122,7 @@ const CreatePostPage = () => {
 
   return (
     <CreatePostPageContainer>
+      {isLoading ? <Loader>필름 맡기는 중...</Loader> : ''}
       {step === 1 ? (
         <FirstStep
           goNextStep={goNextStep}
