@@ -1,5 +1,4 @@
 import { BiX } from 'react-icons/bi';
-import { Text } from '../../../atoms';
 import { UserInfo } from '../../SearchUser';
 import { CardContainer, ContentWrapper, NicknameText, ProfileImg, RemoveBtn } from './style';
 import nonProfile from '../../../../assets/images/img_profile.svg';
