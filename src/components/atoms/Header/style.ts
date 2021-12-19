@@ -14,7 +14,7 @@ const Wrapper = styled.div<{ bgColor?: string }>`
   box-sizing: border-box;
 `;
 const MiddleSide = styled.div`
-  margin: 0 auto;
+  position: fixed;
 `;
 
 export { Wrapper, MiddleSide };
