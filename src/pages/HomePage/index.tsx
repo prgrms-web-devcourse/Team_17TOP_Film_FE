@@ -104,10 +104,6 @@ const HomePage = () => {
     navigate(`${openablePosts && openablePosts[0].postId}`);
     setIsMap(true);
   };
-  const handleLogout = () => {
-    // 로그아웃 api
-    console.log('로그아웃');
-  };
 
   useEffect(() => {
     getPostList();
@@ -138,7 +134,7 @@ const HomePage = () => {
   return (
     <div>
       {isLoading && <Loader>필름 불러오는 중...</Loader>}
-      <HomePageHeader rightComp="logout" handleRightEvent={handleLogout} midText="내 필름" />
+      <HomePageHeader midText="내 필름" />
       {isMap && (
         <Map
           currentLocation={!pathname.slice(1) ? true : false}
