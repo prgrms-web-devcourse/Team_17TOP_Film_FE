@@ -42,14 +42,18 @@ const Film = ({ title, preview, registerDay, avatarList, btnText, postId, delete
       setPostDeleteModalVisible(true);
     }
   };
+  const handlePinClick = () => {
+    navigate(`/${postId}`);
+  };
   return (
     <Wrapper>
       <Title>
         <Text textType="Heading4">{title}</Text>
         <Pin
-          style={{ width: '32px', height: '32px', top: '10px', right: '0px' }}
+          style={{ width: '32px', height: '32px', top: '10px', right: '0px', cursor: 'pointer' }}
           selected={true}
           state="open"
+          onClick={handlePinClick}
         />
       </Title>
       <Preview textType="Paragraph2">{preview}</Preview>
