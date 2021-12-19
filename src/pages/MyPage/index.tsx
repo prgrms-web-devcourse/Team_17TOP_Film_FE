@@ -14,6 +14,7 @@ import { Post } from '../../utils/apis/posts/myPagePosts';
 import { deletePostApi } from '../../utils/apis/post';
 import Toast from '../../components/organism/Toast';
 import { useNavigate } from 'react-router-dom';
+import { GlobalNavigation } from '../../components/organism';
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -115,6 +116,7 @@ const MyPage = () => {
           ),
         )}
       </Body>
+      <GlobalNavigation />
     </>
   );
 };
