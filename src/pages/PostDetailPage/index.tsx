@@ -68,7 +68,7 @@ const PostDetailPage = () => {
                 {postDetail.createdAt.replace(/-/gi, '.')}
               </DateText>
               <DateText textType="Paragraph2">
-                <span>사진 나온 날</span>
+                <span>필름 나온 날</span>
                 아직 db에 없음
               </DateText>
               <RelativeDay textType="SmallText">100일째 함께하는중😊</RelativeDay>

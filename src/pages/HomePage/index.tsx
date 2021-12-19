@@ -7,6 +7,13 @@ import { Cookies } from 'react-cookie';
 import { getPostListApi, getPreviewPostApi, deletePostApi } from '../../utils/apis/post';
 import { Post, PreviewPost } from '../../utils/apis/post/type';
 import ConfirmModal from './Modal';
+import Toast from '../../components/organism/Toast';
+import { isOpenableDistance } from '../../utils/functions/distance';
+
+interface Location {
+  latitude: number;
+  longitude: number;
+}
 
 const HomePage = () => {
   const cookies = new Cookies();
@@ -18,6 +25,7 @@ const HomePage = () => {
   const [postList, setPostList] = useState<Post[]>([]);
   const [selectedPost, setselectedPost] = useState<PreviewPost | null>(null);
   const [openablePosts, setOpenablePosts] = useState<Post[] | null>(null);
+  const [userLocation, setUserLocation] = useState<Location | null>(null);
 
   const [todayPostViewModalVisible, setTodayPostViewModalVisible] = useState(false);
   const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
@@ -33,6 +41,19 @@ const HomePage = () => {
     }
   }, [getPostListApi]);
 
+  const getGeoLocation = () => {
+    if (!navigator.geolocation) {
+      Toast.info('GPS를 지원하지 않습니다.');
+      return;
+    }
+    navigator.geolocation.getCurrentPosition((position) => {
+      setUserLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
+  };
+
   const handleSelectedPost = useCallback(
     async (postId: number) => {
       const { data, error } = await getPreviewPostApi(postId);
@@ -44,6 +65,21 @@ const HomePage = () => {
     },
     [getPreviewPostApi],
   );
+
+  const handlePostView = useCallback(() => {
+    console.log('실행');
+
+    if (selectedPost && userLocation) {
+      const isOpenable = isOpenableDistance(
+        parseFloat(selectedPost.location.latitude),
+        parseFloat(selectedPost.location.longitude),
+        userLocation.latitude,
+        userLocation.longitude,
+      );
+      isOpenable && navigate(`/post/${selectedPost?.postId}`);
+      !isOpenable && Toast.info(`지금 필름과 너무 멀리 계시군요..! 1km 이내로 이동해주세요~🏃`);
+    }
+  }, [selectedPost, userLocation]);
 
   const handleDeletePost = async (postId: number) => {
     const { data, error } = await deletePostApi(postId);
@@ -73,6 +109,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getPostList();
+    getGeoLocation();
 
     if (cookies.get('invisibleModal')) {
       setIsMap(true);
@@ -111,7 +148,7 @@ const HomePage = () => {
             element={
               <PreviewBottomSheet
                 previewPost={selectedPost}
-                postViewEvent={() => navigate(`/post/${selectedPost.postId}`)}
+                postViewEvent={handlePostView}
                 postDeleteEvent={() => setPostDeleteModalVisible(true)}
               />
             }

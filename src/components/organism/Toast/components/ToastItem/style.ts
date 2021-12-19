@@ -34,6 +34,7 @@ const Content = styled.h1`
   font-size: '1rem';
   font-weight: 400;
   line-height: 1.4;
+  color: #fff;
 `;
 const ProgressBar = styled.div`
   position: absolute;
