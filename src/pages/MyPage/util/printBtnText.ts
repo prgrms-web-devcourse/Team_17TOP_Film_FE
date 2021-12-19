@@ -1,21 +1,22 @@
+import { buttonText } from '../constants';
 import compareTodayDateAndAvailableAt from './compareTodayDateAndAvailableAt';
 
 const printBtnText = (availableAt: string, state: string, isAuthor: boolean) => {
   const canOpen = compareTodayDateAndAvailableAt(availableAt);
 
   if (canOpen) {
-    if (state === ' OPENED') {
-      return '필름 보기';
+    if (state === 'OPENED') {
+      return buttonText.WATCH_FILM;
     }
     if (state === 'OPENABLE') {
-      return '필름 찾기';
+      return buttonText.FIND_FILM;
     }
   }
   if (!canOpen && state === 'CLOSED') {
     if (isAuthor) {
-      return '필름 나오는중';
+      return buttonText.LOAD_FILM;
     }
   }
-  return '필름 삭제하기';
+  return buttonText.REMOVE_FILM;
 };
 export default printBtnText;
