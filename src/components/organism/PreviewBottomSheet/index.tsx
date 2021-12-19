@@ -29,7 +29,7 @@ const PreviewBottomSheet = ({ previewPost, postViewEvent, postDeleteEvent }: Pro
       <FilmPreviewText textType="Paragraph1">{previewPost.previewText}</FilmPreviewText>
       <FilmInfoWrapper>
         <Text textType="Heading4">
-          {previewPost.state === 'CLOSED' ? '사진 나오는 날' : '사진 나온 날'}
+          {previewPost.state === 'CLOSED' ? '필름 나오는 날' : '필름 나온 날'}
         </Text>
         <FilmOpenDate textType="Paragraph2">
           {previewPost.availableAt.replace(/-/gi, '.')}
@@ -54,17 +54,17 @@ const PreviewBottomSheet = ({ previewPost, postViewEvent, postDeleteEvent }: Pro
       )}
       {previewPost.state === 'CLOSED' && userInfo.nickname !== previewPost.authorNickname && (
         <Button buttonType="SecondaryBtn" width="100%">
-          사진 나오는중...
+          필름 나오는중...
         </Button>
       )}
       {previewPost.state === 'OPENABLE' && (
         <Button buttonType="PrimaryBtn" width="100%" onClick={postViewEvent}>
-          사진 찾기
+          필름 찾기
         </Button>
       )}
       {previewPost.state === 'OPENED' && (
         <Button buttonType="PrimaryBtn" width="100%" onClick={postViewEvent}>
-          사진 보기
+          필름 보기
         </Button>
       )}
       <CloseBtn>
