@@ -8,6 +8,7 @@ import Toast from '../Toast';
 export interface UserInfo {
   nickname: string;
   profileImageUrl: string;
+  id: number;
 }
 
 const SearchUser = () => {

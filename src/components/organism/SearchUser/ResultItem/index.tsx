@@ -4,6 +4,7 @@ import Toast from '../../Toast';
 import { ItemContainer, RoundImage, NicknameText, ItemWrapper, DisableText } from './style';
 import nonProfile from '../../../../assets/images/img_profile.svg';
 interface Props {
+  id: number;
   imgSrc: string;
   imgAlt: string;
   nickname: string;
@@ -11,9 +12,9 @@ interface Props {
   disable: boolean;
 }
 
-const ResultItem = ({ imgSrc, imgAlt, nickname, handleUserSelect, disable }: Props) => {
+const ResultItem = ({ id, imgSrc, imgAlt, nickname, handleUserSelect, disable }: Props) => {
   const handleClickUser = useCallback(() => {
-    handleUserSelect({ nickname, profileImageUrl: imgSrc });
+    handleUserSelect({ nickname, profileImageUrl: imgSrc, id });
   }, []);
 
   return (

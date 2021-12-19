@@ -15,6 +15,7 @@ const SelectedUserList = ({ userList }: Props) => {
         ? userList.map((user: UserInfo) => (
             <SelectedUserCard
               key={user.nickname}
+              id={user.id}
               nickname={user.nickname}
               profileImageUrl={user.profileImageUrl}
               removeCard={selectedUserList.deleteSelectedUser}
