@@ -44,7 +44,16 @@ const ThirdStep = ({
     setDate(e.target.value);
   };
 
+  const dateValidate = (date: string) => {
+    const tomorrow = new Date();
+    const storedDate = new Date(date);
+    return tomorrow > storedDate ? false : true;
+  };
+
   useEffect(() => {
+    if (!dateValidate(date)) {
+      return;
+    }
     const dateToArr = date?.split('-');
     if (dateToArr) {
       setState((prevState) => ({
@@ -57,7 +66,8 @@ const ThirdStep = ({
   }, [date]);
 
   useEffect(() => {
-    if (date) {
+    if (date && dateValidate(date)) {
+      setMinDay(date);
       return;
     }
     const today = new Date();
