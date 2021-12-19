@@ -13,6 +13,9 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { ThirdStepProp } from '../../types';
 import ConfirmModal from './ConfirmModal';
 import UploadHeader from '../UploadHeader';
+import SelectedUserList from '../../../../components/organism/SelectedUserList';
+import SearchUser from '../../../../components/organism/SearchUser';
+import { useSelectedUserList } from '../../../../contexts/SelectedUserListProvider';
 
 const ThirdStep = ({
   latitude,
@@ -27,6 +30,7 @@ const ThirdStep = ({
   const [minDay, setMinDay] = useState('');
   const dateInputRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const selectedUserList = useSelectedUserList();
 
   const saveAvailableAt = () => {
     handleAvailableAt(date);
@@ -77,6 +81,11 @@ const ThirdStep = ({
               min={minDay}
               onChange={handleDateChange}
             ></DateInput>
+          </FormContentWrapper>
+          <FormContentWrapper>
+            <Text textType="Heading4">함께 할 사람들</Text>
+            <SelectedUserList userList={selectedUserList.selectedUserList} />
+            <SearchUser />
           </FormContentWrapper>
         </FormWrapper>
         <GuideText textType="Heading4">
