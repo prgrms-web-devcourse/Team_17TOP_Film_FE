@@ -33,7 +33,7 @@ const SelectedUserListProvider = ({ children, initialSelectedUserList = [] }: Pr
   const clearSelectedUserList = () => {
     dispatch({
       type: 'CLEAR_SELECTED_USER_LIST',
-      payload: { nickname: '', profileImageUrl: '' },
+      payload: { nickname: '', profileImageUrl: '', id: 0 },
     });
   };
 

@@ -4,14 +4,15 @@ import { CardContainer, ContentWrapper, NicknameText, ProfileImg, RemoveBtn } fr
 import nonProfile from '../../../../assets/images/img_profile.svg';
 
 interface Props {
+  id: number;
   nickname: string;
   profileImageUrl: string;
   removeCard: (selectedUser: UserInfo) => void;
 }
 
-const SelectedUserCard = ({ nickname, profileImageUrl, removeCard }: Props) => {
+const SelectedUserCard = ({ id, nickname, profileImageUrl, removeCard }: Props) => {
   const handleRemoveClick = () => {
-    removeCard({ nickname, profileImageUrl });
+    removeCard({ nickname, profileImageUrl, id });
   };
   return (
     <CardContainer>

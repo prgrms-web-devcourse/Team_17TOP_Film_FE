@@ -53,7 +53,8 @@ const ResultList = ({ userList, setDivLoaded, handleUserSelect }: Props) => {
     <ResultListContainer ref={rootTarget}>
       {userList.map((user: UserInfo) => (
         <ResultItem
-          key={user.nickname}
+          key={user.id}
+          id={user.id}
           imgSrc={user.profileImageUrl}
           imgAlt={`${user.nickname} Profile Image`}
           nickname={user.nickname}
