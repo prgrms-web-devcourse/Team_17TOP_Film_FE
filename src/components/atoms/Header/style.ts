@@ -13,8 +13,6 @@ const Wrapper = styled.div<{ bgColor?: string }>`
   background-color: ${({ bgColor }) => bgColor};
   box-sizing: border-box;
 `;
-const MiddleSide = styled.div`
-  position: fixed;
-`;
+const MiddleSide = styled.div``;
 
 export { Wrapper, MiddleSide };

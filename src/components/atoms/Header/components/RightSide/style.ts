@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 
 const Wrapper = styled.button`
-  margin: 0 28px 0 auto;
+  position: absolute;
+  padding: 0;
+  right: ${({ theme }) => theme.gaps.default_margin};
   cursor: pointer;
 `;
 

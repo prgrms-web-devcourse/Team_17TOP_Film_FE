@@ -3,7 +3,7 @@ import { BiLogOut, BiTrash, BiUser } from 'react-icons/bi';
 import { Text } from '../../..';
 import { Wrapper } from './style';
 export interface Props {
-  rightComp?: 'lock' | 'timeline' | 'logout' | 'delete' | 'mypage';
+  rightComp?: 'timeline' | 'logout' | 'delete' | 'mypage';
   handleRightEvent?: (e: MouseEvent<HTMLElement>) => void;
 }
 
