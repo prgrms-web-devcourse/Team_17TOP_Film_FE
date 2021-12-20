@@ -14,7 +14,11 @@ const BottomSheetWrapper = styled.div`
   border-radius: 32px 0 0 0;
   box-shadow: 0 -10px 20px rgb(0 0 0 / 10%);
 `;
-const FilmTitle = styled(Text)``;
+const FilmTitle = styled(Text)`
+  margin-right: ${({ theme }) => theme.gaps.gap4};
+  line-height: 1.2;
+  word-break: keep-all;
+`;
 const FilmPreviewText = styled(Text)`
   padding: ${({ theme }) => theme.gaps.gap2} 0;
   color: ${({ theme }) => theme.colors.gray700};
