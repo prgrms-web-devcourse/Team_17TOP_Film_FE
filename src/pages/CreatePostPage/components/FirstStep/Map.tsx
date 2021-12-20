@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import MapGl, { MapEvent, MapRef, Marker } from 'react-map-gl';
+import { useCallback, useEffect, useState } from 'react';
+import MapGl, { MapEvent, Marker } from 'react-map-gl';
 import { MAP_STYLE } from '../../../../utils/constants/mapConstants';
 import Pin from './Pin';
 import { Location } from '../../types';
@@ -17,7 +17,6 @@ const Map = ({ latitude, longitude, marker, onChangeMarker }: Props) => {
     longitude: 126,
     zoom: 15,
   });
-  const mapRef = useRef<any>();
 
   useEffect(() => {
     setViewport({
@@ -47,7 +46,6 @@ const Map = ({ latitude, longitude, marker, onChangeMarker }: Props) => {
   };
   return (
     <MapGl
-      ref={mapRef}
       onClick={handleOnClickMap}
       {...viewport}
       width="100%"
