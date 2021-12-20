@@ -65,7 +65,7 @@ const PostDetailPage = () => {
     if (!postDetail) {
       return;
     }
-    const postCreatedAt = new Date(postDetail.createdAt).getDate();
+    const postCreatedAt = new Date(postDetail.availableAt).getDate();
     const today = getKST(false).getDate();
     setTogetherDate(today - postCreatedAt);
   }, [postDetail]);
