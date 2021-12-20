@@ -43,6 +43,13 @@ const ThirdStep = ({
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
   };
+  const handleOnBlur = () => {
+    const tomorrow = getKST(true);
+    const inputDate = new Date(date);
+    if (tomorrow > inputDate) {
+      setDate(tomorrow.toISOString().split('T')[0]);
+    }
+  };
 
   const dateValidate = (date: string) => {
     const tomorrow = getKST(true).getDate();
@@ -99,6 +106,7 @@ const ThirdStep = ({
               value={date ? date : ''}
               min={minDay}
               onChange={handleDateChange}
+              onBlur={handleOnBlur}
             ></DateInput>
           </FormContentWrapper>
           <FormContentWrapper>
