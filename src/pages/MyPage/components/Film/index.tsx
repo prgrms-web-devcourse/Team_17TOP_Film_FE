@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Text, Avatar } from '../../../../components/atoms';
 import { Pin } from '../../../../components/organism';
-import Loader from '../../../../components/organism/Loader';
 import Toast from '../../../../components/organism/Toast';
 import { isOpenableDistance } from '../../../../utils/functions/distance';
 import ConfirmModal from '../../../HomePage/Modal';
