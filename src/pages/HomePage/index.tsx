@@ -72,6 +72,10 @@ const HomePage = () => {
   );
 
   const handlePostView = useCallback(() => {
+    if (!userLocation) {
+      Toast.info(`지금 필름과 너무 멀리 계시군요..! 1km 이내로 이동해주세요~🏃`);
+      return;
+    }
     if (selectedPost?.state === 'OPENABLE' && userLocation) {
       const isOpenable = isOpenableDistance(
         parseFloat(selectedPost.location.latitude),
@@ -81,9 +85,8 @@ const HomePage = () => {
       );
       isOpenable && navigate(`/post/${selectedPost?.postId}`);
       !isOpenable && Toast.info(`지금 필름과 너무 멀리 계시군요..! 1km 이내로 이동해주세요~🏃`);
-    } else {
-      navigate(`/post/${selectedPost?.postId}`);
     }
+    selectedPost?.state === 'OPENED' && navigate(`/post/${selectedPost?.postId}`);
   }, [selectedPost, userLocation]);
 
   const handleDeletePost = async (postId: number) => {
