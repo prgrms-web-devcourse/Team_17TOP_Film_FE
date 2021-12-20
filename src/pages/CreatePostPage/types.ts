@@ -20,9 +20,15 @@ export interface ThirdStepProp {
 }
 
 export interface ConfirmModalProps {
-  isModalOpen: true;
+  isModalOpen: boolean;
   handleIsModalClose(): void;
   saveAvailableAt(): void;
+  handleIsConfirm(): void;
+}
+
+export interface LocalStorageConfirmModalProps {
+  isModalOpen: boolean;
+  handleIsModalClose(): void;
   handleIsConfirm(): void;
 }
 
