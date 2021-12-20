@@ -83,7 +83,7 @@ const PostDetailPage = () => {
                 </DateText>
                 <DateText textType="Paragraph2">
                   <span>필름 나온 날</span>
-                  아직 db에 없음
+                  {postDetail.openedAt.replace(/-/gi, '.')}
                 </DateText>
               </div>
               <MapWrapper
