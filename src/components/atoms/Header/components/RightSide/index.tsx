@@ -1,37 +1,20 @@
 import React, { MouseEvent } from 'react';
-import { BiTrash, BiLogOut, BiUser } from 'react-icons/bi';
+import { BiLogOut, BiTrash, BiUser } from 'react-icons/bi';
+import { Text } from '../../..';
 import { Wrapper } from './style';
-
 export interface Props {
-  rightComp?: 'logout' | 'delete' | 'mypage';
+  rightComp?: 'timeline' | 'logout' | 'delete' | 'mypage';
   handleRightEvent?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 const RightSide = ({ rightComp, handleRightEvent }: Props) => {
-  switch (rightComp) {
-    case 'logout': {
-      return (
-        <Wrapper onClick={handleRightEvent}>
-          <BiLogOut size={24} />
-        </Wrapper>
-      );
-    }
-    case 'delete': {
-      return (
-        <Wrapper onClick={handleRightEvent}>
-          <BiTrash size={24} />
-        </Wrapper>
-      );
-    }
-    case 'mypage': {
-      return (
-        <Wrapper onClick={handleRightEvent}>
-          <BiUser size={24} />
-        </Wrapper>
-      );
-    }
-    default:
-      return <></>;
-  }
+  return (
+    <Wrapper onClick={handleRightEvent}>
+      {rightComp === 'timeline' && <Text textType="Paragraph2">타임라인</Text>}
+      {rightComp === 'logout' && <BiLogOut size={24} />}
+      {rightComp === 'delete' && <BiTrash size={24} />}
+      {rightComp === 'mypage' && <BiUser size={24} />}
+    </Wrapper>
+  );
 };
 export default RightSide;

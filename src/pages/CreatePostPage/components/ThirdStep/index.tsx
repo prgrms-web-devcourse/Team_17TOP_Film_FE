@@ -13,6 +13,10 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { ThirdStepProp } from '../../types';
 import ConfirmModal from './ConfirmModal';
 import UploadHeader from '../UploadHeader';
+import SelectedUserList from '../../../../components/organism/SelectedUserList';
+import SearchUser from '../../../../components/organism/SearchUser';
+import { useSelectedUserList } from '../../../../contexts/SelectedUserListProvider';
+import { getKST } from '../../../../utils/functions/getKST';
 
 const ThirdStep = ({
   latitude,
@@ -27,6 +31,7 @@ const ThirdStep = ({
   const [minDay, setMinDay] = useState('');
   const dateInputRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const selectedUserList = useSelectedUserList();
 
   const saveAvailableAt = () => {
     handleAvailableAt(date);
@@ -39,8 +44,24 @@ const ThirdStep = ({
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
   };
+  const handleOnBlur = () => {
+    const tomorrow = getKST(true);
+    const inputDate = new Date(date);
+    if (tomorrow > inputDate) {
+      setDate(tomorrow.toISOString().split('T')[0]);
+    }
+  };
+
+  const dateValidate = (date: string) => {
+    const tomorrow = getKST(true).getDate();
+    const storedDate = new Date(date).getDate();
+    return tomorrow > storedDate ? false : true;
+  };
 
   useEffect(() => {
+    if (!date) {
+      return;
+    }
     const dateToArr = date?.split('-');
     if (dateToArr) {
       setState((prevState) => ({
@@ -53,11 +74,11 @@ const ThirdStep = ({
   }, [date]);
 
   useEffect(() => {
-    if (date) {
+    if (date && dateValidate(date)) {
+      setMinDay(date);
       return;
     }
-    const today = new Date();
-    const tomorrow = new Date(today.setDate(today.getDate() + 1)).toISOString().split('T')[0];
+    const tomorrow = getKST(true).toISOString().split('T')[0];
     setMinDay(tomorrow);
     setDate(tomorrow);
   }, []);
@@ -67,16 +88,22 @@ const ThirdStep = ({
       <UploadHeader handleBackBtn={goPrevStep} />
       <ThirdStepPostFormContainer>
         <FormWrapper>
-          <Text textType="Heading3">사진 찾는 날을 선택 해주세요</Text>
+          <Text textType="Heading3">필름 찾는 날을 선택 해주세요</Text>
           <FormContentWrapper>
-            <Text textType="Heading4">사진 찾는 날짜</Text>
+            <Text textType="Heading4">필름 찾는 날짜</Text>
             <DateInput
               ref={dateInputRef}
               type="date"
               value={date ? date : ''}
               min={minDay}
               onChange={handleDateChange}
+              onBlur={handleOnBlur}
             ></DateInput>
+          </FormContentWrapper>
+          <FormContentWrapper>
+            <Text textType="Heading4">함께 할 사람들</Text>
+            <SelectedUserList userList={selectedUserList.selectedUserList} />
+            <SearchUser />
           </FormContentWrapper>
         </FormWrapper>
         <GuideText textType="Heading4">
@@ -84,11 +111,11 @@ const ThirdStep = ({
           <br />
           {`${latitude}, ${longitude}에`}
           <br />
-          사진이 나올 예정입니다.
+          필름이 나올 예정입니다.
         </GuideText>
       </ThirdStepPostFormContainer>
       <NextStepButton buttonType="PrimaryBtn" onClick={() => setIsModalOpen(true)}>
-        <NextStepText textType="Paragraph1">다음</NextStepText>
+        <NextStepText textType="Paragraph1">필름 맡기기</NextStepText>
       </NextStepButton>
       {isModalOpen ? (
         <ConfirmModal

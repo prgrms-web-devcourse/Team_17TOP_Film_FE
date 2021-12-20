@@ -12,9 +12,8 @@ const Wrapper = styled.div<{ bgColor?: string }>`
   box-shadow: ${({ theme }) => theme.colors.shadow};
   background-color: ${({ bgColor }) => bgColor};
   box-sizing: border-box;
+  z-index: 10;
 `;
-const MiddleSide = styled.div`
-  margin: 0 auto;
-`;
+const MiddleSide = styled.div``;
 
 export { Wrapper, MiddleSide };

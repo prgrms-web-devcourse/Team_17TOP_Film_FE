@@ -39,6 +39,7 @@ export interface PostDetail {
   authorNickname: string;
   authorImageUrl: string;
   createdAt: string;
+  availableAt: string;
   authorityImageList: {
     imageOrder: number;
     authorityId: number;

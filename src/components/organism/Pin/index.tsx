@@ -8,22 +8,23 @@ import PinImg from './style';
 interface PinProps {
   selected: boolean;
   state: string;
+  [x: string]: any;
 }
 const Pin = ({ selected, state, ...props }: PinProps) => {
   return (
-    <div {...props}>
+    <>
       {selected ? (
         state === 'CLOSED' ? (
-          <PinImg src={PinSelectedClose} />
+          <PinImg {...props} src={PinSelectedClose} />
         ) : (
-          <PinImg src={PinSelectedOpen} />
+          <PinImg {...props} src={PinSelectedOpen} />
         )
       ) : state === 'CLOSED' ? (
-        <PinImg src={PinClose} />
+        <PinImg {...props} src={PinClose} />
       ) : (
-        <PinImg src={PinOpen} />
+        <PinImg {...props} src={PinOpen} />
       )}
-    </div>
+    </>
   );
 };
 

@@ -131,13 +131,14 @@ const FormWrapper = styled.div`
 `;
 
 const ThirdStepPostFormContainer = styled(PostFormContainer)`
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
 const DateInput = styled.input`
+  width: 100%;
+  background: white;
   padding: 0 16px 0 16px;
   height: 48px;
   border-radius: 4px;
@@ -163,8 +164,9 @@ const DateInput = styled.input`
 `;
 const GuideText = styled(Text)`
   text-align: center;
-  color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: 8px;
+  color: ${({ theme }) => theme.colors.gray800};
+  margin-top: 200px;
+  margin-bottom: 100px;
 `;
 const NextStepText = styled(Text)`
   color: white;

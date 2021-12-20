@@ -8,6 +8,9 @@ import { useLocalStorage } from '../../hooks';
 import { createPostApi } from '../../utils/apis/posts';
 import { useNavigate } from 'react-router-dom';
 import Toast from '../../components/organism/Toast';
+import { changeAuthorApi } from '../../utils/apis/author';
+import { useSelectedUserList } from '../../contexts/SelectedUserListProvider';
+import Loader from '../../components/organism/Loader';
 
 const CreatePostPage = () => {
   const [step, setStep] = useState(1);
@@ -24,7 +27,10 @@ const CreatePostPage = () => {
     null,
   );
   const [isConfirm, setIsConfirm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const selectedUserList = useSelectedUserList();
   const navigate = useNavigate();
+
   const goNextStep = () => {
     if (step === 4) {
       return;
@@ -63,16 +69,35 @@ const CreatePostPage = () => {
 
   const createPost = async (formData: FormData) => {
     setIsConfirm(false);
+    setIsLoading(true);
     const { data, error } = await createPostApi(formData);
     if (error.errorMessage) {
+      setIsLoading(false);
       Toast.warn('잠시후에 다시 시도해주세요 🔧');
       return;
     }
-    window.localStorage.removeItem('location');
-    window.localStorage.removeItem('secondStepData');
-    window.localStorage.removeItem('availableAt');
-    window.localStorage.removeItem('filename');
-    navigate(`/${data.postId}`);
+    if (await addAuthor(data.postId)) {
+      setIsLoading(false);
+      window.localStorage.removeItem('location');
+      window.localStorage.removeItem('secondStepData');
+      window.localStorage.removeItem('availableAt');
+      window.localStorage.removeItem('filename');
+      Toast.info('필름 작성이 완료되었습니다 🎉');
+      navigate(`/${data.postId}`);
+    }
+  };
+
+  const addAuthor = async (postId: number) => {
+    const selectedUserIdArr = selectedUserList.selectedUserList.map((user) => {
+      return { userId: user.id };
+    });
+    const authorList = { fixAuthorityList: selectedUserIdArr };
+    const { error } = await changeAuthorApi({ authorList, postId });
+    if (error.errorMessage) {
+      Toast.warn('잠시후에 다시 시도해주세요 🔧');
+      return false;
+    }
+    return true;
   };
 
   useEffect(() => {
@@ -99,6 +124,7 @@ const CreatePostPage = () => {
 
   return (
     <CreatePostPageContainer>
+      {isLoading ? <Loader>필름 맡기는 중...</Loader> : ''}
       {step === 1 ? (
         <FirstStep
           goNextStep={goNextStep}
