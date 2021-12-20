@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Avatar, Header, Image, Text } from '../../components/atoms';
-import { getPostDetailApi } from '../../utils/apis/post';
+import { deletePostApi, getPostDetailApi } from '../../utils/apis/post';
 import { PostDetail } from '../../utils/apis/post/type';
 import ProfileImg from '../../assets/images/img_profile.svg';
 import {
-  LocationButton,
   PostDetailWrapper,
   OpenerInfo,
   PostInfo,
@@ -13,15 +12,23 @@ import {
   AuthoryityList,
   RelativeDay,
   DateText,
+  MapWrapper,
+  PostSubText,
+  PostContentText,
 } from './style';
 import { FireworkEffect } from '../../components/organism';
+import { StaticMap, Marker } from 'react-map-gl';
+import { Pin } from '../../components/organism';
+import ConfirmModal from '../HomePage/Modal';
+import { useUserInfo } from '../../contexts/UserProvider';
 
 const PostDetailPage = () => {
+  const { userInfo } = useUserInfo();
   const [lottieLoad, setLottieLoad] = useState(true);
   const navigate = useNavigate();
   const { postId } = useParams();
   const [postDetail, setPostDetail] = useState<PostDetail | null>(null);
-
+  const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
   const getPostDetail = async (postId: number) => {
     const { data, error } = await getPostDetailApi(postId);
     console.log(data, error);
@@ -32,23 +39,40 @@ const PostDetailPage = () => {
     setPostDetail(data);
   };
 
+  const handleDeletePost = async (postId: number) => {
+    const { data, error } = await deletePostApi(postId);
+    if (!data) {
+      console.log(error);
+      return;
+    }
+    setPostDeleteModalVisible(false);
+    navigate(`/`);
+  };
+
   useEffect(() => {
+    postId && getPostDetail(parseInt(postId));
     const id = setTimeout(() => {
       setLottieLoad(false);
     }, 1000);
     return () => {
       clearTimeout(id);
     };
-  });
-
-  useEffect(() => {
-    postId && getPostDetail(parseInt(postId));
   }, []);
 
   return (
     <div>
       {postDetail?.isOpened && lottieLoad && <FireworkEffect text="어? 제일 먼저 오셨네요?" />}
-      <Header leftComp="backBtn" handleLeftEvent={() => navigate(-1)} midText="사진 보기" />
+      {userInfo.nickname === postDetail?.authorNickname ? (
+        <Header
+          leftComp="backBtn"
+          handleLeftEvent={() => navigate(-1)}
+          midText="필름 보기"
+          rightComp="delete"
+          handleRightEvent={() => setPostDeleteModalVisible(true)}
+        />
+      ) : (
+        <Header leftComp="backBtn" handleLeftEvent={() => navigate(-1)} midText="필름 보기" />
+      )}
       {postDetail && (
         <PostDetailWrapper>
           <OpenerInfo>
@@ -64,7 +88,7 @@ const PostDetailPage = () => {
             </Text>
           </OpenerInfo>
           <PostInfo>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Avatar
                   src={postDetail.authorImageUrl ? postDetail.authorImageUrl : ProfileImg}
@@ -74,19 +98,40 @@ const PostDetailPage = () => {
                 />
                 <Text textType="Heading4">{postDetail.authorNickname}</Text>
               </div>
-              <LocationButton>위치 보기</LocationButton>
+              <div style={{ marginTop: 24 }}>
+                <DateText textType="Paragraph2">
+                  <span>작성일</span>
+                  {postDetail.createdAt.replace(/-/gi, '.')}
+                </DateText>
+                <DateText textType="Paragraph2">
+                  <span>필름 나온 날</span>
+                  {postDetail.availableAt.replace(/-/gi, '.')}
+                </DateText>
+              </div>
+              <MapWrapper
+                onClick={() => {
+                  navigate(`/${postDetail.postId}`);
+                }}
+              >
+                <StaticMap
+                  width="100px"
+                  height="100px"
+                  latitude={parseFloat(postDetail.location.latitude)}
+                  longitude={parseFloat(postDetail.location.longitude)}
+                  zoom={9}
+                  attributionControl={false}
+                  mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+                >
+                  <Marker
+                    latitude={parseFloat(postDetail.location.latitude)}
+                    longitude={parseFloat(postDetail.location.longitude)}
+                  >
+                    <Pin style={{ width: '20px' }} selected={true} state={'OPENED'}></Pin>
+                  </Marker>
+                </StaticMap>
+              </MapWrapper>
             </div>
-            <div style={{ marginTop: 16 }}>
-              <DateText textType="Paragraph2">
-                <span>작성일</span>
-                {postDetail.createdAt.replace(/-/gi, '.')}
-              </DateText>
-              <DateText textType="Paragraph2">
-                <span>필름 나온 날</span>
-                아직 db에 없음
-              </DateText>
-              <RelativeDay textType="SmallText">100일째 함께하는중😊</RelativeDay>
-            </div>
+            <RelativeDay textType="SmallText">100일째 함께하는중😊</RelativeDay>
             <AuthoryityList>
               <Avatar.Group overlapPx={8}>
                 {postDetail.authorityImageList.map((user) => (
@@ -100,22 +145,34 @@ const PostDetailPage = () => {
               </Avatar.Group>
             </AuthoryityList>
           </PostInfo>
+
           <PostContent>
             <Text textType="Heading4">{postDetail.title}</Text>
-            <Text textType="Paragraph1">{postDetail.previewText}</Text>
+            <PostSubText textType="Paragraph1">{postDetail.previewText}</PostSubText>
             {postDetail.imageUrls[0] && (
               <Image
                 src={postDetail.imageUrls[0].imageUrl}
                 alt="postImage"
-                width={200}
-                height={200}
+                width={'100%'}
+                height={'auto'}
                 placeholder="https://via.placeholder.com/200"
               />
             )}
-            {postDetail.content && <Text textType="Paragraph1">{postDetail.content}</Text>}
+            {postDetail.content && (
+              <PostContentText textType="Paragraph1">{postDetail.content}</PostContentText>
+            )}
           </PostContent>
         </PostDetailWrapper>
       )}
+      <ConfirmModal
+        modalVisible={postDeleteModalVisible}
+        modalText={`정말 필름을 삭제하시겠어요?`}
+        primaryBtnText={`네..ㅜㅜ`}
+        secondaryBtnText={`잠시만요!`}
+        handleClose={() => setPostDeleteModalVisible(false)}
+        primaryBtnEvent={() => postDetail && handleDeletePost(postDetail.postId)}
+        secondaryBtnEvent={() => setPostDeleteModalVisible(false)}
+      />
     </div>
   );
 };
