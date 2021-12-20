@@ -78,21 +78,12 @@ const MyPage = () => {
   const handleLeftHeaderButton = () => {
     navigate(-1);
   };
-  const handleRightHeaderButton = () => {
-    // Todo
-    // 타임라인 추후 구현
-  };
+
   return (
     <>
       {isLoading && <Loader>필름 불러오는 중...</Loader>}
 
-      <MyPageHeader
-        leftComp="backBtn"
-        handleLeftEvent={handleLeftHeaderButton}
-        rightComp="timeline"
-        handleRightEvent={handleRightHeaderButton}
-      />
-
+      <MyPageHeader leftComp="backBtn" handleLeftEvent={handleLeftHeaderButton} />
       <Body>
         <Profile
           profileImageUrl={userInfo.profileImageUrl}
