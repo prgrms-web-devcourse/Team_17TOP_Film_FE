@@ -142,7 +142,7 @@ const PostDetailPage = () => {
                 </StaticMap>
               </MapWrapper>
             </div>
-            <RelativeDay textType="SmallText">{togetherDate}일째 함께하는중😊</RelativeDay>
+            <RelativeDay textType="SmallText">{togetherDate + 1}일째 함께하는중😊</RelativeDay>
             <AuthoryityList>
               <Avatar.Group overlapPx={8}>
                 {postDetail.authorityImageList.map((user) => (
