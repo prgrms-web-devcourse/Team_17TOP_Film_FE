@@ -31,6 +31,7 @@ const MapHeaderText = styled(Text)`
   position: absolute;
   top: 84px;
   left: 23px;
+  line-height: 1.2;
   z-index: 1;
 `;
 
