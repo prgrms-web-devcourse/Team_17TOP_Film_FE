@@ -34,9 +34,18 @@ const MyPage = () => {
   }>({ latitude: null, longitude: null });
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setUserLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude });
-    });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      () => {
+        Toast.warn('위치정보를 허용하지 않으면 원활한 서비스를 이용할 수 없습니다');
+        setIsLoading(false);
+      },
+    );
   }, []);
 
   useEffect(() => {
