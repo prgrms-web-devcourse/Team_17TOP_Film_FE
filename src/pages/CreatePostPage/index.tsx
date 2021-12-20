@@ -82,6 +82,7 @@ const CreatePostPage = () => {
       window.localStorage.removeItem('secondStepData');
       window.localStorage.removeItem('availableAt');
       window.localStorage.removeItem('filename');
+      Toast.info('필름 작성이 완료되었습니다 🎉');
       navigate(`/${data.postId}`);
     }
   };
