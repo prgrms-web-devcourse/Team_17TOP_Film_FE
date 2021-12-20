@@ -48,7 +48,7 @@ const ThirdStep = ({
     const tomorrow = getKST(true);
     const inputDate = new Date(date);
     if (tomorrow > inputDate) {
-      setDate(tomorrow.toISOString().split('T')[0]);
+      setDate(tomorrow.toLocaleString().split('.').slice(0, 3).join('').split(' ').join('-'));
     }
   };
 
@@ -78,7 +78,13 @@ const ThirdStep = ({
       setMinDay(date);
       return;
     }
-    const tomorrow = getKST(true).toISOString().split('T')[0];
+    const tomorrow = getKST(true)
+      .toLocaleString()
+      .split('.')
+      .slice(0, 3)
+      .join('')
+      .split(' ')
+      .join('-');
     setMinDay(tomorrow);
     setDate(tomorrow);
   }, []);
