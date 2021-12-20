@@ -51,7 +51,7 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
       <MapHeaderText textType="Heading3">
         필름을 맡길
         <br />
-        위치로 마커를 옮겨주세요
+        위치를 선택 해주세요
       </MapHeaderText>
       {userLocation ? (
         <Map
