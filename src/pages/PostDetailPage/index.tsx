@@ -20,8 +20,10 @@ import { FireworkEffect } from '../../components/organism';
 import { StaticMap, Marker } from 'react-map-gl';
 import { Pin } from '../../components/organism';
 import ConfirmModal from '../HomePage/Modal';
+import { useUserInfo } from '../../contexts/UserProvider';
 
 const PostDetailPage = () => {
+  const { userInfo } = useUserInfo();
   const [lottieLoad, setLottieLoad] = useState(true);
   const navigate = useNavigate();
   const { postId } = useParams();
@@ -60,13 +62,17 @@ const PostDetailPage = () => {
   return (
     <div>
       {postDetail?.isOpened && lottieLoad && <FireworkEffect text="어? 제일 먼저 오셨네요?" />}
-      <Header
-        leftComp="backBtn"
-        handleLeftEvent={() => navigate(-1)}
-        midText="필름 보기"
-        rightComp="delete"
-        handleRightEvent={() => setPostDeleteModalVisible(true)}
-      />
+      {userInfo.nickname === postDetail?.authorNickname ? (
+        <Header
+          leftComp="backBtn"
+          handleLeftEvent={() => navigate(-1)}
+          midText="필름 보기"
+          rightComp="delete"
+          handleRightEvent={() => setPostDeleteModalVisible(true)}
+        />
+      ) : (
+        <Header leftComp="backBtn" handleLeftEvent={() => navigate(-1)} midText="필름 보기" />
+      )}
       {postDetail && (
         <PostDetailWrapper>
           <OpenerInfo>
