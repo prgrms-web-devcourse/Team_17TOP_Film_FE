@@ -1,8 +1,6 @@
 import { buttonText } from '../constants';
 
 const printBtnText = (availableAt: string, state: string, isAuthor: boolean) => {
-  console.log(state, isAuthor);
-
   if (state === 'OPENED') {
     return buttonText.WATCH_FILM;
   }
