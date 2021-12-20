@@ -44,6 +44,7 @@ const Map = ({ latitude, longitude, marker, onChangeMarker }: Props) => {
       longitude: e.lngLat[0],
     });
   };
+
   return (
     <MapGl
       onClick={handleOnClickMap}
