@@ -15,6 +15,7 @@ import { deletePostApi } from '../../utils/apis/post';
 import Toast from '../../components/organism/Toast';
 import { useNavigate } from 'react-router-dom';
 import { GlobalNavigation } from '../../components/organism';
+import Loader from '../../components/organism/Loader';
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -26,6 +27,23 @@ const MyPage = () => {
 
   const [posts, setPosts] = useGetAllPost();
   const [filteredPosts, setFilteredPosts] = useState<Post[] | []>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [userLocation, setUserLocation] = useState<{
+    latitude: null | number;
+    longitude: null | number;
+  }>({ latitude: null, longitude: null });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setUserLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (userLocation.latitude) {
+      setIsLoading(false);
+    }
+  }, [userLocation]);
 
   useEffect(() => {
     const filtered = !posts
@@ -66,6 +84,8 @@ const MyPage = () => {
   };
   return (
     <>
+      {isLoading && <Loader>필름 불러오는 중...</Loader>}
+
       <MyPageHeader
         leftComp="backBtn"
         handleLeftEvent={handleLeftHeaderButton}
@@ -115,6 +135,8 @@ const MyPage = () => {
               deletePost={deletePost}
               longitude={location.longitude}
               latitude={location.latitude}
+              userLatitude={userLocation.latitude as number}
+              userLongitude={userLocation.longitude as number}
             />
           ),
         )}
