@@ -8,7 +8,7 @@ const OpenerInfo = styled.div`
   display: flex;
   align-items: center;
   padding: ${({ theme }) => theme.gaps.gap2} ${({ theme }) => theme.gaps.default_margin};
-  background-color: ${({ theme }) => theme.colors.gray50};
+  background-color: ${({ theme }) => theme.colors.gray100};
 `;
 const PostInfo = styled.div`
   margin: ${({ theme }) => theme.gaps.gap2} ${({ theme }) => theme.gaps.default_margin};
@@ -48,6 +48,16 @@ const MapWrapper = styled.div`
   right: 0;
 `;
 
+const PostSubText = styled(Text)`
+  margin: ${({ theme }) => theme.gaps.gap2} 0;
+  padding: ${({ theme }) => theme.gaps.gap2};
+  background: ${({ theme }) => theme.colors.gray100};
+  border-radius: 4px;
+`;
+const PostContentText = styled(Text)`
+  margin: ${({ theme }) => theme.gaps.gap2} 0;
+`;
+
 export {
   PostDetailWrapper,
   OpenerInfo,
@@ -57,4 +67,6 @@ export {
   RelativeDay,
   DateText,
   MapWrapper,
+  PostSubText,
+  PostContentText,
 };

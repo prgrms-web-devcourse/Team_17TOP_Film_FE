@@ -13,6 +13,8 @@ import {
   RelativeDay,
   DateText,
   MapWrapper,
+  PostSubText,
+  PostContentText,
 } from './style';
 import { FireworkEffect } from '../../components/organism';
 import { StaticMap, Marker } from 'react-map-gl';
@@ -123,17 +125,19 @@ const PostDetailPage = () => {
 
           <PostContent>
             <Text textType="Heading4">{postDetail.title}</Text>
-            <Text textType="Paragraph1">{postDetail.previewText}</Text>
+            <PostSubText textType="Paragraph1">{postDetail.previewText}</PostSubText>
             {postDetail.imageUrls[0] && (
               <Image
                 src={postDetail.imageUrls[0].imageUrl}
                 alt="postImage"
-                width={200}
-                height={200}
+                width={'100%'}
+                height={'auto'}
                 placeholder="https://via.placeholder.com/200"
               />
             )}
-            {postDetail.content && <Text textType="Paragraph1">{postDetail.content}</Text>}
+            {postDetail.content && (
+              <PostContentText textType="Paragraph1">{postDetail.content}</PostContentText>
+            )}
           </PostContent>
         </PostDetailWrapper>
       )}
