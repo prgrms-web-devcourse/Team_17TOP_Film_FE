@@ -28,6 +28,7 @@ const HomePage = () => {
   const [openablePosts, setOpenablePosts] = useState<Post[] | null>(null);
   const [userLocation, setUserLocation] = useState<Location | null>(null);
 
+  const [emptyPostModalVisible, setEmptyPostModalVisible] = useState(false);
   const [todayPostViewModalVisible, setTodayPostViewModalVisible] = useState(false);
   const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
 
@@ -38,6 +39,7 @@ const HomePage = () => {
       return;
     }
     if (data) {
+      !data.posts.length && setEmptyPostModalVisible(true);
       setPostList(data.posts);
     }
   }, [getPostListApi]);
@@ -168,6 +170,18 @@ const HomePage = () => {
           />
         </Routes>
       )}
+      <ConfirmModal
+        modalVisible={emptyPostModalVisible}
+        modalText={`아직 필름이 없네요, 특별했던 순간을 남겨볼까요?`}
+        primaryBtnText={`네 좋아요~`}
+        secondaryBtnText={`다음에 할래요`}
+        handleClose={() => setEmptyPostModalVisible(false)}
+        primaryBtnEvent={() => {
+          setEmptyPostModalVisible(false);
+          navigate('/post/create');
+        }}
+        secondaryBtnEvent={() => setEmptyPostModalVisible(false)}
+      />
       <ConfirmModal
         modalVisible={todayPostViewModalVisible}
         modalText={`오늘 찾을 수 있는 필름이 ${openablePosts?.length}개 있어요!`}
