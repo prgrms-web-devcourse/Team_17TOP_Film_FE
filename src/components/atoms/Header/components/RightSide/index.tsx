@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { BiLogOut, BiTrash, BiUser } from 'react-icons/bi';
+import { BiLogOut, BiTrash } from 'react-icons/bi';
 import { Avatar, Text } from '../../..';
 import { Wrapper } from './style';
 import ProfileImg from '../../../../../assets/images/img_profile.svg';
