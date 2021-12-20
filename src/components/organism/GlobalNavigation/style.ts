@@ -9,6 +9,7 @@ const Elem = styled.button`
   font-size: 10px;
   gap: 5px;
   cursor: pointer;
+  color: ${({ theme }) => theme.colors.gray700};
 `;
 const CustomNavigation = styled(Navigation)`
   position: fixed;
