@@ -11,6 +11,8 @@ import Toast from '../../components/organism/Toast';
 import { changeAuthorApi } from '../../utils/apis/author';
 import { useSelectedUserList } from '../../contexts/SelectedUserListProvider';
 import Loader from '../../components/organism/Loader';
+import LocalstorageConfirmModal from './components/LocalStorageConfirmModal';
+import { clearLocalStoragePostData } from './utils/clearLocalStoragePostData';
 
 const CreatePostPage = () => {
   const [step, setStep] = useState(1);
@@ -28,6 +30,8 @@ const CreatePostPage = () => {
   );
   const [isConfirm, setIsConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [storedValueConfirm, setStoredValueConfirm] = useState(false);
+  const [storedValueConfirmModalOpen, setStoredValueConfirmModalOpen] = useState(false);
   const selectedUserList = useSelectedUserList();
   const navigate = useNavigate();
 
@@ -67,6 +71,13 @@ const CreatePostPage = () => {
     setIsConfirm(true);
   };
 
+  const handleLocalStorageConfirm = () => {
+    setStoredValueConfirm(true);
+  };
+  const handleLcalStorageConfirmModal = () => {
+    setStoredValueConfirmModalOpen(false);
+  };
+
   const createPost = async (formData: FormData) => {
     setIsConfirm(false);
     setIsLoading(true);
@@ -78,10 +89,7 @@ const CreatePostPage = () => {
     }
     if (await addAuthor(data.postId)) {
       setIsLoading(false);
-      window.localStorage.removeItem('location');
-      window.localStorage.removeItem('secondStepData');
-      window.localStorage.removeItem('availableAt');
-      window.localStorage.removeItem('filename');
+      clearLocalStoragePostData();
       Toast.info('필름 작성이 완료되었습니다 🎉');
       navigate(`/${data.postId}`);
     }
@@ -122,13 +130,29 @@ const CreatePostPage = () => {
     createPost(formData);
   }, [isConfirm]);
 
+  useEffect(() => {
+    if (!storedLocation) {
+      return;
+    }
+    setStoredValueConfirmModalOpen(true);
+  }, []);
+
   return (
     <CreatePostPageContainer>
       {isLoading ? <Loader>필름 맡기는 중...</Loader> : ''}
+      {storedValueConfirmModalOpen ? (
+        <LocalstorageConfirmModal
+          handleIsModalClose={handleLcalStorageConfirmModal}
+          isModalOpen={storedValueConfirmModalOpen}
+          handleIsConfirm={handleLocalStorageConfirm}
+        ></LocalstorageConfirmModal>
+      ) : (
+        ''
+      )}
       {step === 1 ? (
         <FirstStep
           goNextStep={goNextStep}
-          location={storedLocation ? storedLocation : location}
+          location={storedValueConfirm ? storedLocation : location}
           handleLocation={handleLocation}
         />
       ) : step === 2 ? (
@@ -137,7 +161,7 @@ const CreatePostPage = () => {
           goPrevStep={goPrevStep}
           handleSecondStepData={handleSecondStepData}
           handleStoredSecondStepData={handleStoredSecondStepData}
-          storedSecondStepData={storedSecondStepData}
+          storedSecondStepData={storedValueConfirm ? storedSecondStepData : null}
         />
       ) : (
         <ThirdStep
@@ -145,7 +169,7 @@ const CreatePostPage = () => {
           longitude={location?.longitude}
           handleAvailableAt={handleAvailableAt}
           goPrevStep={goPrevStep}
-          storedAvailableAt={storedAvailableAt}
+          storedAvailableAt={storedValueConfirm ? storedAvailableAt : null}
           handleIsConfirm={handleIsConfirm}
         />
       )}
