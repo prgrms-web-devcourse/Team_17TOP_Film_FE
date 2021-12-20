@@ -37,11 +37,12 @@ const Button = styled.button`
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
-  height: 48px;
+  height: 56px;
   border: none;
   border-radius: 4px;
   background-color: ${({ theme: { colors } }) => colors.primary};
-  ${({ theme: { fonts } }) => fonts.smallText};
+  ${({ theme: { fonts } }) => fonts.Paragraph1};
+  font-weight: bold;
   color: white;
 `;
 export { Wrapper, Container, Text, Img, Button };
