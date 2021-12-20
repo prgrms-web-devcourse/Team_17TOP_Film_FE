@@ -26,6 +26,7 @@ const NextStepButton = styled(Button)`
   bottom: 0;
   width: 100%;
   z-index: 2;
+  border-radius: 0;
 `;
 const MapHeaderText = styled(Text)`
   position: absolute;
