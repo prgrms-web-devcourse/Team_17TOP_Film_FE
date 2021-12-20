@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Avatar, Header, Image, Text } from '../../components/atoms';
-import { getPostDetailApi } from '../../utils/apis/post';
+import { deletePostApi, getPostDetailApi } from '../../utils/apis/post';
 import { PostDetail } from '../../utils/apis/post/type';
 import ProfileImg from '../../assets/images/img_profile.svg';
 import {
@@ -19,13 +19,14 @@ import {
 import { FireworkEffect } from '../../components/organism';
 import { StaticMap, Marker } from 'react-map-gl';
 import { Pin } from '../../components/organism';
+import ConfirmModal from '../HomePage/Modal';
 
 const PostDetailPage = () => {
   const [lottieLoad, setLottieLoad] = useState(true);
   const navigate = useNavigate();
   const { postId } = useParams();
   const [postDetail, setPostDetail] = useState<PostDetail | null>(null);
-
+  const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
   const getPostDetail = async (postId: number) => {
     const { data, error } = await getPostDetailApi(postId);
     console.log(data, error);
@@ -34,6 +35,16 @@ const PostDetailPage = () => {
       return;
     }
     setPostDetail(data);
+  };
+
+  const handleDeletePost = async (postId: number) => {
+    const { data, error } = await deletePostApi(postId);
+    if (!data) {
+      console.log(error);
+      return;
+    }
+    setPostDeleteModalVisible(false);
+    navigate(`/`);
   };
 
   useEffect(() => {
@@ -49,7 +60,13 @@ const PostDetailPage = () => {
   return (
     <div>
       {postDetail?.isOpened && lottieLoad && <FireworkEffect text="어? 제일 먼저 오셨네요?" />}
-      <Header leftComp="backBtn" handleLeftEvent={() => navigate(-1)} midText="필름 보기" />
+      <Header
+        leftComp="backBtn"
+        handleLeftEvent={() => navigate(-1)}
+        midText="필름 보기"
+        rightComp="delete"
+        handleRightEvent={() => setPostDeleteModalVisible(true)}
+      />
       {postDetail && (
         <PostDetailWrapper>
           <OpenerInfo>
@@ -141,6 +158,15 @@ const PostDetailPage = () => {
           </PostContent>
         </PostDetailWrapper>
       )}
+      <ConfirmModal
+        modalVisible={postDeleteModalVisible}
+        modalText={`정말 필름을 삭제하시겠어요?`}
+        primaryBtnText={`네..ㅜㅜ`}
+        secondaryBtnText={`잠시만요!`}
+        handleClose={() => setPostDeleteModalVisible(false)}
+        primaryBtnEvent={() => postDetail && handleDeletePost(postDetail.postId)}
+        secondaryBtnEvent={() => setPostDeleteModalVisible(false)}
+      />
     </div>
   );
 };
