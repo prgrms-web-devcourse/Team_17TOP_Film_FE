@@ -21,7 +21,6 @@ export const isOpenableDistance = (
   userLon: number,
 ) => {
   const distance = getDistanceFromLatLonInKm(postLat, postLon, userLat, userLon);
-  console.log(distance);
   if (1 > distance) {
     return true;
   }
