@@ -35,22 +35,19 @@ const PostDetailPage = () => {
   };
 
   useEffect(() => {
+    postId && getPostDetail(parseInt(postId));
     const id = setTimeout(() => {
       setLottieLoad(false);
     }, 1000);
     return () => {
       clearTimeout(id);
     };
-  });
-
-  useEffect(() => {
-    postId && getPostDetail(parseInt(postId));
   }, []);
 
   return (
     <div>
       {postDetail?.isOpened && lottieLoad && <FireworkEffect text="어? 제일 먼저 오셨네요?" />}
-      <Header leftComp="backBtn" handleLeftEvent={() => navigate(-1)} midText="사진 보기" />
+      <Header leftComp="backBtn" handleLeftEvent={() => navigate(-1)} midText="필름 보기" />
       {postDetail && (
         <PostDetailWrapper>
           <OpenerInfo>
@@ -83,7 +80,7 @@ const PostDetailPage = () => {
                 </DateText>
                 <DateText textType="Paragraph2">
                   <span>필름 나온 날</span>
-                  {postDetail.openedAt.replace(/-/gi, '.')}
+                  {postDetail.availableAt.replace(/-/gi, '.')}
                 </DateText>
               </div>
               <MapWrapper
