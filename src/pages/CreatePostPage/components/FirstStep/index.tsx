@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import { NextStepButton, MapHeaderText, NextStepText } from '../../style';
 import Map from './Map';
 import { FirstStepProps, Location } from '../../types';
@@ -22,6 +22,10 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
+        setMarker({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
         setIsLoading(false);
       },
       () => {
@@ -41,6 +45,10 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
       latitude: location.latitude,
       longitude: location.longitude,
     });
+    setMarker({
+      latitude: location.latitude,
+      longitude: location.longitude,
+    });
   }, []);
 
   const handleMarker = (data: Location) => {
@@ -51,6 +59,14 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
     handleLocation(marker);
     goNextStep();
   };
+
+  useEffect(() => {
+    if (!location) {
+      return;
+    }
+    setUserLocation(location as SetStateAction<Location>);
+    setMarker(userLocation);
+  }, [location]);
 
   return (
     <>
