@@ -21,6 +21,7 @@ import { StaticMap, Marker } from 'react-map-gl';
 import { Pin } from '../../components/organism';
 import ConfirmModal from '../HomePage/Modal';
 import { useUserInfo } from '../../contexts/UserProvider';
+import { getKST } from '../../utils/functions/getKST';
 
 const PostDetailPage = () => {
   const { userInfo } = useUserInfo();
@@ -29,6 +30,7 @@ const PostDetailPage = () => {
   const { postId } = useParams();
   const [postDetail, setPostDetail] = useState<PostDetail | null>(null);
   const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
+  const [togetherDate, setTogetherDate] = useState(0);
   const getPostDetail = async (postId: number) => {
     const { data, error } = await getPostDetailApi(postId);
     console.log(data, error);
@@ -58,6 +60,15 @@ const PostDetailPage = () => {
       clearTimeout(id);
     };
   }, []);
+
+  useEffect(() => {
+    if (!postDetail) {
+      return;
+    }
+    const postCreatedAt = new Date(postDetail.createdAt).getDate();
+    const today = getKST(false).getDate();
+    setTogetherDate(today - postCreatedAt);
+  }, [postDetail]);
 
   return (
     <div>
@@ -131,7 +142,7 @@ const PostDetailPage = () => {
                 </StaticMap>
               </MapWrapper>
             </div>
-            <RelativeDay textType="SmallText">100일째 함께하는중😊</RelativeDay>
+            <RelativeDay textType="SmallText">{togetherDate}일째 함께하는중😊</RelativeDay>
             <AuthoryityList>
               <Avatar.Group overlapPx={8}>
                 {postDetail.authorityImageList.map((user) => (
