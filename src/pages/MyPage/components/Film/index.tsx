@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Text, Avatar } from '../../../../components/atoms';
 import { Pin } from '../../../../components/organism';
@@ -41,7 +41,16 @@ const Film = ({
 }: Props) => {
   const navigate = useNavigate();
   const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
+  const [userLocation, setUserLocation] = useState<{
+    latitude: null | number;
+    longitude: null | number;
+  }>({ latitude: null, longitude: null });
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setUserLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+    });
+  }, []);
   const buttonType =
     btnText === buttonText.WATCH_FILM || btnText === buttonText.FIND_FILM
       ? 'PrimaryBtn'
@@ -53,15 +62,12 @@ const Film = ({
       return;
     }
     if (btnText === buttonText.FIND_FILM) {
-      let isOpenable = null;
-      navigator.geolocation.getCurrentPosition((position) => {
-        isOpenable = isOpenableDistance(
-          +latitude,
-          +longitude,
-          position.coords.latitude,
-          position.coords.longitude,
-        );
-      });
+      const isOpenable = isOpenableDistance(
+        parseFloat(latitude),
+        parseFloat(longitude),
+        userLocation.latitude as number,
+        userLocation.longitude as number,
+      );
       if (isOpenable) {
         navigate(`/post/${postId}`);
         return;
