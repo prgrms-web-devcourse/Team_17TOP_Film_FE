@@ -14,8 +14,10 @@ import {
   RelativeDay,
   DateText,
 } from './style';
+import { FireworkEffect } from '../../components/organism';
 
 const PostDetailPage = () => {
+  const [lottieLoad, setLottieLoad] = useState(true);
   const navigate = useNavigate();
   const { postId } = useParams();
   const [postDetail, setPostDetail] = useState<PostDetail | null>(null);
@@ -29,11 +31,23 @@ const PostDetailPage = () => {
     }
     setPostDetail(data);
   };
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setLottieLoad(false);
+    }, 1000);
+    return () => {
+      clearTimeout(id);
+    };
+  });
+
   useEffect(() => {
     postId && getPostDetail(parseInt(postId));
   }, []);
+
   return (
     <div>
+      {postDetail?.isOpened && lottieLoad && <FireworkEffect text="어? 제일 먼저 오셨네요?" />}
       <Header leftComp="backBtn" handleLeftEvent={() => navigate(-1)} midText="사진 보기" />
       {postDetail && (
         <PostDetailWrapper>
