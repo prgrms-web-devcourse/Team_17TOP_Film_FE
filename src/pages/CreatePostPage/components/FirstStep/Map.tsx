@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import MapGl, { Marker } from 'react-map-gl';
+import MapGl, { MapEvent, Marker } from 'react-map-gl';
 import { MAP_STYLE } from '../../../../utils/constants/mapConstants';
 import Pin from './Pin';
 import { Location } from '../../types';
@@ -37,8 +37,17 @@ const Map = ({ latitude, longitude, marker, onChangeMarker }: Props) => {
       longitude: event.lngLat[0],
     });
   }, []);
+
+  const handleOnClickMap = (e: MapEvent) => {
+    onChangeMarker({
+      latitude: e.lngLat[1],
+      longitude: e.lngLat[0],
+    });
+  };
+
   return (
     <MapGl
+      onClick={handleOnClickMap}
       {...viewport}
       width="100%"
       height="100%"
@@ -51,8 +60,10 @@ const Map = ({ latitude, longitude, marker, onChangeMarker }: Props) => {
         longitude={marker.longitude}
         draggable
         onDragEnd={onMarkerDragEnd}
+        offsetTop={-60}
+        offsetLeft={-20}
       >
-        <Pin size={30}></Pin>
+        <Pin size={60}></Pin>
       </Marker>
     </MapGl>
   );

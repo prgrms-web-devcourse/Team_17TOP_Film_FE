@@ -28,6 +28,7 @@ const HomePage = () => {
   const [openablePosts, setOpenablePosts] = useState<Post[] | null>(null);
   const [userLocation, setUserLocation] = useState<Location | null>(null);
 
+  const [emptyPostModalVisible, setEmptyPostModalVisible] = useState(false);
   const [todayPostViewModalVisible, setTodayPostViewModalVisible] = useState(false);
   const [postDeleteModalVisible, setPostDeleteModalVisible] = useState(false);
 
@@ -38,21 +39,24 @@ const HomePage = () => {
       return;
     }
     if (data) {
+      !data.posts.length && setEmptyPostModalVisible(true);
       setPostList(data.posts);
     }
   }, [getPostListApi]);
 
   const getGeoLocation = () => {
-    if (!navigator.geolocation) {
-      Toast.info('GPS를 지원하지 않습니다.');
-      return;
-    }
-    navigator.geolocation.getCurrentPosition((position) => {
-      setUserLocation({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
-    });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      () => {
+        Toast.warn('위치정보를 허용하지 않으면 원활한 서비스를 이용할 수 없습니다');
+        setIsLoading(false);
+      },
+    );
   };
 
   const handleSelectedPost = useCallback(
@@ -68,6 +72,10 @@ const HomePage = () => {
   );
 
   const handlePostView = useCallback(() => {
+    if (!userLocation) {
+      Toast.info(`지금 필름과 너무 멀리 계시군요..! 1km 이내로 이동해주세요~🏃`);
+      return;
+    }
     if (selectedPost?.state === 'OPENABLE' && userLocation) {
       const isOpenable = isOpenableDistance(
         parseFloat(selectedPost.location.latitude),
@@ -77,9 +85,8 @@ const HomePage = () => {
       );
       isOpenable && navigate(`/post/${selectedPost?.postId}`);
       !isOpenable && Toast.info(`지금 필름과 너무 멀리 계시군요..! 1km 이내로 이동해주세요~🏃`);
-    } else {
-      navigate(`/post/${selectedPost?.postId}`);
     }
+    selectedPost?.state === 'OPENED' && navigate(`/post/${selectedPost?.postId}`);
   }, [selectedPost, userLocation]);
 
   const handleDeletePost = async (postId: number) => {
@@ -168,6 +175,18 @@ const HomePage = () => {
           />
         </Routes>
       )}
+      <ConfirmModal
+        modalVisible={emptyPostModalVisible}
+        modalText={`아직 필름이 없네요, 특별했던 순간을 남겨볼까요?`}
+        primaryBtnText={`네 좋아요~`}
+        secondaryBtnText={`다음에 할래요`}
+        handleClose={() => setEmptyPostModalVisible(false)}
+        primaryBtnEvent={() => {
+          setEmptyPostModalVisible(false);
+          navigate('/post/create');
+        }}
+        secondaryBtnEvent={() => setEmptyPostModalVisible(false)}
+      />
       <ConfirmModal
         modalVisible={todayPostViewModalVisible}
         modalText={`오늘 찾을 수 있는 필름이 ${openablePosts?.length}개 있어요!`}

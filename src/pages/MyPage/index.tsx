@@ -34,9 +34,18 @@ const MyPage = () => {
   }>({ latitude: null, longitude: null });
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setUserLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude });
-    });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      () => {
+        Toast.warn('위치정보를 허용하지 않으면 원활한 서비스를 이용할 수 없습니다');
+        setIsLoading(false);
+      },
+    );
   }, []);
 
   useEffect(() => {
@@ -78,21 +87,12 @@ const MyPage = () => {
   const handleLeftHeaderButton = () => {
     navigate(-1);
   };
-  const handleRightHeaderButton = () => {
-    // Todo
-    // 타임라인 추후 구현
-  };
+
   return (
     <>
       {isLoading && <Loader>필름 불러오는 중...</Loader>}
 
-      <MyPageHeader
-        leftComp="backBtn"
-        handleLeftEvent={handleLeftHeaderButton}
-        rightComp="timeline"
-        handleRightEvent={handleRightHeaderButton}
-      />
-
+      <MyPageHeader leftComp="backBtn" handleLeftEvent={handleLeftHeaderButton} />
       <Body>
         <Profile
           profileImageUrl={userInfo.profileImageUrl}

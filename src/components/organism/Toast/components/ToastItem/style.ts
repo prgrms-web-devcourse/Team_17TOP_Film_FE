@@ -4,7 +4,7 @@ import { MdClose } from 'react-icons/md';
 const Container = styled.div`
   position: relative;
   height: inherit;
-  word-wrap: break-word;
+  word-break: keep-all;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   opacity: 1;

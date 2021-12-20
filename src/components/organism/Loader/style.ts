@@ -45,6 +45,7 @@ const FilmImgWrapper = styled.div`
 `;
 const FilmImg = styled.img`
   width: 40vw;
+  max-width: 300px;
   margin: 0 20px;
 `;
 

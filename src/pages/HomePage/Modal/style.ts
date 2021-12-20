@@ -7,6 +7,8 @@ const ModalWrapper = styled.div`
 `;
 const ModalText = styled(Text)`
   margin-top: ${({ theme }) => theme.gaps.gap2};
+  line-height: 1.4;
+  word-break: keep-all;
 `;
 const ButtonGroup = styled.div`
   width: 100%;
