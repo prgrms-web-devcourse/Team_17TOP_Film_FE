@@ -22,7 +22,7 @@ const SearchUser = () => {
   const userInfo = useUserInfo();
 
   const handleSearchInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value.replace(/[^A-Za-z]/gi, ''));
+    setSearchKeyword(e.target.value.replace(/[^A-Za-z0-9]/gi, ''));
   }, []);
 
   const handleUserSelect = useCallback((data: UserInfo) => {
