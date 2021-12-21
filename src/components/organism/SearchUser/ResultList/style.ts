@@ -8,7 +8,8 @@ const ResultListContainer = styled.div`
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   border-color: ${({ theme }) => theme.colors.gray400};
-  height: 300px;
+  height: auto;
+  max-height: 300px;
   overflow-y: scroll;
 `;
 
