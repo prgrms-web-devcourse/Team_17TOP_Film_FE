@@ -76,6 +76,7 @@ const SearchUser = () => {
       setSearchable(false);
     } else {
       setSearchable(true);
+      setUserList([]);
       getUserList(true);
     }
   }, [searchKeyword]);
