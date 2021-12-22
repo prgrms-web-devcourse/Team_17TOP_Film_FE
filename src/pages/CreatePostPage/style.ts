@@ -211,6 +211,11 @@ const AlertModalTextContainer = styled.div`
   height: 120px;
   text-align: center;
 `;
+const SearchTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.gaps.gap1};
+`;
 
 export {
   CreatePostPageContainer,
@@ -238,4 +243,5 @@ export {
   AlertTitle,
   AlertModalTextContainer,
   ThirdStepContainer,
+  SearchTitleWrapper,
 };
