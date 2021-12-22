@@ -17,7 +17,7 @@
   
 ## 🔗서비스 주소
 
-링크 : [https://d3hatotnvqhqmx.cloudfront.net/](https://d3hatotnvqhqmx.cloudfront.net)
+링크 : [https://film17.org](https://film17.org)
 
 <br />
 
