@@ -1,4 +1,4 @@
-import { Container, Input } from './style';
+import { Container, Input, InputWrapper, WarnText } from './style';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import ResultList from './ResultList';
 import { useSelectedUserList } from '../../../contexts/SelectedUserListProvider';
@@ -20,9 +20,10 @@ const SearchUser = () => {
   const selectedUserList = useSelectedUserList();
   const [lastNickname, setLastNickname] = useState('');
   const userInfo = useUserInfo();
+  const [searchable, setSearchable] = useState(true);
 
   const handleSearchInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value.replace(/[^A-Za-z0-9]/gi, ''));
+    setSearchKeyword(e.target.value);
   }, []);
 
   const handleUserSelect = useCallback((data: UserInfo) => {
@@ -49,6 +50,13 @@ const SearchUser = () => {
     firstSend ? setUserList(searchResults) : setUserList((prev) => [...prev, ...searchResults]);
   };
 
+  const checkKeyword = (keyword: string) => {
+    if (keyword.match(/[^A-Za-z0-9]/gi)) {
+      return true;
+    }
+    return false;
+  };
+
   useEffect(() => {
     if (!selectedUser) {
       return;
@@ -59,10 +67,17 @@ const SearchUser = () => {
 
   useEffect(() => {
     if (!searchKeyword) {
+      setSearchable(true);
       setUserList([]);
       return;
     }
-    getUserList(true);
+    if (checkKeyword(searchKeyword)) {
+      setUserList([]);
+      setSearchable(false);
+    } else {
+      setSearchable(true);
+      getUserList(true);
+    }
   }, [searchKeyword]);
 
   useEffect(() => {
@@ -75,11 +90,18 @@ const SearchUser = () => {
 
   return (
     <Container>
-      <Input
-        placeholder="닉네임을 입력하세요!(영문으로만 입력 가능합니다.)"
-        value={searchKeyword}
-        onChange={handleSearchInput}
-      />
+      <InputWrapper>
+        <Input
+          placeholder="닉네임을 입력하세요!"
+          value={searchKeyword}
+          onChange={handleSearchInput}
+        />
+        {!searchable ? (
+          <WarnText textType="SmallText">검색은 영문 혹은 숫자로만 가능합니다.</WarnText>
+        ) : (
+          ''
+        )}
+      </InputWrapper>
       {userList && userList.length > 0 ? (
         <ResultList
           userList={userList}

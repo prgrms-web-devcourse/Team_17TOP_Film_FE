@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Text } from '../../atoms';
 
 const Container = styled.div`
   display: flex;
@@ -7,6 +8,7 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
+  width: 100%;
   ${({ theme }) => theme.fonts.Paragraph1};
   padding: 0 16px 0 16px;
   height: 48px;
@@ -33,5 +35,15 @@ const ResultListContainer = styled.div`
   border-color: ${({ theme }) => theme.colors.gray400};
   overflow-y: scroll;
 `;
-
-export { Container, Input, ResultListContainer };
+const WarnText = styled(Text)`
+  position: absolute;
+  bottom: -10;
+  color: ${({ theme }) => theme.colors.red900};
+  margin-top: ${({ theme }) => theme.gaps.gap1};
+  margin-left: ${({ theme }) => theme.gaps.gap1};
+`;
+const InputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+export { Container, Input, ResultListContainer, WarnText, InputWrapper };
