@@ -7,6 +7,7 @@ import {
   DateInput,
   GuideText,
   NextStepText,
+  SearchTitleWrapper,
 } from '../../style';
 import { Text } from '../../../../components/atoms';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
@@ -107,8 +108,15 @@ const ThirdStep = ({
             ></DateInput>
           </FormContentWrapper>
           <FormContentWrapper>
-            <Text textType="Heading4">함께 할 사람들</Text>
-            <SelectedUserList userList={selectedUserList.selectedUserList} />
+            <SearchTitleWrapper>
+              <Text textType="Heading4">함께 할 사람들</Text>
+              <Text textType="Paragraph2">추가하지 않으면 나만의 필름이 만들어집니다.</Text>
+            </SearchTitleWrapper>
+            {selectedUserList.selectedUserList.length > 0 ? (
+              <SelectedUserList userList={selectedUserList.selectedUserList} />
+            ) : (
+              ''
+            )}
             <SearchUser />
           </FormContentWrapper>
         </FormWrapper>
