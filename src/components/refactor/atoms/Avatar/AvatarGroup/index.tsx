@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react';
-import { VALID_AVATAR } from './constants';
+import { VALID_AVATAR } from '../constants';
 import { AvatarGroupWrapper } from './style';
 
 interface Props {
