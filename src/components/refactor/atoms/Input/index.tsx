@@ -1,6 +1,4 @@
-import React from 'react';
 import { StyledInput } from './style';
-
 interface InputProps {
   invalid?: boolean;
   width?: string | number;
@@ -8,7 +6,7 @@ interface InputProps {
   [x: string]: any;
 }
 
-const Input = ({ invalid, width, borderRadius, ...props }: InputProps) => {
+const Input = ({ invalid = false, width = '100%', borderRadius = '4px', ...props }: InputProps) => {
   return (
     <StyledInput
       width={width}

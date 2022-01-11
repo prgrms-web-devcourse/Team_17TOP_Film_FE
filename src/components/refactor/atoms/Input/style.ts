@@ -1,21 +1,18 @@
 import styled from '@emotion/styled';
+import calenderIcon from '../../../../assets/icons/icon_calender.svg';
 
 const StyledInput = styled.input<{
-  width: string | number | undefined;
-  borderRadius: string | number | undefined;
-  invalid: boolean | undefined;
+  width: string | number;
+  borderRadius: string | number;
+  invalid: boolean;
 }>`
   ${({ theme }) => theme.fonts.Paragraph1};
+  background-color: white;
   padding: 0 16px 0 16px;
-  width: ${({ width }) =>
-    typeof width === 'undefined' ? '' : typeof width === 'string' ? width : `${width}px`};
+  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: 48px;
   border-radius: ${({ borderRadius }) =>
-    typeof borderRadius === 'undefined'
-      ? '4px'
-      : typeof borderRadius === 'string'
-      ? borderRadius
-      : `${borderRadius}px`};
+    typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius};
   border-color: ${({ theme, invalid }) => (invalid ? theme.colors.red900 : theme.colors.gray400)};
   border-style: solid;
   ::placeholder {
@@ -30,6 +27,23 @@ const StyledInput = styled.input<{
     background-color: ${({ theme }) => theme.colors.gray100};
     border-color: ${({ theme }) => theme.colors.gray200};
   }
+  ::-webkit-datetime-edit {
+    ${({ theme }) => theme.fonts.Paragraph1}
+    font-weight: 700;
+    color: ${({ value, theme }) => (value ? theme.colors.gray800 : theme.colors.gray500)};
+    margin-left: 38px;
+    padding-left: 16px;
+    border-left: 1px solid;
+    border-color: ${({ theme }) => theme.colors.gray500};
+    line-height: 48px;
+    height: 48px;
+  }
+  ::-webkit-calendar-picker-indicator {
+    position: absolute;
+    background: url(${calenderIcon}) no-repeat;
+    left: 19px;
+  }
+  box-sizing: border-box;
 `;
 
 export { StyledInput };
