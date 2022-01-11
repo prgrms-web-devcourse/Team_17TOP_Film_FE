@@ -1,30 +1,14 @@
 import AvatarGroup from './AvatarGroup';
-import { RoundImg } from './style';
 import { VALID_AVATAR } from './constants';
+import Img, { Props as ImgProps } from '../Img';
 
-interface Props {
+interface Props extends Omit<ImgProps, 'height' | 'width' | 'borderRadius' | 'block'> {
   size: number;
-  src: string;
-  alt: string;
-  lazy?: boolean;
-  threshold?: number;
-  placeholder?: string;
-  block?: boolean;
-  [x: string]: any;
 }
 
-const Avatar = ({
-  lazy = false,
-  size,
-  src,
-  alt,
-  threshold = 0,
-  placeholder = '',
-  block,
-  ...props
-}: Props) => {
+const Avatar = ({ size, lazy, threshold, src, alt, placeholder, ...props }: Props) => {
   return (
-    <RoundImg
+    <Img
       {...props}
       lazy={lazy}
       threshold={threshold}
@@ -33,7 +17,7 @@ const Avatar = ({
       placeholder={placeholder}
       height={size}
       width={size}
-      block={block}
+      circle
     />
   );
 };
