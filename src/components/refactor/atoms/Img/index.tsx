@@ -2,15 +2,17 @@ import { useRef, useState } from 'react';
 import { useInterSectionObserver } from './useInterSectingObserver';
 import { Img } from './style';
 
-interface Props {
+export interface Props {
   lazy?: boolean;
   threshold?: number;
   src: string;
   alt: string;
-  placeholder: string;
+  placeholder?: string;
   width: number | string;
   height: number | string;
   block?: boolean;
+  borderRadius?: string;
+  circle?: boolean;
   [x: string]: any;
 }
 
@@ -21,10 +23,12 @@ const Image = ({
   threshold = 0,
   src,
   alt,
-  placeholder,
+  placeholder = '',
   height,
   width,
+  borderRadius,
   block = true,
+  circle,
   ...props
 }: Props) => {
   const [loaded, setLoaded] = useState(false);
@@ -41,6 +45,7 @@ const Image = ({
       width={width}
       height={height}
       block={block}
+      borderRadius={circle ? '50%' : borderRadius}
     />
   );
 };
