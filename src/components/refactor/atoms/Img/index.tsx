@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useInterSectionObserver } from './useInterSectingObserver';
-import { Img } from './style';
+import { Image } from './style';
 
 export interface Props {
   lazy?: boolean;
@@ -18,7 +18,7 @@ export interface Props {
 
 let observer: IntersectionObserver;
 
-const Image = ({
+const Img = ({
   lazy = false,
   threshold = 0,
   src,
@@ -37,7 +37,7 @@ const Image = ({
   useInterSectionObserver(imgRef, setLoaded, threshold, lazy, observer);
 
   return (
-    <Img
+    <Image
       {...props}
       ref={imgRef}
       src={!lazy ? src : loaded ? src : placeholder}
@@ -50,4 +50,4 @@ const Image = ({
   );
 };
 
-export default Image;
+export default Img;
