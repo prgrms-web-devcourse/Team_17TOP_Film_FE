@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const AvatarGroupWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
 `;
-export { AvatarGroupWrapper };
+export { Wrapper };
