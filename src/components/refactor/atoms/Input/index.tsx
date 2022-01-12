@@ -1,3 +1,4 @@
+import React, { ForwardedRef } from 'react';
 import { StyledInput } from './style';
 interface InputProps {
   invalid?: boolean;
@@ -6,9 +7,13 @@ interface InputProps {
   [x: string]: any;
 }
 
-const Input = ({ invalid = false, width = '100%', borderRadius = '4px', ...props }: InputProps) => {
+const Input = (
+  { invalid = false, width = '100%', borderRadius = '4px', ...props }: InputProps,
+  ref: ForwardedRef<HTMLInputElement>,
+) => {
   return (
     <StyledInput
+      ref={ref}
       width={width}
       borderRadius={borderRadius}
       invalid={invalid}
@@ -16,4 +21,6 @@ const Input = ({ invalid = false, width = '100%', borderRadius = '4px', ...props
     ></StyledInput>
   );
 };
-export default Input;
+
+const forwardedInput = React.forwardRef(Input);
+export default forwardedInput;
