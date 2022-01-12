@@ -1,4 +1,3 @@
-import React from 'react';
 import Input from '../../components/refactor/atoms/Input';
 
 export default {
