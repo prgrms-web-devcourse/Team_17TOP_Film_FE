@@ -7,6 +7,7 @@ const StyledInput = styled.input<{
   invalid: boolean;
 }>`
   ${({ theme }) => theme.fonts.Paragraph1};
+  position: relative;
   background-color: white;
   padding: 0 16px 0 16px;
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
@@ -31,7 +32,7 @@ const StyledInput = styled.input<{
     ${({ theme }) => theme.fonts.Paragraph1}
     font-weight: 700;
     color: ${({ value, theme }) => (value ? theme.colors.gray800 : theme.colors.gray500)};
-    margin-left: 38px;
+    margin-left: 34px;
     padding-left: 16px;
     border-left: 1px solid;
     border-color: ${({ theme }) => theme.colors.gray500};
@@ -41,7 +42,8 @@ const StyledInput = styled.input<{
   ::-webkit-calendar-picker-indicator {
     position: absolute;
     background: url(${calenderIcon}) no-repeat;
-    left: 19px;
+    left: 16px;
+    margin-left: 0;
   }
   box-sizing: border-box;
 `;
