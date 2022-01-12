@@ -1,5 +1,5 @@
 import React, { ForwardedRef } from 'react';
-import { StyledInput } from './style';
+import { StyledInput, InputWrapper, AlertIcon } from './style';
 interface InputProps {
   invalid?: boolean;
   width?: string | number;
@@ -12,13 +12,16 @@ const Input = (
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
   return (
-    <StyledInput
-      ref={ref}
-      width={width}
-      borderRadius={borderRadius}
-      invalid={invalid}
-      {...props}
-    ></StyledInput>
+    <InputWrapper>
+      <StyledInput
+        ref={ref}
+        width={width}
+        borderRadius={borderRadius}
+        invalid={invalid}
+        {...props}
+      ></StyledInput>
+      {invalid ? <AlertIcon size={24}></AlertIcon> : ''}
+    </InputWrapper>
   );
 };
 

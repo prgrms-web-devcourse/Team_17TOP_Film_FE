@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { MdErrorOutline } from 'react-icons/md';
 import calenderIcon from '../../../../assets/icons/icon_calender.svg';
 
 const StyledInput = styled.input<{
@@ -47,5 +48,15 @@ const StyledInput = styled.input<{
   }
   box-sizing: border-box;
 `;
+const InputWrapper = styled.div`
+  display: flex;
+  position: relative;
+`;
+const AlertIcon = styled(MdErrorOutline)`
+  color: ${({ theme }) => theme.colors.red900};
+  position: absolute;
+  right: 24px;
+  top: 25%;
+`;
 
-export { StyledInput };
+export { StyledInput, InputWrapper, AlertIcon };
