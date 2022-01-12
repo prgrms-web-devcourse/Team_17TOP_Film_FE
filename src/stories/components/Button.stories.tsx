@@ -1,21 +1,10 @@
 import React from 'react';
-import { Button } from '../../components/atoms';
+import Button from '../../components/refactor/atoms/Button';
 
 export default {
   title: 'Example/Button',
   component: Button,
-  argTypes: {
-    width: {
-      type: { name: 'string' },
-      defaultValue: 'auto',
-      control: { type: 'text' },
-    },
-    height: {
-      type: { name: 'string' },
-      defaultValue: 'auto',
-      control: { type: 'text' },
-    },
-  },
+  argTypes: {},
 };
 
 export const Default = (args: any) => {
