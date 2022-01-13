@@ -5,6 +5,7 @@ const Button = ({
   children,
   btnStyle,
   type = 'button',
+  size = 'medium',
   width,
   height,
   color,
@@ -17,6 +18,7 @@ const Button = ({
     <ButtonStyle
       btnStyle={btnStyle}
       type={type}
+      size={size}
       width={width}
       height={height}
       color={color}

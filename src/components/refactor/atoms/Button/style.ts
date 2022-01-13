@@ -22,6 +22,11 @@ const ButtonStyle = styled.button<ButtonProps>`
   ${({ btnStyle }) => btnStyle === 'primary' && Primary};
   ${({ btnStyle }) => btnStyle === 'secondary' && Secondary};
 
+  /* size */
+  ${({ size }) => size === 'small' && Small};
+  ${({ size }) => size === 'medium' && Medium};
+  ${({ size }) => size === 'full' && Full};
+
   /* custom */
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) => (typeof height === 'number' ? `${height}px` : height)};
@@ -40,5 +45,16 @@ const Secondary = css`
   background-color: ${theme.colors.gray200};
   border: none;
 `;
-
+const Small = css`
+  font-size: 0.75rem;
+  font-weight: 400;
+  padding: ${theme.gaps.gap1} ${theme.gaps.gap2};
+`;
+const Medium = css`
+  padding: ${theme.gaps.gap2} ${theme.gaps.gap3};
+`;
+const Full = css`
+  padding: ${theme.gaps.gap1} auto;
+  width: 100%;
+`;
 export default ButtonStyle;

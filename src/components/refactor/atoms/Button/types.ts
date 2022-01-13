@@ -4,6 +4,7 @@ export interface ButtonProps {
   children: ReactNode;
   btnStyle: 'primary' | 'secondary' | 'default';
   type: 'submit' | 'reset' | 'button';
+  size: 'small' | 'medium' | 'full';
   width?: number | string;
   height?: number | string;
   color?: string;
