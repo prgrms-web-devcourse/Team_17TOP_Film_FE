@@ -4,8 +4,7 @@ import { ButtonProps } from './types';
 const Button = ({
   children,
   btnStyle,
-  type = 'button',
-  size = 'medium',
+  size,
   width,
   height,
   color,
@@ -17,7 +16,6 @@ const Button = ({
   return (
     <ButtonStyle
       btnStyle={btnStyle}
-      type={type}
       size={size}
       width={width}
       height={height}

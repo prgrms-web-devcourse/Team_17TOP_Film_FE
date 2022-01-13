@@ -3,7 +3,6 @@ import { MouseEvent, ReactNode } from 'react';
 export interface ButtonProps {
   children: ReactNode;
   btnStyle: 'primary' | 'secondary' | 'default';
-  type: 'submit' | 'reset' | 'button';
   size: 'small' | 'medium' | 'full';
   width?: number | string;
   height?: number | string;
@@ -11,4 +10,5 @@ export interface ButtonProps {
   bgColor?: string;
   border?: string;
   onClick?: (e?: MouseEvent<HTMLButtonElement>) => void;
+  [x: string]: any;
 }
