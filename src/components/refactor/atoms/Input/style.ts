@@ -1,12 +1,9 @@
 import styled from '@emotion/styled';
 import { MdErrorOutline } from 'react-icons/md';
+import { InputProps } from './types';
 import calenderIcon from '../../../../assets/icons/icon_calender.svg';
 
-const StyledInput = styled.input<{
-  width: string | number;
-  borderRadius: string | number;
-  invalid: boolean;
-}>`
+const StyledInput = styled.input<InputProps>`
   ${({ theme }) => theme.fonts.Paragraph1};
   position: relative;
   background-color: white;
