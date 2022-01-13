@@ -17,6 +17,9 @@ const ButtonStyle = styled.button<ButtonProps>`
   border: 1px solid ${({ theme }) => theme.colors.gray900};
   border-radius: 4px;
   box-sizing: border-box;
+  &:disabled {
+    cursor: not-allowed;
+  }
 
   /* btnStyle */
   ${({ btnStyle }) => btnStyle === 'primary' && Primary};
@@ -39,11 +42,19 @@ const Primary = css`
   color: #fff;
   background-color: ${theme.colors.primary};
   border: none;
+  &:disabled {
+    background-color: #b0d5cc;
+    cursor: not-allowed;
+  }
 `;
 const Secondary = css`
   color: ${theme.colors.gray700};
   background-color: ${theme.colors.gray200};
   border: none;
+  &:disabled {
+    color: ${theme.colors.gray500};
+    cursor: not-allowed;
+  }
 `;
 const Small = css`
   font-size: 0.75rem;
