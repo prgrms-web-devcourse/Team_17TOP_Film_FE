@@ -1,11 +1,6 @@
 import React, { ForwardedRef } from 'react';
 import { StyledInput, InputWrapper, AlertIcon } from './style';
-interface InputProps {
-  invalid?: boolean;
-  width?: string | number;
-  borderRadius?: string | number;
-  [x: string]: any;
-}
+import { InputProps } from './types';
 
 const Input = (
   { invalid = false, width = '100%', borderRadius = '4px', ...props }: InputProps,
