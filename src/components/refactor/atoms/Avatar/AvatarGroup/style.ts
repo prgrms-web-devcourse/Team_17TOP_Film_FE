@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
 
 const Wrapper = styled.div`
+  width: fit-content;
+`;
+const AvatarWrapper = styled.div`
   display: flex;
-
+  width: fit-content;
   position: relative;
   & > img.last-avatar {
     filter: grayScale(80%);
@@ -25,4 +28,4 @@ const Circle = styled.div<{ size: number }>`
   border: 1px solid black;
   border-radius: 50%;
 `;
-export { Wrapper, Circle, CircleGroup };
+export { Wrapper, Circle, CircleGroup, AvatarWrapper };

@@ -1,14 +1,15 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { MouseEvent, ReactElement, ReactNode } from 'react';
 import { VALID_AVATAR } from '../constants';
-import { Circle, CircleGroup, Wrapper } from './style';
+import { Circle, CircleGroup, Wrapper, AvatarWrapper } from './style';
 import { Props as avatarProps } from '../index';
 interface Props {
   children: ReactNode;
   overlapPx?: number;
   maxLen?: number;
+  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
-const AvatarGroup = ({ children, overlapPx = 0, maxLen }: Props) => {
+const AvatarGroup = ({ children, overlapPx = 0, maxLen, onClick }: Props) => {
   const childrenArr = React.Children.toArray(children);
 
   const {
@@ -50,8 +51,8 @@ const AvatarGroup = ({ children, overlapPx = 0, maxLen }: Props) => {
     });
 
   return (
-    <div>
-      <Wrapper>{avatars}</Wrapper>
+    <Wrapper onClick={onClick} style={{ width: 'fit-content' }}>
+      <AvatarWrapper>{avatars}</AvatarWrapper>
       {maxLen && isCircleExist && (
         <CircleGroup size={size} marginLeft={size * maxLen - (maxLen - 1) * overlapPx - size}>
           <Circle size={size} />
@@ -59,7 +60,7 @@ const AvatarGroup = ({ children, overlapPx = 0, maxLen }: Props) => {
           <Circle size={size} />
         </CircleGroup>
       )}
-    </div>
+    </Wrapper>
   );
 };
 
