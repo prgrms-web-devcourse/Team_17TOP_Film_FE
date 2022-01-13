@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react';
 import { VALID_AVATAR } from '../constants';
-import { Wrapper } from './style';
-
+import { Circle, CircleGroup, Wrapper } from './style';
+import { Props as avatarProps } from '../index';
 interface Props {
   children: ReactNode;
   overlapPx?: number;
@@ -9,34 +9,58 @@ interface Props {
 }
 
 const AvatarGroup = ({ children, overlapPx = 0, maxLen }: Props) => {
+  const childrenArr = React.Children.toArray(children);
+
+  const {
+    props: { size },
+  } = childrenArr[0] as { props: avatarProps };
+
   const calcMargin = (overlayPx: number) => {
     if (typeof overlayPx === 'number') {
       return -overlapPx + 'px';
     }
     return -overlayPx;
   };
-  const avatars = React.Children.toArray(children)
+  const calcAvatarClassName = (idx: number) => {
+    if (!maxLen) return 'avatar';
+    if (idx === maxLen - 1) return 'last-avatar';
+    return 'avatar';
+  };
+  const isCircleExist = maxLen && childrenArr.length > maxLen;
+
+  const avatars = childrenArr
     .filter((element: ReactNode) => {
       if (React.isValidElement(element) && element.props.__TYPE === VALID_AVATAR) {
         return true;
       }
       return false;
     })
-    .map((avatar, index, avatars) => {
-      if (!maxLen) return;
-      if (index > maxLen - 1) return;
+    .map((avatar, index) => {
+      if (maxLen && index > maxLen - 1) return;
 
       const item = avatar as ReactElement;
       return React.cloneElement(item, {
         ...item.props,
         style: {
           marginLeft: `${index === 0 ? 0 : calcMargin(overlapPx)}`,
-          zIndex: avatars.length - index,
+          zIndex: index + 1,
         },
-        className: index < maxLen - 1 ? undefined : 'last-avatar',
+        className: `${calcAvatarClassName(index)}`,
       });
     });
-  return <Wrapper>{avatars}</Wrapper>;
+
+  return (
+    <div>
+      <Wrapper>{avatars}</Wrapper>
+      {maxLen && isCircleExist && (
+        <CircleGroup size={size} marginLeft={size * maxLen - (maxLen - 1) * overlapPx - size}>
+          <Circle size={size} />
+          <Circle size={size} />
+          <Circle size={size} />
+        </CircleGroup>
+      )}
+    </div>
+  );
 };
 
 export default AvatarGroup;
