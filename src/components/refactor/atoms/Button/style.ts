@@ -36,6 +36,7 @@ const ButtonStyle = styled.button<ButtonProps>`
   color: ${({ color }) => (color ? color : '')};
   background: ${({ bgColor }) => (bgColor ? bgColor : '')};
   border: ${({ border }) => (border ? border : '')};
+  border-radius: ${({ borderRadius }) => (borderRadius ? '4px' : 0)};
 `;
 
 const Primary = css`

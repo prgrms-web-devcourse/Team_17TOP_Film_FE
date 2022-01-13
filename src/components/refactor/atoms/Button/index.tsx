@@ -10,6 +10,7 @@ const Button = ({
   color,
   bgColor,
   border,
+  borderRadius = true,
   onClick,
   ...props
 }: ButtonProps) => {
@@ -22,6 +23,7 @@ const Button = ({
       color={color}
       bgColor={bgColor}
       border={border}
+      borderRadius={borderRadius}
       onClick={onClick}
       {...props}
     >

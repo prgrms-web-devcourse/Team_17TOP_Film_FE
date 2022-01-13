@@ -9,6 +9,7 @@ export interface ButtonProps {
   color?: string;
   bgColor?: string;
   border?: string;
+  borderRadius?: boolean;
   onClick?: (e?: MouseEvent<HTMLButtonElement>) => void;
   [x: string]: any;
 }
