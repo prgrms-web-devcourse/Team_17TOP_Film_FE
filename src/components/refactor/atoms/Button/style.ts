@@ -21,6 +21,13 @@ const ButtonStyle = styled.button<ButtonProps>`
   /* btnStyle */
   ${({ btnStyle }) => btnStyle === 'primary' && Primary};
   ${({ btnStyle }) => btnStyle === 'secondary' && Secondary};
+
+  /* custom */
+  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  height: ${({ height }) => (typeof height === 'number' ? `${height}px` : height)};
+  color: ${({ color }) => (color ? color : '')};
+  background: ${({ bgColor }) => (bgColor ? bgColor : '')};
+  border: ${({ border }) => (border ? border : '')};
 `;
 
 const Primary = css`

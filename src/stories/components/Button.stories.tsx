@@ -12,14 +12,21 @@ export const Default = (args: any) => {
 };
 export const PrimaryBtn = (args: any) => {
   return (
-    <Button buttonType={'PrimaryBtn'} {...args}>
+    <Button btnStyle={'primary'} {...args}>
       Button
     </Button>
   );
 };
 export const SecondaryBtn = (args: any) => {
   return (
-    <Button buttonType={'SecondaryBtn'} {...args}>
+    <Button btnStyle={'secondary'} {...args}>
+      Button
+    </Button>
+  );
+};
+export const CustomBtn = (args: any) => {
+  return (
+    <Button btnStyle={'default'} width="100%" color="#fff" bgColor="red" border="none" {...args}>
       Button
     </Button>
   );
