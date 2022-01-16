@@ -17,6 +17,7 @@ const ButtonStyle = styled.button<ButtonProps>`
   border: 1px solid ${({ theme }) => theme.colors.gray900};
   border-radius: 4px;
   box-sizing: border-box;
+  cursor: pointer;
   &:disabled {
     cursor: not-allowed;
   }
@@ -29,6 +30,9 @@ const ButtonStyle = styled.button<ButtonProps>`
   ${({ size }) => size === 'small' && Small};
   ${({ size }) => size === 'medium' && Medium};
   ${({ size }) => size === 'full' && Full};
+
+  /* hover */
+  ${({ hover }) => (hover ? HoverAnimation : '')}
 
   /* custom */
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
@@ -48,6 +52,7 @@ const Primary = css`
     cursor: not-allowed;
   }
 `;
+
 const Secondary = css`
   color: ${theme.colors.gray700};
   background-color: ${theme.colors.gray200};
@@ -57,6 +62,7 @@ const Secondary = css`
     cursor: not-allowed;
   }
 `;
+
 const Small = css`
   font-size: 0.75rem;
   font-weight: 400;
@@ -68,5 +74,12 @@ const Medium = css`
 const Full = css`
   padding: ${theme.gaps.gap1} auto;
   width: 100%;
+`;
+const HoverAnimation = css`
+  &:hover {
+    box-shadow: ${theme.colors.shadow};
+    transform: translateY(-5%);
+    transition: all 0.1s ease-out;
+  }
 `;
 export default ButtonStyle;

@@ -11,6 +11,7 @@ const Button = ({
   bgColor,
   border,
   borderRadius = true,
+  hover,
   onClick,
   ...props
 }: ButtonProps) => {
@@ -24,6 +25,7 @@ const Button = ({
       bgColor={bgColor}
       border={border}
       borderRadius={borderRadius}
+      hover={hover}
       onClick={onClick}
       {...props}
     >

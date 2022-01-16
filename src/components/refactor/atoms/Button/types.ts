@@ -10,6 +10,7 @@ export interface ButtonProps {
   bgColor?: string;
   border?: string;
   borderRadius?: boolean;
+  hover?: boolean;
   onClick?: (e?: MouseEvent<HTMLButtonElement>) => void;
   [x: string]: any;
 }
