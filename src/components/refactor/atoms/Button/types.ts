@@ -1,6 +1,6 @@
-import { MouseEvent, ReactNode } from 'react';
+import { MouseEvent, ReactNode, ButtonHTMLAttributes } from 'react';
 
-export interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   btnStyle: 'primary' | 'secondary' | 'default';
   size: 'small' | 'medium' | 'full';
@@ -12,5 +12,4 @@ export interface ButtonProps {
   borderRadius?: boolean;
   hover?: boolean;
   onClick?: (e?: MouseEvent<HTMLButtonElement>) => void;
-  [x: string]: any;
 }
