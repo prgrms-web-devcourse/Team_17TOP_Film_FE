@@ -20,7 +20,7 @@ const StyledInput = styled.input<InputProps>`
   box-sizing: border-box;
   :focus {
     outline: none;
-    border-color: ${({ theme }) => theme.colors.primary};
+    border-color: ${({ theme, invalid }) => !invalid && theme.colors.primary};
   }
   :disabled {
     background-color: ${({ theme }) => theme.colors.gray100};
