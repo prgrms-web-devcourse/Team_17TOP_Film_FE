@@ -7,7 +7,7 @@ const StyledInput = styled.input<InputProps>`
   ${({ theme }) => theme.fonts.Paragraph1};
   position: relative;
   background-color: white;
-  padding: 0 16px 0 16px;
+  padding: 0 16px;
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: 48px;
   border-radius: ${({ borderRadius }) =>
