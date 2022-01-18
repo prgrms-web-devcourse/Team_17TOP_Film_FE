@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
+import { HTMLAttributes, ImgHTMLAttributes, useRef, useState } from 'react';
 import { useInterSectionObserver } from './useInterSectingObserver';
 import { Image } from './style';
 
-export interface Props {
+export interface Props extends ImgHTMLAttributes<HTMLImageElement> {
   lazy?: boolean;
   threshold?: number;
   src: string;
