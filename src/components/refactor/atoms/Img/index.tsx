@@ -1,4 +1,4 @@
-import { HTMLAttributes, ImgHTMLAttributes, useRef, useState } from 'react';
+import { ImgHTMLAttributes, useRef, useState } from 'react';
 import { useInterSectionObserver } from './useInterSectingObserver';
 import { Image } from './style';
 
