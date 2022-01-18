@@ -18,7 +18,7 @@ const CircleGroup = styled.div<{ size: number; marginLeft: number }>`
   margin-left: ${({ marginLeft }) => `${marginLeft}px`};
 
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 const Circle = styled.div<{ size: number }>`
   z-index: 100;
