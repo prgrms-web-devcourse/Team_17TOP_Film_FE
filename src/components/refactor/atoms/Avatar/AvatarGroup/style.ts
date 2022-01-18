@@ -7,9 +7,6 @@ const Wrapper = styled.div`
 const AvatarWrapper = styled.div`
   display: flex;
   width: fit-content;
-  & > img.last-avatar {
-    filter: brightness(0.5);
-  }
 `;
 const CircleGroup = styled.div<{ size: number; marginLeft: number }>`
   position: absolute;

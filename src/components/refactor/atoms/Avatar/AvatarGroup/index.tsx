@@ -22,11 +22,7 @@ const AvatarGroup = ({ children, overlapPx = 0, maxLen, onClick }: Props) => {
     }
     return -overlayPx;
   };
-  const calcAvatarClassName = (idx: number) => {
-    if (!maxLen) return 'avatar';
-    if (idx === maxLen - 1) return 'last-avatar';
-    return 'avatar';
-  };
+
   const isCircleExist = maxLen && childrenArr.length > maxLen;
 
   const avatars = childrenArr
@@ -45,8 +41,8 @@ const AvatarGroup = ({ children, overlapPx = 0, maxLen, onClick }: Props) => {
         style: {
           marginLeft: `${index === 0 ? 0 : calcMargin(overlapPx)}`,
           zIndex: index + 1,
+          filter: `${maxLen && index === maxLen - 1 ? 'brightness(0.5)' : undefined}`,
         },
-        className: `${calcAvatarClassName(index)}`,
       });
     });
 
