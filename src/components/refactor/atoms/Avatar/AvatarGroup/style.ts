@@ -25,7 +25,6 @@ const Circle = styled.div<{ size: number }>`
   width: ${({ size }) => `${size * 0.1}px`};
   height: ${({ size }) => `${size * 0.1}px`};
   background-color: white;
-  border: 1px solid black;
   border-radius: 50%;
 `;
 export { Wrapper, Circle, CircleGroup, AvatarWrapper };
