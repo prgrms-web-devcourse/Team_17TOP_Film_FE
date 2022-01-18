@@ -39,3 +39,13 @@ export default {
 export const Default = (args: any) => {
   return <Text {...args}>예시용 텍스트 입니다.</Text>;
 };
+export const TextType = (args: any) => {
+  return <Text {...args}>예시용 텍스트 입니다.</Text>;
+};
+export const TextColor = (args: any) => {
+  return (
+    <Text textType="Heading1" textColor="red900" {...args}>
+      예시용 텍스트 입니다.
+    </Text>
+  );
+};
