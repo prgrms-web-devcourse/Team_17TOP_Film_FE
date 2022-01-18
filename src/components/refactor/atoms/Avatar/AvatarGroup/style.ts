@@ -2,16 +2,17 @@ import styled from '@emotion/styled';
 
 const Wrapper = styled.div`
   width: fit-content;
+  position: relative;
 `;
 const AvatarWrapper = styled.div`
   display: flex;
   width: fit-content;
-  position: relative;
   & > img.last-avatar {
     filter: brightness(0.5);
   }
 `;
 const CircleGroup = styled.div<{ size: number; marginLeft: number }>`
+  position: absolute;
   display: flex;
   width: ${({ size }) => `${size}px`};
   margin-top: ${({ size }) => `-${size / 2 + (size * 0.1) / 2}px`};
