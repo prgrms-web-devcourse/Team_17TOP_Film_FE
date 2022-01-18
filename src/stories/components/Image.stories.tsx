@@ -1,66 +1,117 @@
-import styled from '@emotion/styled';
-import { Image } from '../../components/atoms';
-
+import Img from '../../components/refactor/atoms/Img';
+import img_profile from '../../assets/images/img_profile.svg';
 export default {
   title: 'Example/Image',
-  component: Image,
-  argType: {
+  component: Img,
+  argTypes: {
     lazy: {
       type: { name: 'boolean' },
-      control: { type: 'boolean' },
-    },
-    threshold: {
-      type: { name: 'string' },
-      control: { type: 'radio', min: 0, max: 1 },
-    },
-    placeholder: {
-      type: { name: 'string', require: true },
-      control: { type: 'text' },
-    },
-    alt: {
-      type: { name: 'string' },
-      control: { type: 'text' },
-    },
-    width: {
-      type: { name: 'number' },
-      defaultValue: 200,
-      control: { type: 'number' },
-    },
-    height: {
-      type: { name: 'number' },
-      defaultValue: 200,
-      control: { type: 'number' },
     },
   },
 };
-
 export const Default = (args: any) => {
+  return <Img src="https://picsum.photos/200" alt="testImg" width={200} height={200} {...args} />;
+};
+
+export const Lazy = (args: any) => {
   return (
-    <div>
-      <Image
-        {...args}
-        lazy={true}
+    <div style={{ height: '400px' }}>
+      <Img
         src="https://picsum.photos/200"
-        placeholder="https://via.placeholder.com/200"
-        alt="테스트 이미지"
+        alt="testImg"
+        width={200}
+        height={200}
+        lazy
         threshold={0.5}
+        {...args}
       />
-      <Image
-        {...args}
-        lazy={true}
+      <Img
         src="https://picsum.photos/200"
-        placeholder="https://via.placeholder.com/200"
-        alt="테스트 이미지"
+        alt="testImg"
+        width={200}
+        height={200}
+        lazy
         threshold={0.5}
+        {...args}
       />
-      <Image
-        {...args}
-        lazy={true}
+      <Img
         src="https://picsum.photos/200"
-        placeholder="https://via.placeholder.com/200"
-        alt="테스트 이미지"
+        alt="testImg"
+        width={200}
+        height={200}
+        lazy
         threshold={0.5}
+        {...args}
+      />
+      <Img
+        src="https://picsum.photos/200"
+        alt="testImg"
+        width={200}
+        height={200}
+        lazy
+        threshold={0.5}
+        {...args}
       />
     </div>
   );
 };
+export const Placeholder = (args: any) => {
+  return (
+    <div style={{ height: '300px' }}>
+      <Img
+        src="https://picsum.photos/200"
+        alt="testImg"
+        width={200}
+        height={200}
+        lazy
+        threshold={0.7}
+        placeholder={img_profile}
+        {...args}
+      />
+      <Img
+        src="https://picsum.photos/200"
+        alt="testImg"
+        width={200}
+        height={200}
+        lazy
+        threshold={0.7}
+        placeholder={img_profile}
+        {...args}
+      />
+    </div>
+  );
+};
+export const BorderRadius = (args: any) => (
+  <Img
+    src="https://picsum.photos/200"
+    alt="testImg"
+    width={200}
+    height={200}
+    borderRadius="10px"
+    {...args}
+  />
+);
+export const Circle = (args: any) => (
+  <Img src="https://picsum.photos/200" alt="testImg" width={200} height={200} circle {...args} />
+);
+
+export const InlineBlock = (args: any) => (
+  <div>
+    <Img
+      src="https://picsum.photos/200"
+      alt="testImg"
+      width={200}
+      height={200}
+      block={false}
+      {...args}
+    />
+    <Img
+      src="https://picsum.photos/200"
+      alt="testImg"
+      width={200}
+      height={200}
+      block={false}
+      {...args}
+    />
+  </div>
+);
