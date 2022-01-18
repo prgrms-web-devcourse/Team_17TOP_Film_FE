@@ -8,7 +8,7 @@ const AvatarWrapper = styled.div`
   width: fit-content;
   position: relative;
   & > img.last-avatar {
-    filter: grayScale(80%);
+    filter: brightness(0.5);
   }
 `;
 const CircleGroup = styled.div<{ size: number; marginLeft: number }>`
