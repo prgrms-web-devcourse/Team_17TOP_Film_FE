@@ -5,8 +5,41 @@ export default {
   component: Img,
   argTypes: {
     lazy: {
-      type: { name: 'boolean' },
+      type: { name: 'boolean', required: false },
     },
+    threshold: {
+      type: { name: 'number', required: false },
+    },
+    src: {
+      type: { name: 'string' },
+    },
+    alt: {
+      type: { name: 'string' },
+    },
+    placeholder: {
+      type: { name: 'string', required: false },
+    },
+    width: {
+      type: { name: ['number', 'string'] },
+      control: {
+        type: 'number',
+      },
+    },
+    height: {
+      type: { name: ['number', 'string'] },
+      control: {
+        type: 'number',
+      },
+    },
+  },
+  block: {
+    type: { name: 'boolean', required: false },
+  },
+  BorderRadius: {
+    type: { name: 'string', required: false },
+  },
+  circle: {
+    type: { name: 'boolean', required: false },
   },
 };
 export const Default = (args: any) => {
