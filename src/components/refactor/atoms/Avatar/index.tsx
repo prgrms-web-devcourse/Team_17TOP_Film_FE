@@ -1,10 +1,15 @@
 import { VALID_AVATAR } from './constants';
-import Img, { Props as ImgProps } from '../Img';
-import { MouseEvent } from 'react';
+import Img from '../Img';
+import { ImgHTMLAttributes, MouseEvent } from 'react';
 import AvatarGroup from './AvatarGroup';
 
-export interface Props extends Omit<ImgProps, 'height' | 'width' | 'borderRadius' | 'block'> {
+export interface Props extends ImgHTMLAttributes<HTMLImageElement> {
   size: number;
+  lazy?: boolean;
+  threshold?: number;
+  src: string;
+  alt: string;
+  placeholder?: string;
   onClick?: (event: MouseEvent<HTMLImageElement>) => void;
 }
 
