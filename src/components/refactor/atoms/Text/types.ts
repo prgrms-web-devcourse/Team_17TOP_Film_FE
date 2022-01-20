@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { theme } from '../../../../styles/theme';
 
 export interface TextProps {
   children: ReactNode;
@@ -6,25 +7,6 @@ export interface TextProps {
   textColor?: TextColor;
 }
 
-type TextType =
-  | 'Heading1'
-  | 'Heading2'
-  | 'Heading3'
-  | 'Heading4'
-  | 'Paragraph1'
-  | 'Paragraph2'
-  | 'smallText';
+type TextType = keyof typeof theme.fonts;
 
-type TextColor =
-  | 'gray50'
-  | 'gray100'
-  | 'gray200'
-  | 'gray300'
-  | 'gray400'
-  | 'gray500'
-  | 'gray600'
-  | 'gray700'
-  | 'gray800'
-  | 'gray900'
-  | 'primary'
-  | 'red900';
+type TextColor = keyof typeof theme.colors;
