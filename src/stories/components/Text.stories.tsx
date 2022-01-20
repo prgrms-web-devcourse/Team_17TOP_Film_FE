@@ -14,7 +14,7 @@ export default {
         'Paragraph2',
         'smallText',
       ],
-      control: { type: 'radio' },
+      control: { type: 'select' },
     },
     textColor: {
       options: [
@@ -31,7 +31,7 @@ export default {
         'primary',
         'red900',
       ],
-      control: { type: 'radio' },
+      control: { type: 'select' },
     },
   },
 };
