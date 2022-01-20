@@ -1,8 +1,8 @@
-import Img from '../../components/refactor/atoms/Img';
-import img_profile from '../../assets/images/img_profile.svg';
+import { Img } from '@refactors/atoms';
+import img_profile from '@assets/images/img_profile.svg';
+
 export default {
   title: 'Example/Image',
-  component: Img,
   argTypes: {
     lazy: {
       type: { name: 'boolean', required: false },
@@ -21,25 +21,10 @@ export default {
     },
     width: {
       type: { name: ['number', 'string'] },
-      control: {
-        type: 'number',
-      },
     },
     height: {
       type: { name: ['number', 'string'] },
-      control: {
-        type: 'number',
-      },
     },
-  },
-  block: {
-    type: { name: 'boolean', required: false },
-  },
-  BorderRadius: {
-    type: { name: 'string', required: false },
-  },
-  circle: {
-    type: { name: 'boolean', required: false },
   },
 };
 export const Default = (args: any) => {
