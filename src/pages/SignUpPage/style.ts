@@ -7,7 +7,7 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: ${({ theme: { colors } }) => colors.shadow};
+  box-shadow: ${({ theme: { shadows } }) => shadows.shadow1};
 `;
 const BackBtn = styled.button`
   position: absolute;

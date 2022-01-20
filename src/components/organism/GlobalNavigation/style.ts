@@ -14,7 +14,7 @@ const Elem = styled.button`
 const CustomNavigation = styled(Navigation)`
   position: fixed;
   bottom: 0;
-  box-shadow: ${({ theme }) => theme.colors.shadow};
+  box-shadow: ${({ theme }) => theme.shadows.shadow1};
   z-index: 10;
 `;
 export { Elem, CustomNavigation };
