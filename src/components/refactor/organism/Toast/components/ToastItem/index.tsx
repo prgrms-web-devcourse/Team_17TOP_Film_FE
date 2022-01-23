@@ -2,11 +2,12 @@ import { useState } from 'react';
 import useTimeout from '../../util/useTimeout';
 import { Toast } from '../ToastManager';
 import { Container, Content, ProgressBar, Body, CloseBtn } from './style';
+
 interface Props extends Omit<Toast, 'id'> {
   onDone: () => void;
 }
 
-const ToastItem = ({ type, message, duration, onDone }: Props) => {
+const ToastItem = ({ type, msg1, msg2, duration, onDone }: Props) => {
   const [show, setShow] = useState(true);
   useTimeout(() => {
     setShow(false);
@@ -19,7 +20,8 @@ const ToastItem = ({ type, message, duration, onDone }: Props) => {
       <ProgressBar style={{ animationDuration: `${duration}ms` }} />
       <Body>
         <CloseBtn onClick={onDone} />
-        <Content>{message}</Content>
+        <Content>{msg1}</Content>
+        {msg2 && <Content>{msg2}</Content>}
       </Body>
     </Container>
   );

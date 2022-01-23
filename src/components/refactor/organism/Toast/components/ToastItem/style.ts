@@ -28,6 +28,8 @@ const Container = styled.div`
 `;
 const Body = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `;
 const Content = styled.h1`
   max-width: calc(100% - 56px);
@@ -35,6 +37,8 @@ const Content = styled.h1`
   font-weight: 400;
   line-height: 1.4;
   color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 const ProgressBar = styled.div`
   position: absolute;

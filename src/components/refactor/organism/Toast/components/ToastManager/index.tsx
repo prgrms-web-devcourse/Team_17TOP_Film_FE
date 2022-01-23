@@ -5,11 +5,13 @@ import { Container } from './style';
 
 export interface Toast {
   id: string;
-  message: string;
+  msg1: string;
+  msg2?: string;
   duration: number;
   type: 'info' | 'warn';
 }
-export type CreateToast = (message: string, duration: number, type: any) => void;
+export type CreateToast = ({ msg1, msg2, duration, type }: Omit<Toast, 'id'>) => void;
+
 interface Props {
   bind: (createToast: CreateToast) => void;
 }
@@ -17,17 +19,18 @@ interface Props {
 const ToastManager = ({ bind }: Props) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const createToast: CreateToast = useCallback((message, duration, type) => {
-    const newToast = {
+  const createToast: CreateToast = useCallback(({ msg1, msg2, duration, type }) => {
+    const newToast: Toast = {
       id: v4(),
-      message,
+      msg1,
       duration,
       type,
     };
+    msg2 && (newToast.msg2 = msg2);
     setToasts((oldToasts) => [...oldToasts, newToast]);
   }, []);
 
-  const removeToast = useCallback((id) => {
+  const removeToast = useCallback((id: string): void => {
     setToasts((oldToasts) => oldToasts.filter((toast) => toast.id !== id));
   }, []);
 
@@ -37,10 +40,11 @@ const ToastManager = ({ bind }: Props) => {
 
   return (
     <Container>
-      {toasts.map(({ id, message, duration, type }) => (
+      {toasts.map(({ id, msg1, msg2, duration, type }) => (
         <ToastItem
           type={type}
-          message={message}
+          msg1={msg1}
+          msg2={msg2}
           duration={duration}
           key={id}
           onDone={() => removeToast(id)}
