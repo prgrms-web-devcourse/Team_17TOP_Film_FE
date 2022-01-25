@@ -30,5 +30,8 @@ class Toast {
   info({ msg1, msg2, duration = 1000 }: InfoProps) {
     this.createToast?.({ msg1, msg2, duration, type: 'info' });
   }
+  warn({ msg1, msg2, duration = 1000 }: InfoProps) {
+    this.createToast?.({ msg1, msg2, duration, type: 'warn' });
+  }
 }
 export default new Toast();
