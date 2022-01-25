@@ -37,8 +37,7 @@ const Content = styled.h1`
   font-weight: 400;
   line-height: 1.4;
   color: #fff;
-  white-space: nowrap;
-  overflow: hidden;
+  word-break: keep-all;
 `;
 const ProgressBar = styled.div`
   position: absolute;
