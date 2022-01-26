@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 export interface UploadProps {
-  onChange(file: File): void;
+  onChange(file: File | null): void;
   children?: ReactNode;
   name?: string;
   accept?: string;
