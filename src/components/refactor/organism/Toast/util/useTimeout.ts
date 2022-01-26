@@ -7,6 +7,5 @@ const useTimeout = (fn: () => void, ms: number) => {
     run();
     return clear;
   }, [run, clear]);
-  return clear;
 };
 export default useTimeout;
