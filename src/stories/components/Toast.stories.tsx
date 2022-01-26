@@ -1,5 +1,5 @@
 import Button from '../../components/refactor/atoms/Button';
-import Toast from '../../components/refactor/organism/Toast';
+import Toast from '../../components/refactor/atoms/Toast';
 
 export default {
   title: 'Example/Toast',
