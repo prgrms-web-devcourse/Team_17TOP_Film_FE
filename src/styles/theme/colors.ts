@@ -10,7 +10,6 @@ const colors = {
   gray800: '#363A3C',
   gray900: '#292A2B',
   primary: '#00CF9D',
-  shadow: `0px 4px 20px rgba(0, 0, 0, 0.1)`,
   red900: '#F5544E',
 };
 export default colors;
