@@ -41,7 +41,11 @@ const ImageUpload = ({
         acceptedFileFormatList.current[0] !== ACCEPTED_IMAGE_FILE_FORMAT.all &&
         !acceptedFileFormatList.current.includes(type)
       ) {
-        Toast.warn(`${acceptedFileFormatList.current.join(', ')} 확장자만 업로드 가능합니다.`);
+        Toast.warn(
+          `${acceptedFileFormatList.current
+            .map((item) => item.replace('image/', '.'))
+            .join(', ')} 확장자만 업로드 가능합니다.`,
+        );
         onChange(null);
         return;
       }
