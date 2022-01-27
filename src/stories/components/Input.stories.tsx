@@ -1,4 +1,4 @@
-import Input from '../../components/refactor/atoms/Input';
+import { Input } from '@refactors/atoms';
 
 export default {
   title: 'Example/Input',

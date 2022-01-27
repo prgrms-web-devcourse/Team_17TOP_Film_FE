@@ -1,5 +1,4 @@
-import React from 'react';
-import Button from '../../components/refactor/atoms/Button';
+import { Button } from '@refactors/atoms';
 import { ComponentMeta } from '@storybook/react';
 export default {
   title: 'Example/Button',
