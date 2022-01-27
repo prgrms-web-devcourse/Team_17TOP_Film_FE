@@ -6,7 +6,7 @@ const Upload = ({
   children,
   name,
   accept,
-  droppable,
+  droppable = true,
   value,
   fileDelete,
   onChange,
