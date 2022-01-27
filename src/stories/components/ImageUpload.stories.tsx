@@ -23,7 +23,7 @@ export default {
   },
 };
 
-export const Default = (args: any) => {
+const ImageUploadEx = ({ ...props }) => {
   const [imageURL, setImageURL] = useState('');
   const [file, setFile] = useState<File>();
 
@@ -60,10 +60,18 @@ export const Default = (args: any) => {
       onChange={handleSetImageFile}
       imageURL={imageURL}
       fileDelete={file ? false : true}
-      {...args}
+      {...props}
     >
       <ImageUploadIcon imageURL={imageURL}>+</ImageUploadIcon>
       {imageURL ? <PreviewImg src={imageURL} /> : ''}
     </StyledImageUpload>
   );
+};
+
+export const AllType = (args: any) => {
+  return <ImageUploadEx {...args}></ImageUploadEx>;
+};
+
+export const JpegOnly = (args: any) => {
+  return <ImageUploadEx accept={['jpeg']} {...args}></ImageUploadEx>;
 };
