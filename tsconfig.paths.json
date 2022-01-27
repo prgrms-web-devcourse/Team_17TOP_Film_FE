@@ -8,6 +8,7 @@
       "@hooks/*": ["./hooks/*"],
       "@styles/*": ["./styles/*"],
       "@utils/*": ["./utils/*"],
+      "@": ["."]
     }
   }
 }

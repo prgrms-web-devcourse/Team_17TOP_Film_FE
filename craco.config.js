@@ -1,4 +1,4 @@
-import CracoAlias from 'craco-alias';
+const CracoAlias = require('craco-alias');
 
 module.exports = {
   babel: {
