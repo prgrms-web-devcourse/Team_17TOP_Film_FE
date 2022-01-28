@@ -3,8 +3,8 @@ import { ButtonProps } from './types';
 
 const Button = ({
   children,
-  btnStyle = 'default',
-  size = 'medium',
+  btnStyle,
+  size,
   width,
   height,
   color,
