@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import Lottie from 'react-lottie';
-import loader from '../../../assets/lotties/loader.json';
+import loader from '@assets/lotties/loader.json';
 import { LoaderWrapper, FilmImgWrapper, FilmImg, LoadingTitle, LoadingSubText } from './style';
-import filmOpenIcon from '../../../assets/icons/icon_marker_open.svg';
-import filmCloseIcon from '../../../assets/icons/icon_marker_close.svg';
+import filmOpenIcon from '@assets/icons/icon_marker_open.svg';
+import filmCloseIcon from '@assets/icons/icon_marker_close.svg';
 
 interface Props {
   children?: ReactNode;
