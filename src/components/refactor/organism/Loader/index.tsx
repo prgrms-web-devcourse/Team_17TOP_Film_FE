@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Lottie from 'react-lottie';
+import LottieLoader from '../LottieLoader';
 import loader from '@assets/lotties/loader.json';
 import { LoaderWrapper, FilmImgWrapper, FilmImg, LoadingTitle, LoadingSubText } from './style';
 import filmOpenIcon from '@assets/icons/icon_marker_open.svg';
@@ -17,17 +17,10 @@ const Loader = ({ children }: Props) => {
         <FilmImg src={filmOpenIcon} alt="" />
         <FilmImg src={filmCloseIcon} alt="" />
       </FilmImgWrapper>
-      <Lottie
-        options={{
-          loop: true,
-          autoplay: true,
-          animationData: loader,
-          rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice',
-          },
-        }}
-        height={'30%'}
-        width={'30%'}
+      <LottieLoader
+        width={300}
+        height={250}
+        options={{ loop: true, animationData: loader, autoplay: true }}
       />
       <LoadingSubText textType="Paragraph2">
         위치 정보 제공을 허용하지 않으면
