@@ -18,8 +18,8 @@ const Loader = ({ children }: Props) => {
         <FilmImg src={filmCloseIcon} alt="" />
       </FilmImgWrapper>
       <LottieLoader
-        width={300}
-        height={250}
+        width={'30%'}
+        height={'30%'}
         options={{ loop: true, animationData: loader, autoplay: true }}
       />
       <LoadingSubText textType="Paragraph2">
