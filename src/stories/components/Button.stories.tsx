@@ -1,96 +1,154 @@
-import { Button } from '@refactors/atoms';
-import { ComponentMeta } from '@storybook/react';
+import { Button, Icon } from '@refactors/atoms';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 export default {
   title: 'Example/Button',
   component: Button,
-  decorators: [
-    (Story) => (
-      <div style={{ margin: '1rem' }}>
-        <Story />
-      </div>
-    ),
-  ],
+  argTypes: {
+    btnStyle: {
+      options: ['primary', 'secondary', 'default'],
+      control: { type: 'radio' },
+    },
+    size: {
+      options: ['small', 'medium', 'full'],
+      control: { type: 'radio' },
+    },
+    width: {
+      type: { name: 'string' },
+      control: { type: 'text' },
+    },
+    height: {
+      type: { name: 'string' },
+      control: { type: 'text' },
+    },
+    color: {
+      type: { name: 'string' },
+      control: { type: 'text' },
+    },
+    bgColor: {
+      type: { name: 'string' },
+      control: { type: 'text' },
+    },
+    border: {
+      type: { name: 'string' },
+      control: { type: 'text' },
+    },
+    borderRadius: {
+      type: { name: 'boolean' },
+      control: { type: 'boolean' },
+    },
+    hover: {
+      type: { name: 'boolean' },
+      control: { type: 'boolean' },
+    },
+    onClick: { action: 'clicked' },
+  },
 } as ComponentMeta<typeof Button>;
 
-export const Default = (args: any) => {
+export const Default: ComponentStory<typeof Button> = (args) => {
   return <Button {...args}>Button</Button>;
 };
-export const Style = (args: any) => {
+
+export const Style: ComponentStory<typeof Button> = (args) => {
   return (
-    <div>
-      <Button btnStyle={'primary'} {...args}>
+    <>
+      <Button {...args} btnStyle={'primary'} size="medium">
         primary
       </Button>
-      <Button btnStyle={'secondary'} {...args}>
+      <Button {...args} btnStyle={'secondary'} size="medium">
         secondary
       </Button>
-      <Button btnStyle={'default'} {...args}>
+      <Button {...args} btnStyle={'default'} size="medium">
         default
       </Button>
-    </div>
+    </>
   );
 };
-export const Sizes = (args: any) => {
+export const Sizes: ComponentStory<typeof Button> = (args) => {
   return (
-    <div>
-      <Button size={'full'} {...args}>
+    <>
+      <Button {...args} btnStyle={'default'} size={'full'}>
         full
       </Button>
-      <Button {...args}>medium(Default)</Button>
-      <Button size={'small'} {...args}>
+      <Button {...args} btnStyle={'default'} size={'medium'}>
+        medium
+      </Button>
+      <Button {...args} btnStyle={'default'} size={'small'}>
         small
       </Button>
-    </div>
+    </>
   );
 };
-export const Disabled = (args: any) => {
+export const Disabled: ComponentStory<typeof Button> = (args) => {
   return (
-    <div>
-      <Button btnStyle="primary" disabled {...args}>
+    <>
+      <Button {...args} btnStyle="primary" size={'medium'} disabled>
         primary
       </Button>
-      <Button btnStyle="secondary" disabled {...args}>
+      <Button {...args} btnStyle="secondary" size={'medium'} disabled>
         secondary
       </Button>
-    </div>
+    </>
   );
 };
-export const Hover = (args: any) => {
+export const Hover: ComponentStory<typeof Button> = (args) => {
   return (
-    <div>
-      <Button btnStyle="primary" hover={true} {...args}>
+    <>
+      <Button {...args} btnStyle="primary" size={'medium'} hover={true}>
         primary
       </Button>
-      <Button btnStyle="secondary" hover={true} {...args}>
+      <Button {...args} btnStyle="secondary" size={'medium'} hover={true}>
         secondary
       </Button>
-      <Button hover={true} {...args}>
+      <Button {...args} btnStyle="default" size={'medium'} hover={true}>
         default
       </Button>
-    </div>
+    </>
   );
 };
-export const Custom = (args: any) => {
+export const IconBtn: ComponentStory<typeof Button> = (args) => {
   return (
-    <div>
-      <Button btnStyle="primary" width={300} {...args}>
+    <>
+      <Button {...args} btnStyle="primary" size="small">
+        <Icon icon="calender"></Icon>
+        <p>텍스트</p>
+      </Button>
+      <Button {...args} btnStyle="secondary" size="medium">
+        <Icon icon="calender"></Icon>
+        <span>Text</span>
+      </Button>
+      <Button {...args} btnStyle="default" size="medium">
+        <Icon icon="calender"></Icon> 텍스트
+      </Button>
+    </>
+  );
+};
+export const Custom: ComponentStory<typeof Button> = (args) => {
+  return (
+    <>
+      <Button {...args} btnStyle="primary" size={'medium'} width={300}>
         width
       </Button>
-      <Button btnStyle="primary" height={100} {...args}>
+      <Button {...args} btnStyle="primary" size={'medium'} height={100}>
         height
       </Button>
-      <Button btnStyle="primary" color="#000" {...args}>
+      <Button {...args} btnStyle="primary" size={'medium'} color="#000">
         color
       </Button>
-      <Button bgColor="#ff6f6f" {...args}>
+      <Button {...args} btnStyle="default" size={'medium'} bgColor="#ff6f6f">
         bgColor
       </Button>
-      <Button bgColor="#ff6f6f" border="3px solid #000" {...args}>
+      <Button
+        {...args}
+        btnStyle="default"
+        size={'medium'}
+        bgColor="#ff6f6f"
+        border="3px solid #000"
+      >
         border
       </Button>
-      <Button bgColor="#ff6f6f" borderRadius={false} {...args}>
+      <Button {...args} btnStyle="default" size={'medium'} bgColor="#ff6f6f" borderRadius={false}>
         borderRadius
       </Button>
-    </div>
+    </>
   );
 };
