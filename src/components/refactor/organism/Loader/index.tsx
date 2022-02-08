@@ -20,7 +20,14 @@ const Loader = ({ children }: Props) => {
       <LottieLoader
         width={'30%'}
         height={'30%'}
-        options={{ loop: true, animationData: loader, autoplay: true }}
+        options={{
+          loop: true,
+          animationData: loader,
+          autoplay: true,
+          rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice',
+          },
+        }}
       />
       <LoadingSubText textType="Paragraph2">
         위치 정보 제공을 허용하지 않으면
