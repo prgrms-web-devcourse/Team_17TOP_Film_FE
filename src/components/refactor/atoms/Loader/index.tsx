@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { LottieLoader } from '../';
+import { LottieLoader } from '@refactors/atoms';
 import loader from '@assets/lotties/loader.json';
 import { LoaderWrapper, FilmImgWrapper, FilmImg, LoadingTitle, LoadingSubText } from './style';
 import filmOpenIcon from '@assets/icons/icon_marker_open.svg';

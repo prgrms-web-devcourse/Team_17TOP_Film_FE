@@ -1,4 +1,4 @@
-import { LottieLoader } from '@refactors/organism';
+import { LottieLoader } from '@refactors/atoms';
 import fireworks from '@assets/lotties/fireworks.json';
 import loader from '@assets/lotties/loader.json';
 
