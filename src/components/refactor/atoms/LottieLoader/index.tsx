@@ -3,16 +3,32 @@ import lottie from 'lottie-web';
 import { LottieContainer } from './style';
 import { LottieProps } from './types';
 
-const LottieLoader = ({ width = '100%', height = '100%', options, deg = 0 }: LottieProps) => {
+const LottieLoader = ({
+  width = '100%',
+  height = '100%',
+  options,
+  deg = 0,
+  playState,
+}: LottieProps) => {
   const lottieContainer = useRef<HTMLDivElement>(null);
+  const lottieName = useRef('anim');
+
   useEffect(() => {
-    if (lottieContainer.current) {
-      lottie.loadAnimation({
-        container: lottieContainer.current,
-        ...options,
-      });
-    }
+    if (!lottieContainer.current) return;
+
+    lottie.loadAnimation({
+      name: lottieName.current,
+      container: lottieContainer.current,
+      ...options,
+    });
   }, []);
+
+  useEffect(() => {
+    if (!lottieContainer.current || !playState) return;
+
+    lottie[playState](lottieName.current);
+  }, [playState]);
+
   return (
     <LottieContainer
       ref={lottieContainer}

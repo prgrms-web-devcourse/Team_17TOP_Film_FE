@@ -5,4 +5,7 @@ export interface LottieProps {
   height?: string | number;
   options: Omit<AnimationConfigWithPath, 'container'> | Omit<AnimationConfigWithData, 'container'>;
   deg?: number;
+  playState?: PlayState;
 }
+
+export type PlayState = 'play' | 'stop' | 'pause';
