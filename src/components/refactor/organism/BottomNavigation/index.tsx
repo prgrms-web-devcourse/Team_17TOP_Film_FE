@@ -36,15 +36,14 @@ const BottomNavigation = ({
       return false;
     })
     .map((element, idx, elements) => {
-      if (!direction) return element;
       const item = element as ReactElement;
       return React.cloneElement(item, {
         ...item.props,
-        direction: 'column',
+        direction: direction ? 'column' : null,
+        itemHoverColor: itemHoverColor ? itemHoverColor : 'white',
         style: {
           ...calcStyle(idx, elements.length),
         },
-        className: itemHoverColor && 'hover-action',
       });
     });
 

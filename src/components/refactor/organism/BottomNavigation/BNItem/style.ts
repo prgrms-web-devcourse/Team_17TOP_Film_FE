@@ -12,11 +12,11 @@ const StyledLink = styled(Link)<{ direction?: 'column' }>`
     -webkit-tap-highlight-color: transparent;
   }
 `;
-const Li = styled.li`
+const Li = styled.li<{ itemHoverColor: string }>`
   width: 100%;
   height: inherit;
-  &.hover-action:hover {
-    background-color: red;
+  &:hover {
+    background-color: ${({ itemHoverColor }) => itemHoverColor};
     transition: background-color 0.5s ease;
   }
 `;

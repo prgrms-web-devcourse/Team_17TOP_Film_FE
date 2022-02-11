@@ -10,12 +10,21 @@ interface Props {
   href: string;
   iconSize?: number;
   direction?: 'column';
+  itemHoverColor?: string;
   [x: string]: any;
 }
-const BNItem = ({ text, icon, href, iconSize, direction, ...props }: Props) => {
+const BNItem = ({
+  text,
+  icon,
+  href,
+  iconSize,
+  direction,
+  itemHoverColor = 'white',
+  ...props
+}: Props) => {
   const test = isMobile();
   return (
-    <Li {...props}>
+    <Li itemHoverColor={itemHoverColor} {...props}>
       <StyledLink className={test ? 'mobile' : 'web'} to={href} direction={direction}>
         {icon && <Icon icon={icon} size={iconSize} />}
         {text}
