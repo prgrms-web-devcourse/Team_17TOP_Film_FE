@@ -6,26 +6,28 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 export default {
   title: 'Example/BottomNavigation',
   component: BottomNavigation,
+  argTypes: {
+    name: { control: { type: 'text' } },
+    bgColor: { control: { type: 'text' } },
+    direction: {
+      control: { type: 'radio' },
+      options: ['column', null],
+    },
+    dividerColor: {
+      control: { type: 'text' },
+    },
+    itemHoverColor: {
+      control: { type: 'text' },
+    },
+  },
 } as ComponentMeta<typeof BottomNavigation>;
 
 export const Default: ComponentStory<typeof BottomNavigation> = (args) => {
   return (
-    <div
-      style={{
-        width: '500px',
-        height: '300px',
-        borderRadius: '10px',
-        border: '1px solid black',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <BottomNavigation {...args}>
-        <BNItem href="/asdf" icon="markerOpen" text="footer1" />
-        <BNItem href="/asdf" icon="markerClose" text="footer1" />
-      </BottomNavigation>
-    </div>
+    <BottomNavigation {...args}>
+      <BNItem href="/asdf" icon="markerOpen" iconSize={40} text="footer1" />
+      <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
+    </BottomNavigation>
   );
 };
 
@@ -35,153 +37,75 @@ export const ChildrenWrong: ComponentStory<typeof BottomNavigation> = (args) => 
 
 export const NoIcon: ComponentStory<typeof BottomNavigation> = (args) => {
   return (
-    <div
-      style={{
-        width: '500px',
-        height: '300px',
-        borderRadius: '10px',
-        border: '1px solid black',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <BottomNavigation {...args}>
-        <BNItem href="/asdf" text="footer1" />
-        <BNItem href="/asdf" text="footer1" />
-      </BottomNavigation>
-    </div>
+    <BottomNavigation {...args}>
+      <BNItem href="/asdf" text="footer1" />
+      <BNItem href="/asdf" text="footer1" />
+    </BottomNavigation>
   );
 };
 
 export const IconSizeUp: ComponentStory<typeof BottomNavigation> = (args) => {
   return (
-    <div
-      style={{
-        width: '500px',
-        height: '300px',
-        borderRadius: '10px',
-        border: '1px solid black',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <BottomNavigation {...args}>
-        <BNItem href="/asdf" icon="markerOpen" iconSize={40} text="footer1" />
-        <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
-      </BottomNavigation>
-    </div>
+    <BottomNavigation {...args}>
+      <BNItem href="/asdf" icon="markerOpen" iconSize={40} text="footer1" />
+      <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
+    </BottomNavigation>
   );
 };
 export const DisplayColumn: ComponentStory<typeof BottomNavigation> = (args) => {
   return (
-    <div
-      style={{
-        width: '500px',
-        height: '300px',
-        borderRadius: '10px',
-        border: '1px solid black',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <BottomNavigation direction="column" {...args}>
-        <BNItem
-          style={{ background: 'red' }}
-          href="/asdf"
-          icon="markerOpen"
-          iconSize={40}
-          text="footer1"
-        />
-        <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
-      </BottomNavigation>
-    </div>
+    <BottomNavigation direction="column" {...args}>
+      <BNItem
+        style={{ background: 'red' }}
+        href="/asdf"
+        icon="markerOpen"
+        iconSize={40}
+        text="footer1"
+      />
+      <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
+    </BottomNavigation>
   );
 };
 
 export const hasDivider: ComponentStory<typeof BottomNavigation> = (args) => {
   return (
-    <div
-      style={{
-        width: '500px',
-        height: '300px',
-        borderRadius: '10px',
-        border: '1px solid black',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <BottomNavigation direction="column" divider {...args}>
-        <BNItem
-          style={{ background: 'red' }}
-          href="/asdf"
-          icon="markerOpen"
-          iconSize={40}
-          text="footer1"
-        />
-        <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
-      </BottomNavigation>
-    </div>
+    <BottomNavigation direction="column" divider {...args}>
+      <BNItem
+        style={{ background: 'red' }}
+        href="/asdf"
+        icon="markerOpen"
+        iconSize={40}
+        text="footer1"
+      />
+      <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
+    </BottomNavigation>
   );
 };
 export const DividerColorChange: ComponentStory<typeof BottomNavigation> = (args) => {
   return (
-    <div
-      style={{
-        width: '500px',
-        height: '300px',
-        borderRadius: '10px',
-        border: '1px solid black',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <BottomNavigation direction="column" divider dividerColor="red" {...args}>
-        <BNItem
-          style={{ background: 'red' }}
-          href="/asdf"
-          icon="markerOpen"
-          iconSize={40}
-          text="footer1"
-        />
-        <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
-      </BottomNavigation>
-    </div>
+    <BottomNavigation direction="column" divider dividerColor="red" {...args}>
+      <BNItem
+        style={{ background: 'red' }}
+        href="/asdf"
+        icon="markerOpen"
+        iconSize={40}
+        text="footer1"
+      />
+      <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
+    </BottomNavigation>
   );
 };
 export const Hover: ComponentStory<typeof BottomNavigation> = (args) => {
   return (
-    <div
-      style={{
-        width: '500px',
-        height: '300px',
-        borderRadius: '10px',
-        border: '1px solid black',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <BottomNavigation
-        direction="column"
-        divider
-        dividerColor="red"
-        itemHoverColor="red"
-        {...args}
-      >
-        <BNItem
-          style={{ background: 'red' }}
-          href="/asdf"
-          icon="markerOpen"
-          iconSize={40}
-          text="footer1"
-        />
-        <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
-      </BottomNavigation>
-    </div>
+    <BottomNavigation direction="column" divider dividerColor="red" itemHoverColor="red" {...args}>
+      <BNItem
+        style={{ background: 'red' }}
+        href="/asdf"
+        icon="markerOpen"
+        iconSize={40}
+        text="footer1"
+      />
+      <BNItem href="/asdf" icon="markerClose" iconSize={40} text="footer1" />
+    </BottomNavigation>
   );
 };
