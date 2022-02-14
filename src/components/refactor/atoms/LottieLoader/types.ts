@@ -6,6 +6,7 @@ export interface LottieProps {
   options: Omit<AnimationConfigWithPath, 'container'> | Omit<AnimationConfigWithData, 'container'>;
   deg?: number;
   playState?: PlayState;
+  setSpeed?: number;
 }
 
 export type PlayState = 'play' | 'stop' | 'pause';
