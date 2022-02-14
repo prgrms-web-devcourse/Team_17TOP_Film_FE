@@ -12,8 +12,10 @@ const Modal = ({ children, dimClose }: Props) => {
 
   useEffect(() => {
     document.body.appendChild(modalElement);
+    document.body.style.overflow = 'hidden';
     return () => {
       document.body.removeChild(modalElement);
+      document.body.style.overflow = 'auto';
     };
   }, []);
 
