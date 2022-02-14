@@ -2,8 +2,11 @@ import styled from '@emotion/styled';
 import { Text, Button } from '@refactors/atoms';
 
 const ModalWrapper = styled.div`
+  width: 100%;
   min-width: 300px;
+  max-width: 480px;
   padding: ${({ theme }) => theme.gaps.gap2};
+  box-sizing: border-box;
   background: #fff;
   border-radius: 4px;
   text-align: center;
