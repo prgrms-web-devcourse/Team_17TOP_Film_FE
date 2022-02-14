@@ -13,6 +13,9 @@ export default {
       options: ['play', 'stop', 'pause'],
       control: { type: 'radio' },
     },
+    setSpeed: {
+      control: { type: 'range', min: -10, max: 10, step: 0.1 },
+    },
   },
 };
 
@@ -93,3 +96,14 @@ const ControlBtn = styled.button`
     background-color: orange;
   }
 `;
+
+export const SetSpeed = (args: any) => {
+  return (
+    <LottieLoader
+      width={500}
+      height={450}
+      options={{ loop: true, animationData: fireworks, autoplay: true }}
+      {...args}
+    ></LottieLoader>
+  );
+};
