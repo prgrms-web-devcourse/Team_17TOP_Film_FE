@@ -1,11 +1,13 @@
-import { ReactNode, useEffect, useMemo } from 'react';
+import { MutableRefObject, ReactNode, useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { BackgroundDim, Wrapper } from './style';
+import useClickOutSide from './useClickOutSide';
 interface Props {
   children: ReactNode;
-  onClose?: () => void;
+  dimClose?: () => void;
 }
-const Modal = ({ children, onClose }: Props) => {
+const Modal = ({ children, dimClose }: Props) => {
+  const ref = useClickOutSide(() => dimClose && dimClose());
   const modalElement = useMemo(() => document.createElement('div'), []);
 
   useEffect(() => {
@@ -16,8 +18,8 @@ const Modal = ({ children, onClose }: Props) => {
   }, []);
 
   return ReactDOM.createPortal(
-    <BackgroundDim onClick={onClose}>
-      <Wrapper>{children}</Wrapper>
+    <BackgroundDim>
+      <Wrapper ref={ref as MutableRefObject<HTMLDivElement>}>{children}</Wrapper>
     </BackgroundDim>,
     modalElement,
   );
