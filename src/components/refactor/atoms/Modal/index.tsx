@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom';
-import { BackkgroundDim, Wrapper } from './style';
+import { BackgroundDim, Wrapper } from './style';
 interface Props {
   children: ReactNode;
   onClose?: () => void;
@@ -16,9 +16,9 @@ const Modal = ({ children, onClose }: Props) => {
   }, []);
 
   return ReactDOM.createPortal(
-    <BackkgroundDim onClick={onClose}>
+    <BackgroundDim onClick={onClose}>
       <Wrapper>{children}</Wrapper>
-    </BackkgroundDim>,
+    </BackgroundDim>,
     modalElement,
   );
 };

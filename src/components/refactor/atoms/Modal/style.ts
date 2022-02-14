@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const BackkgroundDim = styled.div`
+const BackgroundDim = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -12,11 +12,11 @@ const BackkgroundDim = styled.div`
 
 const Wrapper = styled.div`
   position: fixed;
-  top 50%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   max-height: 80vh;
   overflow: scroll;
 `;
 
-export { BackkgroundDim, Wrapper };
+export { BackgroundDim, Wrapper };
