@@ -3,7 +3,9 @@ import { AnimationConfigWithData, AnimationConfigWithPath } from 'lottie-web';
 export interface LottieProps {
   width?: string | number;
   height?: string | number;
-  options: Omit<AnimationConfigWithPath, 'container'> | Omit<AnimationConfigWithData, 'container'>;
+  options:
+    | Omit<AnimationConfigWithPath, 'container' | 'name'>
+    | Omit<AnimationConfigWithData, 'container' | 'name'>;
   deg?: number;
   playState?: PlayState;
   setSpeed?: number;
