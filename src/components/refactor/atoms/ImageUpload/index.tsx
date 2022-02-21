@@ -15,6 +15,7 @@ const ImageUpload = ({
   ...props
 }: ImageUploadProps) => {
   const acceptedFileFormatList = useRef<string[]>([]);
+  const acceptedFileFormatMessage = useRef('');
   useEffect(() => {
     for (const item of accept) {
       if (item === 'all') {
@@ -24,6 +25,11 @@ const ImageUpload = ({
       acceptedFileFormatList.current.push(ACCEPTED_IMAGE_FILE_FORMAT[item]);
     }
   }, [accept]);
+  useEffect(() => {
+    acceptedFileFormatMessage.current = `${acceptedFileFormatList.current
+      .map((item) => item.replace('image/', '.'))
+      .join(', ')} 확장자만 업로드 가능합니다.`;
+  }, [acceptedFileFormatList.current]);
 
   const handleFileChange = useCallback(
     (file: File) => {
@@ -41,11 +47,7 @@ const ImageUpload = ({
         acceptedFileFormatList.current[0] !== ACCEPTED_IMAGE_FILE_FORMAT.all &&
         !acceptedFileFormatList.current.includes(type)
       ) {
-        Toast.warn(
-          `${acceptedFileFormatList.current
-            .map((item) => item.replace('image/', '.'))
-            .join(', ')} 확장자만 업로드 가능합니다.`,
-        );
+        Toast.warn(acceptedFileFormatMessage.current);
         onChange(null);
         return;
       }
