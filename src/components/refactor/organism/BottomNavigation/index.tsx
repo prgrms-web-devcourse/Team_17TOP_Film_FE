@@ -18,15 +18,6 @@ const BottomNavigation = ({
   itemHoverColor,
   ...props
 }: Props) => {
-  const calcStyle = (idx: number, elementsLen: number) => {
-    const style: { borderRight: string } = {
-      borderRight: 'none',
-    };
-    if (divider && idx !== elementsLen - 1) {
-      style.borderRight = !dividerColor ? '1px solid lightgray' : `1px solid ${dividerColor}`;
-    }
-    return style;
-  };
   const navLists = React.Children.toArray(children)
     .filter((element: ReactNode) => {
       if (React.isValidElement(element) && element.props.__TYPE === VALID_BNITEM) {
@@ -41,15 +32,14 @@ const BottomNavigation = ({
         ...item.props,
         direction: direction ? 'column' : null,
         itemHoverColor: itemHoverColor ? itemHoverColor : 'white',
-        style: {
-          ...calcStyle(idx, elements.length),
-        },
       });
     });
 
   return (
     <Wrapper bgColor={bgColor} {...props}>
-      <Container>{navLists}</Container>
+      <Container divider={divider} dividerColor={dividerColor}>
+        {navLists}
+      </Container>
     </Wrapper>
   );
 };

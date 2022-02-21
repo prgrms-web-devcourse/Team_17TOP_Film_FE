@@ -11,11 +11,18 @@ const Wrapper = styled.nav<{ bgColor: string }>`
   z-index: 900;
 `;
 
-const Container = styled.ul`
+const Container = styled.ul<{ divider?: boolean; dividerColor?: string }>`
   height: inherit;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  li {
+    border-right: ${({ divider, dividerColor }) =>
+      divider ? `1px solid ${dividerColor || 'lightgray'}` : 'none'};
+    &:last-of-type {
+      border-right: none;
+    }
+  }
 `;
 
 export { Wrapper, Container };
