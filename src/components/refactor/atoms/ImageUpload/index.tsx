@@ -1,4 +1,4 @@
-import { useRef, useMemo, useCallback } from 'react';
+import { useRef, useMemo, useCallback, useEffect } from 'react';
 import { Upload } from '../../../atoms';
 import Toast from '../../../organism/Toast';
 import { ACCEPTED_IMAGE_FILE_FORMAT } from './constants';
@@ -15,7 +15,7 @@ const ImageUpload = ({
   ...props
 }: ImageUploadProps) => {
   const acceptedFileFormatList = useRef<string[]>([]);
-  useMemo(() => {
+  useEffect(() => {
     for (const item of accept) {
       if (item === 'all') {
         acceptedFileFormatList.current = [ACCEPTED_IMAGE_FILE_FORMAT.all];
