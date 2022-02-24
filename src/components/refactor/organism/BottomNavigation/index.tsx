@@ -1,13 +1,15 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactChild, ReactElement, ReactNode, useMemo } from 'react';
+import { filterReactNode } from './utils/filterChildren';
 import { VALID_BNITEM } from './constants';
 import { Container, Wrapper } from './style';
+import { useIsTabActive } from './utils/useTabActive';
 interface Props {
   children?: ReactNode;
   bgColor?: string;
   divider?: boolean;
   direction?: 'column';
   dividerColor?: string;
-  itemHoverColor?: string;
+  activeColor?: string;
 }
 const BottomNavigation = ({
   children,
@@ -15,30 +17,31 @@ const BottomNavigation = ({
   divider,
   dividerColor,
   direction,
-  itemHoverColor,
+  activeColor = 'white',
   ...props
 }: Props) => {
-  const navLists = React.Children.toArray(children)
-    .filter((element: ReactNode) => {
-      if (React.isValidElement(element) && element.props.__TYPE === VALID_BNITEM) {
-        return true;
-      }
-      console.warn('BNItem 컴포넌트만 올 수 있습니다~');
-      return false;
-    })
-    .map((element, idx, elements) => {
-      const item = element as ReactElement;
-      return React.cloneElement(item, {
-        ...item.props,
-        direction: direction ? 'column' : null,
-        itemHoverColor: itemHoverColor ? itemHoverColor : 'white',
-      });
+  const validChildren = React.Children.toArray(children).filter((element) =>
+    filterReactNode(element, VALID_BNITEM),
+  );
+
+  const [isTabActive, setTabActive] = useIsTabActive(validChildren as ReactChild[]);
+  const newChildren = validChildren.map((element, idx, elements) => {
+    const item = element as ReactElement;
+    return React.cloneElement(item, {
+      ...item.props,
+      className: idx === isTabActive ? 'active' : 'nonactive',
+      direction: direction ? 'column' : null,
+      onClick: () => {
+        item.props.handleClick && item.props.handleClick();
+        setTabActive(idx);
+      },
     });
+  });
 
   return (
     <Wrapper bgColor={bgColor} {...props}>
-      <Container divider={divider} dividerColor={dividerColor}>
-        {navLists}
+      <Container divider={divider} dividerColor={dividerColor} activeColor={activeColor}>
+        {newChildren}
       </Container>
     </Wrapper>
   );
