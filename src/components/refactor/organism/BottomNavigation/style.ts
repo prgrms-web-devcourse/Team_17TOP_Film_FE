@@ -11,7 +11,7 @@ const Wrapper = styled.nav<{ bgColor: string }>`
   z-index: 900;
 `;
 
-const Container = styled.ul<{ divider?: boolean; dividerColor?: string }>`
+const Container = styled.ul<{ divider?: boolean; dividerColor?: string; activeColor: string }>`
   height: inherit;
   display: flex;
   justify-content: space-around;
@@ -21,6 +21,9 @@ const Container = styled.ul<{ divider?: boolean; dividerColor?: string }>`
       divider ? `1px solid ${dividerColor || 'lightgray'}` : 'none'};
     &:last-of-type {
       border-right: none;
+    }
+    &.active {
+      background-color: ${({ activeColor }) => activeColor};
     }
   }
 `;
