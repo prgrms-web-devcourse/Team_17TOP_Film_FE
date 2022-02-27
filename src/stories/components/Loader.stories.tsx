@@ -1,4 +1,4 @@
-import { Loader } from '@refactors/atoms';
+import { Loader } from '@refactors/organism';
 
 export default {
   title: 'Example/Loader',
