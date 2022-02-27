@@ -1,8 +1,6 @@
-import React, { ReactChild, ReactElement, ReactNode, useMemo } from 'react';
-import { filterReactNode } from './utils/filterChildren';
-import { VALID_BNITEM } from './constants';
+import { ReactNode } from 'react';
 import { Container, Wrapper } from './style';
-import { useIsTabActive } from './utils/useTabActive';
+import { useCreateNewChildren } from './utils/useCreateNewChildren';
 interface Props {
   children?: ReactNode;
   bgColor?: string;
@@ -11,6 +9,7 @@ interface Props {
   dividerColor?: string;
   activeColor?: string;
 }
+
 const BottomNavigation = ({
   children,
   bgColor = 'white',
@@ -20,23 +19,7 @@ const BottomNavigation = ({
   activeColor = 'white',
   ...props
 }: Props) => {
-  const validChildren = React.Children.toArray(children).filter((element) =>
-    filterReactNode(element, VALID_BNITEM),
-  );
-
-  const [isTabActive, setTabActive] = useIsTabActive(validChildren as ReactChild[]);
-  const newChildren = validChildren.map((element, idx, elements) => {
-    const item = element as ReactElement;
-    return React.cloneElement(item, {
-      ...item.props,
-      className: idx === isTabActive ? 'active' : 'nonactive',
-      direction: direction ? 'column' : null,
-      onClick: () => {
-        item.props.handleClick && item.props.handleClick();
-        setTabActive(idx);
-      },
-    });
-  });
+  const newChildren = useCreateNewChildren(children, direction);
 
   return (
     <Wrapper bgColor={bgColor} {...props}>
