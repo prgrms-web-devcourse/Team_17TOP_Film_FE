@@ -13,9 +13,9 @@ const Loader = ({ children }: Props) => {
     <LoaderWrapper>
       <LoadingTitle textType="Heading3">{children}</LoadingTitle>
       <FilmImgWrapper>
-        <FilmImg src={filmCloseIcon} alt="" />
-        <FilmImg src={filmOpenIcon} alt="" />
-        <FilmImg src={filmCloseIcon} alt="" />
+        <FilmImg src={filmCloseIcon} alt="닫힌 필름 이미지" />
+        <FilmImg src={filmOpenIcon} alt="열린 필름 이미지" />
+        <FilmImg src={filmCloseIcon} alt="닫힌 필름 이미지" />
       </FilmImgWrapper>
       <LottieLoader
         width={'30%'}
