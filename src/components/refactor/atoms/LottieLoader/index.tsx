@@ -1,6 +1,6 @@
 import { LottieContainer } from './style';
 import { LottieProps } from './types';
-import { useLottie } from './useLottie';
+import { useLottie } from '../../hooks/useLottie';
 
 const LottieLoader = ({
   width = '100%',

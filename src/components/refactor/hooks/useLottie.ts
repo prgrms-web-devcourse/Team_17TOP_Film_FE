@@ -1,7 +1,7 @@
 import lottie from 'lottie-web';
 import { RefObject, useEffect, useRef } from 'react';
-import { LOTTIE_MAX_SPEED, LOTTIE_NAME } from './constants';
-import { LottieProps } from './types';
+import { LOTTIE_MAX_SPEED, LOTTIE_NAME } from '../atoms/LottieLoader/constants';
+import { LottieProps } from '../atoms/LottieLoader/types';
 
 export const useLottie = ({
   options,
