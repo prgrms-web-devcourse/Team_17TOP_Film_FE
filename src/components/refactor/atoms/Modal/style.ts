@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   max-height: 80vh;
-  overflow: scroll;
+  overflow-y: auto;
 `;
 
 export { BackgroundDim, Wrapper };
