@@ -16,7 +16,7 @@ export const Default = (args: any) => {
         모달 열기
       </Button>
       {modalVisible && (
-        <Modal {...args}>
+        <Modal dimClose={() => setModalVisible(false)} {...args}>
           <ModalInner>
             <ModalText textType="Heading4">모달 텍스트를 넣어주세요</ModalText>
             <ButtonGroup>

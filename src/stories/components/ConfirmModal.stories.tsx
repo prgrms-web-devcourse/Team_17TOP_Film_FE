@@ -39,11 +39,11 @@ export const Default = (args: any) => {
           modalText={`모달 텍스트를 넣어주세요`}
           primaryBtnText={`확인`}
           secondaryBtnText={`취소`}
-          dimClose={() => setModalVisible(false)}
           primaryBtnEvent={() => {
             console.log('확인 클릭');
           }}
           secondaryBtnEvent={() => {
+            setModalVisible(false);
             console.log('취소 클릭');
           }}
           {...args}

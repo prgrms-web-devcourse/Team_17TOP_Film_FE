@@ -5,7 +5,6 @@ interface Props {
   modalText: string;
   primaryBtnText: string;
   secondaryBtnText: string;
-  dimClose?: () => void;
   primaryBtnEvent: () => void;
   secondaryBtnEvent: () => void;
 }
@@ -14,12 +13,11 @@ const ConfirmModal = ({
   modalText,
   primaryBtnText,
   secondaryBtnText,
-  dimClose,
   primaryBtnEvent,
   secondaryBtnEvent,
 }: Props) => {
   return (
-    <Modal dimClose={dimClose}>
+    <Modal>
       <ModalWrapper>
         <ModalText textType="Heading4">{modalText}</ModalText>
         <ButtonGroup>
