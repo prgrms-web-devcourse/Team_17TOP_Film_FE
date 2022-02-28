@@ -1,6 +1,8 @@
-import { ReactNode } from 'react';
+import { ReactChild, ReactNode } from 'react';
 import { Container, Wrapper } from './style';
+import { createValidChildren } from './utils/filterChildren';
 import { useCreateNewChildren } from './utils/useCreateNewChildren';
+
 interface Props {
   children?: ReactNode;
   bgColor?: string;
@@ -19,7 +21,8 @@ const BottomNavigation = ({
   activeColor = 'white',
   ...props
 }: Props) => {
-  const newChildren = useCreateNewChildren(children, direction);
+  const validChildren = createValidChildren(children);
+  const newChildren = useCreateNewChildren(validChildren as ReactChild[], direction);
 
   return (
     <Wrapper bgColor={bgColor} {...props}>
