@@ -1,13 +1,13 @@
 import lottie from 'lottie-web';
 import { RefObject, useEffect, useRef } from 'react';
-import { LOTTIE_MAX_SPEED, LOTTIE_NAME } from '../atoms/LottieLoader/constants';
-import { LottieProps } from '../atoms/LottieLoader/types';
+import { LOTTIE_MAX_SPEED, LOTTIE_NAME } from '../../atoms/LottieLoader/constants';
+import { UseLottieProps } from './types';
 
 export const useLottie = ({
   options,
   playState,
   setSpeed,
-}: Pick<LottieProps, 'options' | 'playState' | 'setSpeed'>): RefObject<HTMLDivElement> => {
+}: UseLottieProps): RefObject<HTMLDivElement> => {
   const lottieContainer = useRef<HTMLDivElement>(null);
   const lottieName = useRef(LOTTIE_NAME);
   useEffect(() => {

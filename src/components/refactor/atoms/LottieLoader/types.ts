@@ -1,14 +1,7 @@
-import { AnimationConfigWithData, AnimationConfigWithPath } from 'lottie-web';
+import { UseLottieProps } from '@refactors/hooks/useLottie/types';
 
-export interface LottieProps {
+export interface LottieProps extends UseLottieProps {
   width?: string | number;
   height?: string | number;
-  options:
-    | Omit<AnimationConfigWithPath, 'container' | 'name'>
-    | Omit<AnimationConfigWithData, 'container' | 'name'>;
   deg?: number;
-  playState?: PlayState;
-  setSpeed?: number;
 }
-
-export type PlayState = 'play' | 'stop' | 'pause';

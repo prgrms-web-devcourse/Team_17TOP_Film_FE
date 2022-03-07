@@ -3,7 +3,7 @@ import fireworks from '@assets/lotties/fireworks.json';
 import loader from '@assets/lotties/loader.json';
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { PlayState } from '@refactors/atoms/LottieLoader/types';
+import { PlayState } from '@refactors/hooks/useLottie/types';
 
 export default {
   title: 'Example/LottieLoader',
