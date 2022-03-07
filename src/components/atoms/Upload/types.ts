@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 
 export interface UploadProps {
-  onChange(file: File): void;
+  onChange(file: File | null): void;
   children?: ReactNode;
   name?: string;
   accept?: string;
   value?: File;
-  droppable: boolean;
+  droppable?: boolean;
   fileDelete?: boolean;
 }

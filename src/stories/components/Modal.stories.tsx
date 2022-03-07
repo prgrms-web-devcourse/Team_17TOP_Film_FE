@@ -1,44 +1,55 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
-import { Button, Modal } from '../../components/atoms';
+import { Text, Button, Modal } from '@refactors/atoms';
+import { useState } from 'react';
 
 export default {
   title: 'Example/Modal',
   component: Modal,
+  argTypes: {},
 };
 
 export const Default = (args: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <>
-      <Button buttonType="PrimaryBtn" onClick={() => setModalVisible(true)}>
+    <div style={{ height: '10000px' }}>
+      <Button btnStyle="primary" size="medium" onClick={() => setModalVisible(true)}>
         모달 열기
       </Button>
-      <Modal visible={modalVisible} onClose={() => setModalVisible(false)}>
-        <ModalInner>
-          <Text>오늘 열 수 있는 캡슐이 있어요</Text>
-          <Footer>
-            <Button buttonType="SecondaryBtn" onClick={() => setModalVisible(false)}>
-              나중에 볼래요
-            </Button>
-            <Button buttonType="PrimaryBtn" onClick={() => setModalVisible(false)}>
-              보러 갈래요!
-            </Button>
-          </Footer>
-        </ModalInner>
-      </Modal>
-    </>
+      {modalVisible && (
+        <Modal dimClose={() => setModalVisible(false)} {...args}>
+          <ModalInner>
+            <ModalText textType="Heading4">모달 텍스트를 넣어주세요</ModalText>
+            <ButtonGroup>
+              <ModalButton btnStyle="secondary" size="full" onClick={() => setModalVisible(false)}>
+                닫기
+              </ModalButton>
+            </ButtonGroup>
+          </ModalInner>
+        </Modal>
+      )}
+    </div>
   );
 };
-const ModalInner = styled.div`
-  width: 300px;
-`;
 
-const Text = styled.h1`
-  margin: 10px 0;
+const ModalInner = styled.div`
+  min-width: 300px;
+  background: #fff;
+  padding: ${({ theme }) => theme.gaps.gap2};
+  border-radius: 4px;
   text-align: center;
 `;
-const Footer = styled.div`
+
+const ModalText = styled(Text)`
+  margin-top: ${({ theme }) => theme.gaps.gap2};
+  line-height: 1.4;
+  word-break: keep-all;
+`;
+const ButtonGroup = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 12px;
+  margin-top: ${({ theme }) => theme.gaps.gap4};
+`;
+
+const ModalButton = styled(Button)`
+  justify-content: center;
 `;
