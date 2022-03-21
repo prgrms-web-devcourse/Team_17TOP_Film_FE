@@ -1,39 +1,42 @@
 import styled from '@emotion/styled';
 
 const Wrapper = styled.div`
-  position: relative;
-  max-width: 640px;
-  margin: 0 auto;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-top: 120px;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  background-position: center center;
-  box-sizing: border-box;
+  gap: 20px;
+  padding-bottom: 50px;
 `;
 
-const Container = styled.div`
-  width: 100%;
-  text-align: center;
+const Picture = styled.picture`
+  source,
+  img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 640px;
+    width: calc(100% - 50px);
+    object-fit: contain;
+  }
 `;
 
 const Text = styled.h1`
-  margin: 0 0 42px 0;
-  ${({ theme: { fonts } }) => fonts.Heading3}
+  position: fixed;
+  top: 15vh;
+  ${({ theme: { fonts } }) => fonts.Heading3};
+  text-align: center;
   color: white;
-  font-weight: 400;
   line-height: 1.4;
+  z-index: 1;
 `;
-const Img = styled.img`
-  max-width: 290px;
-  width: 100%;
-  height: 380px;
-`;
+
 const Button = styled.button`
   position: fixed;
   max-width: 580px;
-  bottom: 40px;
+  bottom: 5vh;
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
@@ -45,4 +48,4 @@ const Button = styled.button`
   font-weight: bold;
   color: white;
 `;
-export { Wrapper, Container, Text, Img, Button };
+export { Wrapper, Picture, Text, Button };
