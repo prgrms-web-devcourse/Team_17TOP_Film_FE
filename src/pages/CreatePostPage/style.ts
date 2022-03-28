@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Text, Button } from '../../components/atoms';
+import { Text, Button } from '@refactors/atoms';
 
 const CreatePostPageContainer = styled.div`
   width: 100vw;
@@ -13,6 +13,7 @@ const NextStepButton = styled(Button)`
   width: 100%;
   z-index: 2;
   border-radius: 0;
+  justify-content: center;
 `;
 
 const FormContentWrapper = styled.div`

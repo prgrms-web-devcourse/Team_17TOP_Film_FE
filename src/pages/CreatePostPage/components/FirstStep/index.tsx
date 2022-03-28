@@ -84,7 +84,7 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
         marker={marker}
         onChangeMarker={handleMarker}
       />
-      <NextStepButton buttonType="PrimaryBtn" onClick={saveLocation}>
+      <NextStepButton btnStyle="primary" size="full" onClick={saveLocation}>
         <NextStepText textType="Paragraph1">여기에 만들래요</NextStepText>
       </NextStepButton>
     </>

@@ -126,7 +126,7 @@ const ThirdStep = ({
           필름이 나올 예정입니다.
         </GuideText>
       </ThirdStepPostFormContainer>
-      <NextStepButton buttonType="PrimaryBtn" onClick={() => setIsModalOpen(true)}>
+      <NextStepButton btnStyle="primary" size="full" onClick={() => setIsModalOpen(true)}>
         <NextStepText textType="Paragraph1">필름 맡기기</NextStepText>
       </NextStepButton>
       {isModalOpen ? (

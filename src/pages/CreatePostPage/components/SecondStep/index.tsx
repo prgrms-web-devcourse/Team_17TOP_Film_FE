@@ -149,12 +149,14 @@ const SecondStep = ({
         <FormContentWrapper>
           <UploadTextWrapper>
             <Text textType="Heading4">사진 업로드</Text>
-            <DeleteImgButton onClick={handleDeleteImageFile}>사진 삭제</DeleteImgButton>
+            <DeleteImgButton btnStyle="secondary" size="medium" onClick={handleDeleteImageFile}>
+              사진 삭제
+            </DeleteImgButton>
           </UploadTextWrapper>
           <ImageUpload
             droppable
             name="image"
-            accept="image/*"
+            accept={['all']}
             onChange={handleSetImageFile}
             imageURL={imageURL}
             fileDelete={file ? false : true}
@@ -174,7 +176,7 @@ const SecondStep = ({
           ></FormTextArea>
         </FormContentWrapper>
       </PostFormContainer>
-      <NextStepButton buttonType="PrimaryBtn" onClick={checkForm}>
+      <NextStepButton btnStyle="primary" size="full" onClick={checkForm}>
         <NextStepText textType="Paragraph1">다음</NextStepText>
       </NextStepButton>
       {isModalOpen ? (
