@@ -1,5 +1,6 @@
 import React, { SetStateAction, useEffect, useState } from 'react';
-import { NextStepButton, MapHeaderText, NextStepText } from '../../style';
+import { MapHeaderText } from './style';
+import { NextStepButton, NextStepText } from '../../style';
 import Map from './Map';
 import { FirstStepProps, Location } from '../../types';
 import UploadHeader from '../UploadHeader';

@@ -1,20 +1,17 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Text } from '../../../../components/atoms';
 import { useLocalStorage } from '../../../../hooks';
+import { NextStepButton, FormContentWrapper, PostFormContainer, NextStepText } from '../../style';
 import {
-  NextStepButton,
   PreviewImg,
   ImageUpload,
   ImageUploadIcon,
   FormTextArea,
   FormInput,
-  FormContentWrapper,
-  PostFormContainer,
   UploadTextWrapper,
   DeleteImgButton,
   SecondStepContainer,
-  NextStepText,
-} from '../../style';
+} from './style';
 import { SecondStepProps } from '../../types';
 import AlertModal from './AlertModal';
 import UploadHeader from '../UploadHeader';

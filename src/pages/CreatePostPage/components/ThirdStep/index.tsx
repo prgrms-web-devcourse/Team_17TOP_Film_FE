@@ -1,14 +1,12 @@
+import { FormContentWrapper, NextStepButton, NextStepText } from '../../style';
 import {
-  FormContentWrapper,
-  NextStepButton,
   ThirdStepContainer,
   FormWrapper,
   ThirdStepPostFormContainer,
   DateInput,
   GuideText,
-  NextStepText,
   SearchTitleWrapper,
-} from '../../style';
+} from './style';
 import { Text } from '../../../../components/atoms';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { ThirdStepProp } from '../../types';
