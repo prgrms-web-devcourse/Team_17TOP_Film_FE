@@ -3,8 +3,8 @@ import Toast from '@refactors/atoms/Toast';
 import { isUserSignUpApi } from '@utils/apis/user';
 import { useLayoutEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { getUserToken } from '../../routes/routesUtil/getUserToken';
-import { removeUserToken } from '../../routes/routesUtil/removeUserToken';
+import { getUserToken } from './util/getUserToken';
+import { removeUserToken } from './util/removeUserToken';
 
 const isValidToken = async () => {
   const { data } = await isUserSignUpApi();
