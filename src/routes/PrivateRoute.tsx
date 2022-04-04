@@ -1,5 +1,5 @@
-import { useVerifyAndUpdateUser } from '@/recoil/user/useVerifyAndUpdateUser';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useVerifyAndUpdateUser } from '@recoils/user/useVerifyAndUpdateUser';
 
 const PrivateRoute = () => {
   const user = useVerifyAndUpdateUser({ isPrivateRoute: true });
