@@ -19,7 +19,7 @@ const ToastItem = ({ type, msg1, msg2, duration, onDone }: Props) => {
     >
       <ProgressBar style={{ animationDuration: `${duration}ms` }} />
       <Body>
-        <CloseBtn onClick={onDone} />
+        <CloseBtn icon="MdClose" size="1rem" color="white" onClick={onDone} />
         <Content>{msg1}</Content>
         {msg2 && <Content>{msg2}</Content>}
       </Body>

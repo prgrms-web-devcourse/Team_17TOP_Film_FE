@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { MdErrorOutline } from 'react-icons/md';
 import { InputProps } from './types';
 import calenderIcon from '../../../../assets/icons/icon_calender.svg';
+import { Icon } from '@refactors/atoms';
 
 const StyledInput = styled.input<InputProps>`
   ${({ theme }) => theme.fonts.Paragraph1};
@@ -49,8 +49,7 @@ const InputWrapper = styled.div`
   display: flex;
   position: relative;
 `;
-const AlertIcon = styled(MdErrorOutline)`
-  color: ${({ theme }) => theme.colors.red900};
+const AlertIcon = styled(Icon)`
   position: absolute;
   right: 24px;
   top: 25%;

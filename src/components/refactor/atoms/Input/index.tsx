@@ -15,7 +15,7 @@ const Input = (
         invalid={invalid}
         {...props}
       ></StyledInput>
-      {invalid ? <AlertIcon size={24}></AlertIcon> : ''}
+      {invalid ? <AlertIcon icon="MdErrorOutline" size={24} color={'#F5544E'} /> : ''}
     </InputWrapper>
   );
 };
