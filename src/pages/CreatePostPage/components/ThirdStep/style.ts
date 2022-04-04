@@ -46,7 +46,8 @@ const DateInput = styled.input`
   ::-webkit-calendar-picker-indicator {
     position: absolute;
     background: url(${calenderIcon}) no-repeat;
-    left: 19px;
+    height: 20px;
+    left: 43px;
   }
   box-sizing: border-box;
 `;
