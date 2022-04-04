@@ -1,8 +1,8 @@
-import { userState } from '@/recoil/user';
-import Toast from '@refactors/atoms/Toast';
-import { isUserSignUpApi } from '@utils/apis/user';
 import { useLayoutEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import Toast from '@refactors/atoms/Toast';
+import { isUserSignUpApi } from '@utils/apis/user';
+import { userState } from '.';
 import { getUserToken } from './util/getUserToken';
 import { removeUserToken } from './util/removeUserToken';
 
