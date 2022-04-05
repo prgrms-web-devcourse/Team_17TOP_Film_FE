@@ -1,31 +1,33 @@
-import React, { useCallback, useLayoutEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import qs from 'qs';
-import { useUserInfo } from '../../contexts/UserProvider';
+import React, { useLayoutEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { isUserSignUpApi } from '../../utils/apis/user';
-const OauthPage = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { saveAllUserInfo } = useUserInfo();
+import { useSetRecoilState } from 'recoil';
+import { userState } from '@recoils/user';
+import { setUserToken } from '@recoils/user/util/setUserToken';
 
-  const routingBasedOnSignUpStatus = useCallback(async () => {
+const OauthPage = () => {
+  const navigate = useNavigate();
+  const setUserInfo = useSetRecoilState(userState);
+  const [params] = useSearchParams();
+
+  const token = params.get('token');
+
+  const checkExistUser = async () => {
     const {
       data: { isDuplicate, nickname, profileImageUrl },
     } = await isUserSignUpApi();
 
     if (isDuplicate) {
-      saveAllUserInfo({ nickname, profileImageUrl });
+      setUserInfo({ nickname, profileImageUrl });
       return navigate('/');
     }
     navigate('/signup');
-  }, []);
+  };
 
   useLayoutEffect(() => {
-    const { token } = qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-    });
-    localStorage.setItem('token', JSON.stringify(token));
-    routingBasedOnSignUpStatus();
+    if (!token) return navigate('/login');
+    setUserToken(token);
+    checkExistUser();
   }, []);
   return <></>;
 };
