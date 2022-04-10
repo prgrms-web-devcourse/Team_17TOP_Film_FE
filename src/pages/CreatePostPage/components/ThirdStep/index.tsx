@@ -8,7 +8,7 @@ import {
   SearchTitleWrapper,
 } from './style';
 import { Text } from '../../../../components/atoms';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { ThirdStepProp } from '../../types';
 import ConfirmModal from './ConfirmModal';
 import UploadHeader from '../UploadHeader';
@@ -32,30 +32,31 @@ const ThirdStep = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectedUserList = useSelectedUserList();
 
-  const saveAvailableAt = () => {
+  const saveAvailableAt = useCallback(() => {
     handleAvailableAt(date);
-  };
+  }, [date]);
 
-  const handleIsModalClose = () => {
+  const handleIsModalClose = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
-  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleDateChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
-  };
-  const handleOnBlur = () => {
+  }, []);
+
+  const handleOnBlur = useCallback(() => {
     const tomorrow = getKST(true);
     const inputDate = new Date(date);
     if (tomorrow > inputDate) {
       setDate(tomorrow.toLocaleString().split('.').slice(0, 3).join('').split(' ').join('-'));
     }
-  };
+  }, []);
 
-  const dateValidate = (date: string) => {
+  const dateValidate = useCallback((date: string) => {
     const tomorrow = getKST(true).getDate();
     const storedDate = new Date(date).getDate();
     return tomorrow > storedDate ? false : true;
-  };
+  }, []);
 
   useEffect(() => {
     if (!date) {
