@@ -48,7 +48,16 @@ const ThirdStep = ({
     const tomorrow = getKST(true);
     const inputDate = new Date(date);
     if (tomorrow > inputDate) {
-      setDate(tomorrow.toLocaleString().split('.').slice(0, 3).join('').split(' ').join('-'));
+      setDate(
+        tomorrow
+          .toLocaleString()
+          .split('.')
+          .slice(0, 3)
+          .join('')
+          .split(' ')
+          .map((value, index) => (index !== 0 && value.length < 2 ? (value = '0' + value) : value))
+          .join('-'),
+      );
     }
   }, []);
 
@@ -84,10 +93,11 @@ const ThirdStep = ({
       .slice(0, 3)
       .join('')
       .split(' ')
+      .map((value, index) => (index !== 0 && value.length < 2 ? (value = '0' + value) : value))
       .join('-');
     setMinDay(tomorrow);
     setDate(tomorrow);
-  }, []);
+  }, [date]);
 
   return (
     <ThirdStepContainer>
