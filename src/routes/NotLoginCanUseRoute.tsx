@@ -1,14 +1,9 @@
-import React, { useLayoutEffect } from 'react';
-import { useUserInfo } from '../contexts/UserProvider';
+import { useVerifyAndUpdateUser } from '@/recoil/user/useVerifyAndUpdateUser';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const NotLoginCanUseRoute = () => {
-  const token = localStorage.getItem('token');
-  const { refreshUserContext } = useUserInfo();
-  useLayoutEffect(() => {
-    token && refreshUserContext();
-  }, []);
+  const user = useVerifyAndUpdateUser({ isPrivateRoute: false });
 
-  return !token ? <Outlet /> : <Navigate to="/" />;
+  return !user.nickname.length ? <Outlet /> : <Navigate to="/" />;
 };
 export default NotLoginCanUseRoute;
