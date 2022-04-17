@@ -18,7 +18,7 @@ const Picture = styled.picture`
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 640px;
-    width: calc(100% - 50px);
+    width: 100%;
     object-fit: contain;
   }
 `;
