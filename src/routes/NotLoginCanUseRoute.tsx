@@ -1,4 +1,4 @@
-import { useVerifyAndUpdateUser } from '@/recoil/user/useVerifyAndUpdateUser';
+import { useVerifyAndUpdateUser } from '@recoils/user/useVerifyAndUpdateUser';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const NotLoginCanUseRoute = () => {
