@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { MdClose } from 'react-icons/md';
+import { Icon } from '@refactors/atoms';
 
 const Container = styled.div`
   position: relative;
@@ -59,9 +59,7 @@ const ProgressBar = styled.div`
   }
 `;
 
-const CloseBtn = styled(MdClose)`
-  color: white;
-  size: 1rem;
+const CloseBtn = styled(Icon)`
   position: absolute;
   right: 20px;
 `;

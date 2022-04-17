@@ -6,8 +6,8 @@ const Icon = ({ icon, size = '1em', color, ...props }: IconProps) => {
   const SVGIcon = icons[icon];
 
   return (
-    <IconStyle color={color} size={size}>
-      <SVGIcon fill={color} size={size} {...props} />
+    <IconStyle size={size}>
+      <SVGIcon color={color} size={size} {...props} />
     </IconStyle>
   );
 };
