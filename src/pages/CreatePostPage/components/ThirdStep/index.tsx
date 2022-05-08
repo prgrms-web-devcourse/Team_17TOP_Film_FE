@@ -8,7 +8,7 @@ import {
   SearchTitleWrapper,
 } from './style';
 import { Text } from '../../../../components/atoms';
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FocusEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { ThirdStepProp } from '../../types';
 import ConfirmModal from './ConfirmModal';
 import UploadHeader from '../UploadHeader';
@@ -44,9 +44,9 @@ const ThirdStep = ({
     setDate(e.target.value);
   }, []);
 
-  const handleOnBlur = useCallback(() => {
+  const handleOnBlur = useCallback((e: FocusEvent<HTMLInputElement>) => {
     const tomorrow = getKST(true);
-    const inputDate = new Date(date);
+    const inputDate = new Date(e.target.value);
     if (tomorrow > inputDate) {
       setDate(
         tomorrow
@@ -97,7 +97,7 @@ const ThirdStep = ({
       .join('-');
     setMinDay(tomorrow);
     setDate(tomorrow);
-  }, [date]);
+  }, []);
 
   return (
     <ThirdStepContainer>
