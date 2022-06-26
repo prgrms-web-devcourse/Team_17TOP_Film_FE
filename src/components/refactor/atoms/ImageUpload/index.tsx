@@ -1,4 +1,4 @@
-import { useRef, useMemo, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { Upload } from '../../../atoms';
 import Toast from '../../../organism/Toast';
 import { ACCEPTED_IMAGE_FILE_FORMAT } from './constants';
