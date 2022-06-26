@@ -6,7 +6,7 @@ export default {
   component: Toast,
 };
 
-export const Default = (args: any) => {
+export const Default = () => {
   const onBtnClick = () => Toast.info({ msg1: 'asdf' });
   return (
     <Button btnStyle="primary" size="small" onClick={onBtnClick}>
@@ -14,7 +14,7 @@ export const Default = (args: any) => {
     </Button>
   );
 };
-export const WarnToast = (args: any) => {
+export const WarnToast = () => {
   const onBtnClick = () => Toast.warn({ msg1: 'test' });
   return (
     <Button btnStyle="primary" size="small" onClick={onBtnClick}>
@@ -23,7 +23,7 @@ export const WarnToast = (args: any) => {
   );
 };
 
-export const DivideTwoLine = (args: any) => {
+export const DivideTwoLine = () => {
   const onBtnClick = () => Toast.info({ msg1: '첫번째 줄입니다.!', msg2: '두 번쨰 줄입니다.!' });
   return (
     <Button btnStyle="primary" size="small" onClick={onBtnClick}>
@@ -32,7 +32,7 @@ export const DivideTwoLine = (args: any) => {
   );
 };
 
-export const LongDuration = (args: any) => {
+export const LongDuration = () => {
   const onBtnClick = () => Toast.info({ msg1: '첫번째 줄입니다.!', duration: 100000 });
   return (
     <Button btnStyle="primary" size="small" onClick={onBtnClick}>
@@ -41,7 +41,7 @@ export const LongDuration = (args: any) => {
   );
 };
 
-export const OverFlowingFirstLine = (args: any) => {
+export const OverFlowingFirstLine = () => {
   const onBtnClick = () =>
     Toast.info({
       msg1: '첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! ',
@@ -55,7 +55,7 @@ export const OverFlowingFirstLine = (args: any) => {
   );
 };
 
-export const OverFlowingSecondLine = (args: any) => {
+export const OverFlowingSecondLine = () => {
   const onBtnClick = () =>
     Toast.info({
       msg1: '첫번째 줄입니다.!',
@@ -69,7 +69,7 @@ export const OverFlowingSecondLine = (args: any) => {
   );
 };
 
-export const OverFlowingBothLine = (args: any) => {
+export const OverFlowingBothLine = () => {
   const onBtnClick = () =>
     Toast.info({
       msg1: '첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! 첫번째 줄입니다.! ',
