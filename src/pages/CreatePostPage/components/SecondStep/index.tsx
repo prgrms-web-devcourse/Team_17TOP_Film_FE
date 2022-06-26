@@ -1,20 +1,17 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Text } from '../../../../components/atoms';
 import { useLocalStorage } from '../../../../hooks';
+import { NextStepButton, FormContentWrapper, PostFormContainer, NextStepText } from '../../style';
 import {
-  NextStepButton,
   PreviewImg,
   ImageUpload,
   ImageUploadIcon,
   FormTextArea,
   FormInput,
-  FormContentWrapper,
-  PostFormContainer,
   UploadTextWrapper,
   DeleteImgButton,
   SecondStepContainer,
-  NextStepText,
-} from '../../style';
+} from './style';
 import { SecondStepProps } from '../../types';
 import AlertModal from './AlertModal';
 import UploadHeader from '../UploadHeader';
@@ -37,40 +34,43 @@ const SecondStep = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alertText, setAlertText] = useState('');
 
-  const handleInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const handleInput = useCallback(
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    },
+    [state],
+  );
 
-  const handleSetImageFile = (file: File) => {
+  const handleSetImageFile = useCallback((file: File) => {
     setFile(file);
-  };
+  }, []);
 
-  const handleDeleteImageFile = () => {
+  const handleDeleteImageFile = useCallback(() => {
     setFile(undefined);
     setImageURL('');
-  };
+  }, []);
 
-  const dataURLToFile = async (url: string, filename: string) => {
+  const dataURLToFile = useCallback(async (url: string, filename: string) => {
     const type = filename.split('.').pop();
     const convertedFile = await fetch(url)
       .then((res) => res.arrayBuffer())
       .then((buf) => new File([buf], filename, { type: `image/${type}` }));
 
     return convertedFile;
-  };
+  }, []);
 
-  const asyncDataURLToFile = async () => {
+  const asyncDataURLToFile = useCallback(async () => {
     if (storedSecondStepData?.image && storedFilename) {
       const convertFile = await dataURLToFile(storedSecondStepData.image as string, storedFilename);
       setFile(convertFile);
     }
-  };
+  }, []);
 
-  const fileToDataURL = (file: File) => {
+  const fileToDataURL = useCallback((file: File) => {
     const reader = new FileReader();
 
     if (file) {
@@ -81,7 +81,7 @@ const SecondStep = ({
     } else {
       setImageURL('');
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (file) {
@@ -95,8 +95,8 @@ const SecondStep = ({
     }
   }, []);
 
-  const checkForm = () => {
-    const { title, previewText } = state;
+  const checkForm = useCallback(() => {
+    const { title, previewText, content } = state;
     if (title && previewText && (file || state.content)) {
       return saveFormData();
     }
@@ -108,21 +108,21 @@ const SecondStep = ({
     if (!previewText) {
       alertTextArr.push('"엿보기 문구"');
     }
-    if (!(file || state.content)) {
+    if (!(file || content)) {
       alertTextArr.push('"사진과 내용중 한가지"');
     }
     setAlertText(`${alertTextArr.join(', ')}`);
     return setIsModalOpen(true);
-  };
+  }, [state, file]);
 
-  const saveFormData = () => {
+  const saveFormData = useCallback(() => {
     const data = { ...state, image: file };
     const storedData = { ...state, image: imageURL };
     handleSecondStepData(data);
     handleStoredSecondStepData(storedData);
     file && setStoredFilename(file.name);
     goNextStep();
-  };
+  }, [file, imageURL, state]);
 
   return (
     <SecondStepContainer>
@@ -152,12 +152,14 @@ const SecondStep = ({
         <FormContentWrapper>
           <UploadTextWrapper>
             <Text textType="Heading4">사진 업로드</Text>
-            <DeleteImgButton onClick={handleDeleteImageFile}>사진 삭제</DeleteImgButton>
+            <DeleteImgButton btnStyle="secondary" size="medium" onClick={handleDeleteImageFile}>
+              사진 삭제
+            </DeleteImgButton>
           </UploadTextWrapper>
           <ImageUpload
             droppable
             name="image"
-            accept="image/*"
+            accept={['all']}
             onChange={handleSetImageFile}
             imageURL={imageURL}
             fileDelete={file ? false : true}
@@ -177,7 +179,7 @@ const SecondStep = ({
           ></FormTextArea>
         </FormContentWrapper>
       </PostFormContainer>
-      <NextStepButton buttonType="PrimaryBtn" onClick={checkForm}>
+      <NextStepButton btnStyle="primary" size="full" onClick={checkForm}>
         <NextStepText textType="Paragraph1">다음</NextStepText>
       </NextStepButton>
       {isModalOpen ? (

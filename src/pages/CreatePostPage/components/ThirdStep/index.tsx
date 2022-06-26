@@ -1,16 +1,14 @@
+import { FormContentWrapper, NextStepButton, NextStepText } from '../../style';
 import {
-  FormContentWrapper,
-  NextStepButton,
   ThirdStepContainer,
   FormWrapper,
   ThirdStepPostFormContainer,
   DateInput,
   GuideText,
-  NextStepText,
   SearchTitleWrapper,
-} from '../../style';
+} from './style';
 import { Text } from '../../../../components/atoms';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FocusEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { ThirdStepProp } from '../../types';
 import ConfirmModal from './ConfirmModal';
 import UploadHeader from '../UploadHeader';
@@ -34,30 +32,40 @@ const ThirdStep = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectedUserList = useSelectedUserList();
 
-  const saveAvailableAt = () => {
+  const saveAvailableAt = useCallback(() => {
     handleAvailableAt(date);
-  };
+  }, [date]);
 
-  const handleIsModalClose = () => {
+  const handleIsModalClose = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
-  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleDateChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
-  };
-  const handleOnBlur = () => {
-    const tomorrow = getKST(true);
-    const inputDate = new Date(date);
-    if (tomorrow > inputDate) {
-      setDate(tomorrow.toLocaleString().split('.').slice(0, 3).join('').split(' ').join('-'));
-    }
-  };
+  }, []);
 
-  const dateValidate = (date: string) => {
+  const handleOnBlur = useCallback((e: FocusEvent<HTMLInputElement>) => {
+    const tomorrow = getKST(true);
+    const inputDate = new Date(e.target.value);
+    if (tomorrow > inputDate) {
+      setDate(
+        tomorrow
+          .toLocaleString()
+          .split('.')
+          .slice(0, 3)
+          .join('')
+          .split(' ')
+          .map((value, index) => (index !== 0 && value.length < 2 ? (value = '0' + value) : value))
+          .join('-'),
+      );
+    }
+  }, []);
+
+  const dateValidate = useCallback((date: string) => {
     const tomorrow = getKST(true).getDate();
     const storedDate = new Date(date).getDate();
     return tomorrow > storedDate ? false : true;
-  };
+  }, []);
 
   useEffect(() => {
     if (!date) {
@@ -85,6 +93,7 @@ const ThirdStep = ({
       .slice(0, 3)
       .join('')
       .split(' ')
+      .map((value, index) => (index !== 0 && value.length < 2 ? (value = '0' + value) : value))
       .join('-');
     setMinDay(tomorrow);
     setDate(tomorrow);
@@ -128,7 +137,7 @@ const ThirdStep = ({
           필름이 나올 예정입니다.
         </GuideText>
       </ThirdStepPostFormContainer>
-      <NextStepButton buttonType="PrimaryBtn" onClick={() => setIsModalOpen(true)}>
+      <NextStepButton btnStyle="primary" size="full" onClick={() => setIsModalOpen(true)}>
         <NextStepText textType="Paragraph1">필름 맡기기</NextStepText>
       </NextStepButton>
       {isModalOpen ? (

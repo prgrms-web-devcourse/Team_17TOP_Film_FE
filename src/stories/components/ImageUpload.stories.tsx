@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import ImageUpload from '../../components/refactor/atoms/ImageUpload';
-import { ImageUploadIcon, PreviewImg } from '../../pages/CreatePostPage/style';
+import {
+  ImageUploadIcon,
+  PreviewImg,
+} from '../../pages/CreatePostPage/components/SecondStep/style';
 
 const StyledImageUpload = styled(ImageUpload)<{ imageURL: string }>`
   border-radius: 4px;
