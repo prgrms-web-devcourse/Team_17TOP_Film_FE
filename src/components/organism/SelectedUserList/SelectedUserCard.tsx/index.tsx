@@ -1,4 +1,4 @@
-import { BiX } from 'react-icons/bi';
+import { Icon } from '@refactors/atoms';
 import { UserInfo } from '../../SearchUser';
 import { CardContainer, ContentWrapper, NicknameText, ProfileImg, RemoveBtn } from './style';
 import nonProfile from '../../../../assets/images/img_profile.svg';
@@ -17,7 +17,7 @@ const SelectedUserCard = ({ id, nickname, profileImageUrl, removeCard }: Props) 
   return (
     <CardContainer>
       <RemoveBtn onClick={handleRemoveClick}>
-        <BiX size={24}></BiX>
+        <Icon icon="BiX" size={24} />
       </RemoveBtn>
       <ContentWrapper>
         <ProfileImg

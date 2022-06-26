@@ -9,7 +9,7 @@ const Wrapper = styled.div<{ bgColor?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: ${({ theme }) => theme.colors.shadow};
+  box-shadow: ${({ theme }) => theme.shadows.shadow1};
   background-color: ${({ bgColor }) => bgColor};
   box-sizing: border-box;
   z-index: 10;

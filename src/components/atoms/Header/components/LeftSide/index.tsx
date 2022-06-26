@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { BiChevronLeft } from 'react-icons/bi';
+import { Icon } from '@refactors/atoms';
 import { Wrapper } from './style';
 
 export interface Props {
@@ -10,7 +10,7 @@ export interface Props {
 const LeftSide = ({ leftComp, handleLeftEvent }: Props) => {
   return (
     <Wrapper onClick={handleLeftEvent}>
-      {leftComp && 'backBtn' && <BiChevronLeft size={24} />}
+      {leftComp && 'backBtn' && <Icon icon="BiChevronLeft" size={24} />}
     </Wrapper>
   );
 };

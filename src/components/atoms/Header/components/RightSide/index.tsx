@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { BiLogOut, BiTrash } from 'react-icons/bi';
+import { Icon } from '@refactors/atoms';
 import { Avatar, Text } from '../../..';
 import { Wrapper } from './style';
 import ProfileImg from '../../../../../assets/images/img_profile.svg';
@@ -14,8 +14,8 @@ const RightSide = ({ rightComp, handleRightEvent }: Props) => {
   return (
     <Wrapper onClick={handleRightEvent}>
       {rightComp === 'timeline' && <Text textType="Paragraph2">타임라인</Text>}
-      {rightComp === 'logout' && <BiLogOut size={24} />}
-      {rightComp === 'delete' && <BiTrash size={24} />}
+      {rightComp === 'logout' && <Icon icon="BiLogOut" size={24} />}
+      {rightComp === 'delete' && <Icon icon="BiTrash" size={24} />}
       {rightComp === 'mypage' && (
         <Avatar
           src={userInfo.profileImageUrl ? userInfo.profileImageUrl : ProfileImg}

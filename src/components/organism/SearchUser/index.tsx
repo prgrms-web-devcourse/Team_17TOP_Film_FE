@@ -1,11 +1,11 @@
 import { Container, Input, InputWrapper, WarnText } from './style';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import ResultList from './ResultList';
 import { useSelectedUserList } from '../../../contexts/SelectedUserListProvider';
 import { getSearchUser } from '../../../utils/apis/searchUser';
 import Toast from '../Toast';
 import { useUserInfo } from '../../../contexts/UserProvider';
-
+import { debounce } from 'lodash';
 export interface UserInfo {
   nickname: string;
   profileImageUrl: string;
@@ -13,6 +13,7 @@ export interface UserInfo {
 }
 
 const SearchUser = () => {
+  const [inputValue, setInputValue] = useState('');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [userList, setUserList] = useState<UserInfo[]>([]);
   const [selectedUser, setSelectedUser] = useState<UserInfo>();
@@ -21,14 +22,17 @@ const SearchUser = () => {
   const [lastNickname, setLastNickname] = useState('');
   const userInfo = useUserInfo();
   const [searchable, setSearchable] = useState(true);
+  const debounceSetKeyword = useRef(debounce((value) => setSearchKeyword(value), 300)).current;
 
   const handleSearchInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value);
+    setInputValue(e.target.value);
+    debounceSetKeyword(e.target.value);
   }, []);
 
   const handleUserSelect = useCallback((data: UserInfo) => {
     setSelectedUser(data);
     setSearchKeyword('');
+    setInputValue('');
     setUserList([]);
   }, []);
 
@@ -92,11 +96,7 @@ const SearchUser = () => {
   return (
     <Container>
       <InputWrapper>
-        <Input
-          placeholder="닉네임을 입력하세요!"
-          value={searchKeyword}
-          onChange={handleSearchInput}
-        />
+        <Input placeholder="닉네임을 입력하세요!" value={inputValue} onChange={handleSearchInput} />
         {!searchable ? (
           <WarnText textType="SmallText">검색은 영문 혹은 숫자로만 가능합니다.</WarnText>
         ) : (

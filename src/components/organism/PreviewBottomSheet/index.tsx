@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BiX } from 'react-icons/bi';
+import { Icon } from '@refactors/atoms';
 import { Avatar, Button, Text } from '../../atoms';
 import {
   BottomSheetWrapper,
@@ -69,7 +69,7 @@ const PreviewBottomSheet = ({ previewPost, postViewEvent, postDeleteEvent }: Pro
       )}
       <CloseBtn>
         <Link to="/">
-          <BiX size={24} />
+          <Icon icon="BiX" size={24} />
         </Link>
       </CloseBtn>
     </BottomSheetWrapper>

@@ -1,5 +1,6 @@
-import React, { SetStateAction, useEffect, useState } from 'react';
-import { NextStepButton, MapHeaderText, NextStepText } from '../../style';
+import React, { SetStateAction, useCallback, useEffect, useState } from 'react';
+import { MapHeaderText } from './style';
+import { NextStepButton, NextStepText } from '../../style';
 import Map from './Map';
 import { FirstStepProps, Location } from '../../types';
 import UploadHeader from '../UploadHeader';
@@ -15,7 +16,7 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  const getGeoLocation = () => {
+  const getGeoLocation = useCallback(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setUserLocation({
@@ -33,7 +34,7 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
         Toast.warn('GPS를 지원하지않아 꿈의 직장 프로그래머스로 이동합니다 😉');
       },
     );
-  };
+  }, []);
 
   useEffect(() => {
     if (!location) {
@@ -51,14 +52,14 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
     });
   }, []);
 
-  const handleMarker = (data: Location) => {
+  const handleMarker = useCallback((data: Location) => {
     setMarker(data);
-  };
+  }, []);
 
-  const saveLocation = () => {
+  const saveLocation = useCallback(() => {
     handleLocation(marker);
     goNextStep();
-  };
+  }, [marker]);
 
   useEffect(() => {
     if (!location) {
@@ -83,7 +84,7 @@ const FirstStep = ({ goNextStep, location, handleLocation }: FirstStepProps) => 
         marker={marker}
         onChangeMarker={handleMarker}
       />
-      <NextStepButton buttonType="PrimaryBtn" onClick={saveLocation}>
+      <NextStepButton btnStyle="primary" size="full" onClick={saveLocation}>
         <NextStepText textType="Paragraph1">여기에 만들래요</NextStepText>
       </NextStepButton>
     </>

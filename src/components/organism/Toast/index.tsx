@@ -7,7 +7,7 @@ class Toast {
   createToast: CreateToast | null = null;
 
   constructor() {
-    const portalId = 'toast-portal';
+    const portalId = 'prev-toast-portal';
     const portalElement = document.getElementById(portalId);
 
     if (portalElement) {

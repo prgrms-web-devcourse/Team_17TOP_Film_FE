@@ -4,7 +4,7 @@ import { Button, Text } from '../../../../components/atoms';
 const Wrapper = styled.div`
   margin: ${({ theme: { gaps } }) => `0 ${gaps.default_margin} 32px`};
   padding: ${({ theme: { gaps } }) => gaps.default_margin};
-  box-shadow: ${({ theme: { colors } }) => colors.shadow};
+  box-shadow: ${({ theme: { shadows } }) => shadows.shadow1};
   border-radius: 4px;
   position: relative;
 `;
